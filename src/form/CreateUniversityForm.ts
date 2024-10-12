@@ -18,8 +18,8 @@ export const CreateUniversityInput: STRUC_INPUT_FORM[] = [
 ] 
 
 export const CreateUniversityFrom: STRUC_FORM = {
-    action: `/speciality/create`,
-    title: `Crear Especialidad`,
+    action: `/university/create`,
+    title: `Crear Universidad`,
     method: `POST`,
     submit: {
         text: `crear`,
@@ -29,10 +29,10 @@ export const CreateUniversityFrom: STRUC_FORM = {
 }
 
 
-export const UpdateSpecialityFrom = (id:string) => {
+export const UpdateUniversityFrom = (id:string) => {
     return {
-        action: `/speciality/${id}/update`,
-        title: `Actualizar Especialidad`,
+        action: `/university/${id}/update`,
+        title: `Actualizar universidad`,
         method: `POST`,
         submit: {
             text: `actualizar`,

@@ -18,7 +18,15 @@ export default class UniversityModel extends AbstractModel {
         return await prisma.university.findFirst({ 
             where:filter, 
             include: {
-                _count: true
+                _count: true,
+                createReference: true,
+                withAddress: {
+                    include: {
+                        adressReference: true,
+                    },
+                    skip: 0,
+                    take: 1
+                }
             }
         });
     }
@@ -35,7 +43,10 @@ export default class UniversityModel extends AbstractModel {
             orderBy: { createAt:"asc" },
             include: {
                 _count: true,
-                createReference: true
+                createReference: true,
+                withAddress: {
+                    include: { adressReference: true }
+                },
             },
             skip,
             take
