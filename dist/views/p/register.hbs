@@ -8,41 +8,47 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Crear cuenta cómo paciente</h3></div>
                                 <div class="card-body">
-                                    <form action="/login" method="post" class="container row">
+                                    <form action="/register" method="post" class="container row">
                                         <div class="col-lg-6">
                                             <div class="form-floating mb-3">
-                                                <input required class="form-control" name="name" id="inputEmail" type="email" placeholder="Nombre" />
+                                                <input required class="form-control" name="name" type="text" placeholder="Nombre" />
                                                 <label for="inputEmail">Nombre</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-floating mb-3">
-                                                <input required class="form-control" name="apellido" id="inputEmail" type="email" placeholder="Apellido" />
+                                                <input required class="form-control" name="lastname" type="text" placeholder="Apellido" />
                                                 <label for="inputEmail">Apellido</label>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-floating mb-3">
-                                                <input required class="form-control" name="email" id="inputEmail" type="email" placeholder="Correo electrónico" />
+                                                <input required class="form-control" name="email" type="email" placeholder="Correo electrónico" />
                                                 <label for="inputEmail">Correo electrónico</label>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-lg-6">
                                             <div class="form-floating mb-3">
-                                                <input required class="form-control" name="password" id="inputEmail" type="email" placeholder="name@example.com" />
+                                                <input required class="form-control" name="password" type="password" placeholder="name@example.com" />
                                                 <label for="inputEmail">Contraseña</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-floating mb-3">
-                                                <input required class="form-control" name="ci" id="inputEmail" type="email" placeholder="Cédula" />
+                                                <input required class="form-control" name="ci" type="text" placeholder="Cédula" />
                                                 <label for="inputEmail">Cédula</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-floating mb-3">
+                                                <input required class="form-control" name="birthdate" type="date" placeholder="Cédula" />
+                                                <label for="inputEmail">Fecha Nacimiento</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 row">
                                             <div class="col-4">
                                                 <div class="form-floating mb-3">
-                                                    <select class="form-control" name="" id="inputEmail" type="email" placeholder="0412">
+                                                    <select class="form-control" name="phoneCode" type="text" placeholder="0412">
                                                         <option selected>selecciona una opción</option>
                                                         <option>0412</option>
                                                         <option>0414</option>
@@ -55,15 +61,15 @@
                                             </div>
                                             <div class="col-8">
                                                 <div class="form-floating mb-3">
-                                                    <input required class="form-control" name="" id="inputEmail" type="email" placeholder="000 00 00" />
+                                                    <input required class="form-control" name="phoneNumber" type="text" placeholder="000 00 00" />
                                                     <label for="inputEmail">Teléfono</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-floating mb-3">
-                                                <select required class="form-control" name="address" id="inputEmail"></select>
-                                                <label for="inputEmail">Dirección</label>
+                                                <textarea class="form-control" name="exacAddress"></textarea>
+                                                <label for="inputEmail">Dirección exacta</label>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

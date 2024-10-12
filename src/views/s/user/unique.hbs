@@ -16,6 +16,12 @@
                             <i class="bi bi-file-pdf-fill"></i>
                         </a>
                     </li>
+                    <li style="list-style: none;">
+                        <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalSpecialityAdded">
+                            especialidad
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </li>
                 {{/isDoctor}}
                 {{#isPatient data}}
                     <li style="list-style: none;"></li>
@@ -81,11 +87,17 @@
                 <div class="card-body">
                     {{#if data.speciality}}
                         <h5>Especialidades</h5>
-                        <ul>
-                            {{#each data.speciality}}
-                                <li class="">{{this.specialityReference.name}}</li>
-                            {{/each}}
-                        </ul>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    {{#each data.speciality}}
+                                        <ul class="col">
+                                            <li class=""><strong>{{this.specialityReference.name}}</strong></li>
+                                            <li class=""><b>{{this.universityReference.name}}</b></li>
+                                            <li class="">Egresado: <b>{{this.date}}</b></li>
+                                        </ul>
+                                    {{/each}}
+                                </div>
+                            </div>
                     {{else}}
                         no hay especialidad
                     {{/if}}
@@ -116,7 +128,9 @@
                     {{/each}}
                 </div>
             {{else}}
-                no hay especialidad
+                <div class="card mt-3">
+                    <div class="card-body">no hay Horario</div>
+                </div>
             {{/if}}
         {{/isDoctor}}
 

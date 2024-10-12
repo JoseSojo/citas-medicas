@@ -41,9 +41,14 @@
                             <input class="form-control" name="matricula" id="matricula" type="text" value="{{data.matricula}}" placeholder="name@example.com" />
                             <label for="matricula">Matrícula</label>
                         </div>
+
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="rif" id="rif" type="text" value="{{data.rif}}" placeholder="name@example.com" />
+                            <label for="rif">Rif</label>
+                        </div>
                     {{/isValid}}
 
-                    <div class="col-12 col-lg-6 mb-3 row gap-0">
+                    <div class="col-12 mb-3 row gap-0">
                         <div class="form-floating col-3">
                             <select class="form-control mx-0" name="phoneCode" id="phoneCode">
                                 <option selected>{{data.phoneCode}}</option>
@@ -60,33 +65,6 @@
                             <label for="phoneNumber">Código</label>
                         </div>
                     </div>      
-
-                    {{#isValid data.role "DOCTOR"}}
-                        {{#if speciality}}
-                        <div class="form-floating col-12 col-lg-6 mb-3">
-                            <select class="form-control" name="esp1" id="esp1">
-                                <option selected>Selecciona una opción</option>
-                                {{#each speciality}}
-                                <option value="{{this.id}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                            <label for="esp1">Especialidad 1</label>
-                        </div>
-                        <div class="form-floating col-12 col-lg-6 mb-3">
-                            <select class="form-control" name="esp2" id="esp2">
-                                <option selected>Selecciona una opción</option>
-                                {{#each speciality}}
-                                    <option value="{{this.id}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                            <label for="esp2">Especialidad 2</label>
-                        </div>
-
-                        {{else}}
-                            <p class="form-control">Debes crear especialidades</p>
-                        {{/if}} 
-                    {{/isValid}}             
-
                     <div class="d-flex gap-3 justify-content-end">
                          
                         <button type="submit" class="btn btn-primary">

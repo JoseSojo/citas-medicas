@@ -8,6 +8,7 @@ import AdressSubModel from "../../model/config/AddressSubModel";
 import SpecialityModel from "../../model/config/SpecialityModel";
 import { CreateUser, UpdateUser } from "../../validation/UserCreate";
 import NotificationModel from "../../model/user/notification/NotificationModel";
+import UniversityModel from "../../model/config/UniversityModel";
 
 
 export default class UserController extends AbstractController {
@@ -22,6 +23,7 @@ export default class UserController extends AbstractController {
         const speciality = new SpecialityModel();
         const user = req.user as any;
         const noti = new NotificationModel();
+        const univ = new UniversityModel();
 
         const {param,role} = req.query;
         let queryString = ``;
@@ -61,6 +63,7 @@ export default class UserController extends AbstractController {
 
         const addressListPromise = address.findManyAdress({ filter:{isDelete:false},skip:0,take:200 });
         const specialityListPromise = speciality.findManySpeciality({ filter:{isDelete:false},skip:0,take:200 });
+        const universityListPromise = univ.findManyUniversity({ filter:{isDelete:false},skip:0,take:200 });
 
         const returnData = {
             titlePag: `Usuarios`,
@@ -75,6 +78,7 @@ export default class UserController extends AbstractController {
             roleList: super.getRoles(),
             address: [] as any,
             speciality: [] as any,
+            university: [] as any,
             notifications: await noti.GetNowNotification({ id:user.id }),
 
             form: CreateUserFrom,
@@ -90,7 +94,8 @@ export default class UserController extends AbstractController {
         const specialityList = await specialityListPromise;
         const addressList = await addressListPromise;
         const list = await listPromise;
-        const count = await countPromise;        
+        const count = await countPromise;       
+        const listUniversity = await universityListPromise; 
 
         // next
         returnData.foundNext = count - skip > 10 ? true : false;
@@ -108,6 +113,7 @@ export default class UserController extends AbstractController {
         returnData.address = addressList;
         returnData.speciality = specialityList;
         returnData.list = list;
+        returnData.university = listUniversity;
         returnData.countRender = `${count - skip < 11 ? count : skip+take}/${count}`;
 
         return res.render(`s/user/list.hbs`, returnData);
@@ -117,33 +123,37 @@ export default class UserController extends AbstractController {
         const id = req.params.id;
         const instance = new UserModel();
         const speciality = new SpecialityModel();
+        const univ = new UniversityModel();
         const noti = new NotificationModel();
         const user = req.user as any;
 
         const data = instance.findUser({ filter:{id} });
         const specialityListPromise = speciality.findManySpeciality({ filter:{isDelete:false},skip:0,take:200 });
+        const universityListPromise = univ.findManyUniversity({ filter:{isDelete:false},skip:0,take:200 });
 
         const dataReturn = {
             data: [] as any,
             form: {} as any,
             year: await instance.getYears(),
             speciality: [] as any,
+            university: [] as any,
             notifications: await noti.GetNowNotification({ id:user.id })
         }
 
         dataReturn.data = await data;
         dataReturn.form = UpdateUserFrom(dataReturn.data.id);
         dataReturn.speciality = await specialityListPromise;
+        dataReturn.university = await universityListPromise;
         return res.render(`s/user/unique.hbs`, dataReturn);
     }
 
     public async CreateLogic(req:Request,res:Response) {
-        try {
+        // try {
             const instance = new UserModel();
             const addressInstance = new AdressSubModel();
             const speciality = new SpecialityModel();
 
-            const { name, ci, email, lastname, role, addressId,cmeg_n,matricula, phoneCode, phoneNumber, esp1, esp2 } = req.body;
+            const { universityId,egresDate,rif,exacAddress,birthdate,name, ci, email, lastname, role, addressId,cmeg_n,matricula, phoneCode, phoneNumber, esp1, esp2 } = req.body;
             const user = req.user as any;
             let parentId;
 
@@ -165,7 +175,13 @@ export default class UserController extends AbstractController {
                 role,
                 phoneCode: phoneCode ? phoneCode : ``, 
                 phoneNumber: phoneNumber ? phoneNumber : ``,
+                birthdate,
+                exacAddress,
+                rif,
+                egresDate: egresDate
             }
+
+            if(universityId) data = {...data, egresUniversityReference:{ connect:{id:universityId} }}
 
             if(!addressId.includes(`opción`)) {
                 data = {
@@ -183,41 +199,24 @@ export default class UserController extends AbstractController {
                 }
             }
 
-            try {
-                const create = await instance.createUser({data}); 
+            console.log(data);
 
-                if (esp1) {
-                    const esp1Test = await speciality.findSpeciality({ filter:{id:esp1} });
-                    if(esp1Test) {
-                        await instance.connectSpeciality({ speciality:esp1,user:create.id });
-                    }
-                }
-    
-                if (esp2) {
-                    const esp2Test = await speciality.findSpeciality({ filter:{id:esp2} });
-                    if(esp2Test) {
-                        await instance.connectSpeciality({ speciality:esp2,user:create.id });
-                    }
-                }
-
-            } catch (error) {
-                req.flash(`Error`, `Error temporal`);
-                return res.redirect(`/user/`); 
-            }   
+            await instance.createUser({data}); 
             
             req.flash(`succ`, `Usuario creado`);
             return res.redirect(`/user/`);
-        } catch (error) {
+        // } catch (error) {
+            // console.log(error);
             req.flash(`Error`, `Error temporal`);
             return res.redirect(`/user/`);            
-        }
+        // }
     }
 
     public async EditLogic(req:Request,res:Response) {
         try {
             const instance = new UserModel();
 
-            const { ci,name,lastname,phoneCode,phoneNumber,cmeg_n,matricula,email } = req.body;
+            const { rif,ci,name,lastname,phoneCode,phoneNumber,cmeg_n,matricula,email } = req.body;
             const id = req.params.id as string;
 
             let dataUpdate: Prisma.UserUpdateInput = {};
@@ -231,6 +230,7 @@ export default class UserController extends AbstractController {
             if(email) dataUpdate = {...dataUpdate, email};
             if(cmeg_n) dataUpdate = {...dataUpdate, cmeg_n};
             if(matricula) dataUpdate = {...dataUpdate, matricula};
+            if(rif) dataUpdate = {...dataUpdate, rif};
 
             await instance.updateUser({
                 data: dataUpdate,
@@ -295,9 +295,10 @@ export default class UserController extends AbstractController {
 
     public loadRoutes () {
         this.router.get(`/user/`, OnSession, OnAdminORDoctor, this.RenderList);
+        this.router.post(`/user/create/`, OnSession, this.CreateLogic);
+        
         this.router.get(`/user/:id`, OnSession, OnAdminORDoctor, this.RenderUnique);
 
-        this.router.post(`/user/create`, OnSession, OnAdminORDoctor, CreateUser, this.CreateLogic);
         this.router.post(`/user/:id/update`, OnSession, UpdateUser, this.EditLogic);
         this.router.post(`/user/:id/password`, OnSession, this.UpdatePasswordLogic);
         this.router.post(`/user/:id/delete`, OnSession, OnAdmin, this.DeleteLogic);

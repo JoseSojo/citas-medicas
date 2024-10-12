@@ -84,7 +84,9 @@ class UserModel extends AbstractModel {
                 },
                 speciality: {
                     include: {
-                        specialityReference: true
+                        specialityReference: true,
+                        universityReference: true
+
                     }
                 },
                 _count: true
@@ -165,11 +167,13 @@ class UserModel extends AbstractModel {
         })
     }
 
-    public async connectSpeciality({user,speciality}:{user:string,speciality:string}) {
+    public async connectSpeciality({user,speciality,university,date}:{user:string,speciality:string,university:string,date:string}) {
         const prisma = new PrismaClient();
         return prisma.doctroWithSpeciality.create({ data:{
             specialityReference: { connect:{id:speciality} },
-            userReference: { connect: { id:user } }
+            userReference: { connect: { id:user } },
+            universityReference: { connect:{id:university} },
+            date
         } })
     }
 

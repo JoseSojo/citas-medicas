@@ -31,6 +31,7 @@ import PatientQuoteController from "./controller/S/Patient/PatientQuoteControlle
 import PorfolioController from "./controller/S/PorfolioController";
 import ReportController from "./controller/S/Report/ReportController";
 import ApiGraphicController from "./controller/A/ApiGraphicController";
+import UniversityController from "./controller/S/University/UniversityController";
 
 
 class App extends Kernel {
@@ -118,6 +119,7 @@ class App extends Kernel {
         const patientQuoteInstance = new PatientQuoteController();
         const porfolioInstance = new PorfolioController();
         const reportInstance = new ReportController();
+        const universityInstance = new UniversityController();
         const api = new ApiGraphicController();
 
         app.use(publicInstance.loadRoutes());           // rutas públicas
@@ -138,6 +140,7 @@ class App extends Kernel {
         app.use(patientInstance.loadRoutes());          // rutas paciente
         app.use(patientQuoteInstance.loadRoutes());             // rutas paciente   -   Cita
         app.use(reportInstance.LoadRouters());             // rutas paciente   -   Cita
+        app.use(universityInstance.loadRoutes());             // rutas paciente   -   Cita
         app.use(porfolioInstance.loadRoutes());         // rutas portafolio
 
         app.use(api.loadRoutes());

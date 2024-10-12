@@ -41,7 +41,7 @@
                     </div>
 
                     {{#if address}}
-                    <div class="form-floating col-12 col-lg-6 mb-3">
+                    <div class="form-floating col-12 mb-3">
                         <select class="form-control" name="addressId" id="address">
                             <option selected>Selecciona una opción</option>
                             {{#each address}}
@@ -49,6 +49,11 @@
                             {{/each}}
                         </select>
                         <label for="address">Dirección</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="rif" id="rif" type="text" />
+                        <label for="rif">Rif</label>
                     </div>
 
                     {{else}}
@@ -64,29 +69,24 @@
                         <label for="address">Permisos</label>
                     </div>
 
-                    {{#if speciality}}
+                    {{#if university}}
                     <div class="form-floating col-12 col-lg-6 mb-3">
-                        <select class="form-control" name="esp1" id="esp1">
+                        <select class="form-control" name="universityId" id="universityId">
                             <option selected>Selecciona una opción</option>
-                            {{#each speciality}}
+                            {{#each university}}
                             <option value="{{this.id}}">{{this.name}}</option>
                             {{/each}}
                         </select>
-                        <label for="esp1">Especialidad 1</label>
+                        <label for="universityId">Universidad</label>
                     </div>
-                    <div class="form-floating col-12 col-lg-6 mb-3">
-                        <select class="form-control" name="esp2" id="esp2">
-                            <option selected>Selecciona una opción</option>
-                            {{#each speciality}}
-                                <option value="{{this.id}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                        <label for="esp2">Especialidad 2</label>
-                    </div>
-
                     {{else}}
-                        <p class="form-control">Debes crear especialidades</p>
+                        <p class="form-control">Debes crear universidades</p>
                     {{/if}}
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="egresDate" id="egresDate" type="date" />
+                        <label for="egresDate">Fecha Egreso</label>
+                    </div>
 
                     <div class="col-12 mb-3 row gap-0">
                         <div class="form-floating col-3">

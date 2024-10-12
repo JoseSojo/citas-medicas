@@ -14,20 +14,34 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
-  name       String
-  lastname   String
-  email      String
-  password   String
-  cmeg_n     String?
-  matricula  String?
-  ci         String
-  createDate DateTime?
+  id                                          String    @id @default(uuid())
+  name                                        String
+  lastname                                    String
+  email                                       String
+  password                                    String
+  cmeg_n                                      String?
+  matricula                                   String?
+  rif                                         String?
+  ci                                          String
+  createDate                                  DateTime?
 
-  phoneCode   String?
-  phoneNumber String?
+  age                                         Int?
 
-  role String
+  // for doctor ?
+  egresDate                                   String?
+  egresUniversityId                           String?
+  egresUniversityReference                    University?        @relation("current", fields: [egresUniversityId], references: [id])
+
+  phoneCode                                   String?
+  phoneNumber                                 String?
+
+  role                                        String
+
+  exacAddress                                 String?
+  birthdate                                   String?
+
+  universityId                                String?
+  universityReference                         University?        @relation("cirujano", fields: [universityId], references: [id])
 
   speciality DoctroWithSpeciality[]
   schedule   Schedule[]
@@ -45,8 +59,9 @@ model User {
   detail          UserDetail?
   socialMediaReference      SocialMediaByUser[]
 
-  notificationFrom   Notification[] @relation(name: "from")
-  notificationFromTo Notification[] @relation(name: "to")
+  notificationFrom    Notification[]  @relation(name: "from")
+  notificationFromTo  Notification[]  @relation(name: "to")
+  university          University[]    @relation(name: "create")
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -83,17 +98,47 @@ model UserDetail {
 }
 
 model DoctroWithSpeciality {
-  id String @id @default(uuid())
+  id                    String @id @default(uuid())
 
-  userId        String
-  userReference User   @relation(fields: [userId], references: [id])
+  userId                String
+  userReference         User   @relation(fields: [userId], references: [id])
 
-  specialityId        String
-  specialityReference Speciality @relation(fields: [specialityId], references: [id])
+  specialityId          String
+  specialityReference   Speciality @relation(fields: [specialityId], references: [id])
 
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-  isDelete Boolean  @default(false)
+  date                  String
+  universityId          String
+  universityReference   University      @relation(fields: [universityId], references: [id])
+
+
+  createAt              DateTime   @default(now())
+  updateAt              DateTime   @updatedAt
+  isDelete              Boolean    @default(false)
+}
+
+model University {
+  id              String          @id         @default(uuid())
+  name            String
+  withAddress     UniversityWithAddress[]
+
+  doctorCurrent   User[]            @relation("current")            
+
+  doctors         DoctroWithSpeciality[]
+  user            User[] @relation("cirujano")
+
+  createId          String
+  createReference   User                @relation("create", fields: [createId], references: [id])
+  createAt          DateTime            @default(now())
+  updateAt          DateTime            @updatedAt
+  isDelete          Boolean             @default(false)
+}
+
+model UniversityWithAddress {
+  id                    String            @id         @default(uuid())
+  universityId          String
+  universityReference   University        @relation(fields: [universityId], references: [id])
+  adressId              String
+  adressReference       Address           @relation(fields: [adressId], references: [id])
 }
 
 model Speciality {
@@ -149,6 +194,7 @@ model Address {
 
   // addressToUser       AddressToUser[]
   user User[]
+  university UniversityWithAddress[]
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
