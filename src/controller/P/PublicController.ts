@@ -101,6 +101,7 @@ export default class PublicController extends AbstractController {
 
         return res.render(`p/main.hbs`, {
             address: true,
+            action: `/p/address`,
             list: await addressModel.findManyAdress({
                 filter: {
                     AND: [
@@ -131,6 +132,7 @@ export default class PublicController extends AbstractController {
 
         return res.render(`p/main.hbs`, {
             speciality: true,
+            action: `/p/speciality`,
             list: await specialityMode.findManySpeciality({
                 filter: {
                     AND: [

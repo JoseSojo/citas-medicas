@@ -22,8 +22,6 @@ export default class UniversityController extends AbstractController {
 
         const { param } = req.query;
         let queryString = ``;
-        // rol
-        // param (email,name,lastname,ci,cmeg,matricula,address)
 
         const addressListPromise = address.findManyAdress({ filter:{}, skip:0, take:500 });
 

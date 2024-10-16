@@ -8,6 +8,13 @@
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalCreateUser">crear</button>
         </div>
         <form class="row">
+            <select class="form-control col" name="addressId">
+                <option value="{{filter.addressId}}" selected>{{filter.address.description}}</option>
+                {{#each address}}
+                    <option value="{{this.id}}">{{this.description}}</option>
+                {{/each}}
+                <label>Direcciones</label>
+            </select>
             <select class="form-control col" name="role">
                 <option value="{{filter.value}}" selected>{{filter.role}}</option>
                 {{#each roleList}}

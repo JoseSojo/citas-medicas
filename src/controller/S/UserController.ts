@@ -66,7 +66,7 @@ export default class UserController extends AbstractController {
         });
         const countPromise = instance.countUser({ filter:{AND:[{isDelete:false},{OR:filter}]} });
 
-        const addressListPromise = address.findManyAdress({ filter:{isDelete:false},skip:0,take:200 });
+        const addressListPromise = address.findManyAdress({ filter:{AND:[{isDelete:false},{children:undefined}]},skip:0,take:200 });
         const specialityListPromise = speciality.findManySpeciality({ filter:{isDelete:false},skip:0,take:200 });
         const universityListPromise = univ.findManyUniversity({ filter:{isDelete:false},skip:0,take:200 });
 
@@ -92,7 +92,8 @@ export default class UserController extends AbstractController {
                 skip,
                 take,
                 param,
-                role
+                role,
+                addressId
             }
         }
 
