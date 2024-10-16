@@ -1,0 +1,35 @@
+
+<div class="modal fade" id="modalCreateSpeciality" tabindex="-1" aria-labelledby="{{form.label}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="{{form.label}}">{{form.title}}</h1>
+                 
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="{{form.action}}" method="{{form.method}}" class="row">
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="name" id="inputName" type="text" value="{{data.name}}" />
+                        <label for="inputName">Nombre</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="description" id="inputDescription" type="text" value="{{data.description}}" />
+                        <label for="inputDescription">Descripción</label>
+                    </div>
+
+                    <div class="d-flex gap-3 justify-content-end">
+                         
+                        <button type="submit" class="btn btn-primary">
+                            <i class="{{form.submit.ico}}"></i>
+                            {{form.submit.text}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

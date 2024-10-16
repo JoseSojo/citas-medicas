@@ -1,0 +1,150 @@
+
+<style>
+    .card-alert {
+        width: 330px;
+        height: 80px;
+        border-radius: 8px;
+        box-sizing: border-box;
+        padding: 10px 15px;
+        background-color: #ffffff;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 15px;
+    }
+    .wave {
+        position: absolute;
+        transform: rotate(90deg);
+        left: -31px;
+        top: 32px;
+        width: 80px;
+        fill: #ffa30d3a;
+    }
+    .wave-success {
+        position: absolute;
+        transform: rotate(90deg);
+        left: -31px;
+        top: 32px;
+        width: 80px;
+        fill: #26c917;
+    }
+    .icon-container {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffa30d48;
+        border-radius: 50%;
+        margin-left: 8px;
+    }
+    .icon {
+        width: 17px;
+        height: 17px;
+        color: #db970e;
+    }
+    .message-text-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        flex-grow: 1;
+    }
+    .message-text,
+    .sub-text {
+        margin: 0;
+        cursor: default;
+    }
+    .message-text {
+        color: #db970e;
+        font-size: 17px;
+        font-weight: 700;
+    }
+    .sub-text {
+        font-size: 14px;
+        color: #555;
+    }
+    .cross-icon {
+        width: 18px;
+        height: 18px;
+        color: #555;
+        cursor: pointer;
+    }
+</style>
+
+{{#if succ}}
+    <div class="card-alert my-4">
+        <span class="wave-success"></span>
+
+        <div class="icon-container">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            stroke-width="0"
+            fill="currentColor"
+            stroke="currentColor"
+            class="icon"
+            >
+                <path
+                    d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"
+                ></path>
+            </svg>
+        </div>
+        <div class="message-text-container">
+            <p class="message-text">{{succ}}</p>
+        </div>
+    </div>
+{{/if}}
+
+{{#if err}}
+    
+    <div class="card-alert my-4">
+        <span class="wave"></span>
+
+        <div class="icon-container">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            stroke-width="0"
+            fill="currentColor"
+            stroke="currentColor"
+            class="icon"
+            >
+                <path
+                    d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"
+                ></path>
+            </svg>
+        </div>
+        <div class="message-text-container">
+            <p class="message-text">{{err}}</p>
+        </div>
+    </div>
+
+{{/if}}
+
+{{#if error}}
+    <div class="card-alert my-4">
+        <span class="wave"></span>
+
+        <div class="icon-container">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            stroke-width="0"
+            fill="currentColor"
+            stroke="currentColor"
+            class="icon"
+            >
+                <path
+                    d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"
+                ></path>
+            </svg>
+        </div>
+        <div class="message-text-container">
+            <p class="sub-text">{{error}}</p>
+        </div>
+    </div>
+{{/if}}

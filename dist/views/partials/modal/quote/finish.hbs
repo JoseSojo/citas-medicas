@@ -1,0 +1,50 @@
+
+<div class="modal fade" id="modalFinishQuote" tabindex="-1" aria-labelledby="modalFinishQuoteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalFinishQuoteLabel">Aprobar cita</h1>
+                 
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="/doctor/quote/status/{{data.id}}" method="POST" class="row">
+
+                    <h3 class="text-center">¿Seguro que desea finalizar la cita?</h3>
+
+                    <div class="form-floating col-12 mb-3">
+                        <input class="form-control" name="descriptionDoctor" id="descriptionDoctor" type="text" placeholder="name@example.com" />
+                        <label for="descriptionDoctor">Califique al paciente</label>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label for="starDoctor">Califique al paciente <b id="starDoctorSpace"></b></label>
+                        <input class="form-control" name="starDoctor" id="starDoctor" type="range" min="0" max="5" />
+                    </div>
+
+                    <input type="hidden" value="FINALIZADO" name="status" />
+                    <input type="hidden" value="{{data.quoteDetailReference.id}}" name="currentDetail" />
+
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i>
+                            aprobar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const input = document.getElementById("starDoctor");
+    const space = document.getElementById("starDoctorSpace");
+
+    input.addEventListener(`change`, (ev) => {
+        space.textContent = input.value;
+    })
+
+</script>

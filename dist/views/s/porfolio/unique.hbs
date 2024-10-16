@@ -1,0 +1,75 @@
+
+<div class="row">
+    <div class="card col-12 mt-3">
+        <div class="card-body">
+            {{> porfolio/porfolio }}
+        </div>
+    </div>
+</div>
+
+{{#isValid porfolio.id user.id }}
+    
+    <div class="row">
+        <form action="/porfolio/description" method="post" class="card col-12 mt-3">
+            <div class="card-body">
+                <div class="form-floating col-12 mt-2 mb-2">
+                    <textarea class="form-control" name="description" id="inputDescription" type="text" style="min-height: 80px; max-height: 180px;">{{porfolio.detail.description}}</textarea>
+                    <label for="inputDescription">Descripción profesional</label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send-fill"> Enviar</i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="card col-12 mt-3">
+            <form method="post" action="/porfolio/photo" enctype="multipart/form-data" class="card-body">
+                <input type="file" class="form-control" name="file" />
+                <input type="hidden" value="{{user.detail.id}}" name="detailId" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i>
+                    enviar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        {{#each social}}
+            <form action="/porfolio/social" method="post" class="card col-4 mt-2 shadow">
+                <div class="card-body">
+                    <h6>
+                        <img src="{{this.icoUrl}}" width="25" height="" />
+                        Agregar cuenta {{this.name}}
+                    </h6>
+                    <div class="form-floating mt-2 mb-2">
+                        <input 
+                            class="form-control" 
+                            name="username" 
+                            id="inputUsername" 
+                            type="text" 
+                            >
+                        <label for="inputUsername">Usuario</label>
+                    </div>
+                    <div class="form-floating mt-2 mb-2">
+                        <input 
+                            class="form-control" 
+                            name="link" 
+                            id="inputLink" 
+                            type="text" 
+                            >
+                        <label for="inputLink">Enlace</label>
+                    </div>
+                    <input type="hidden" value="{{this.id}}" name="socialMediaId" />
+                    <input type="hidden" value="{{../user.detail.id}}" name="detailId" />
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-send-fill"> Agregar</i>
+                    </button>
+                </div>
+            </form>
+        {{/each}}
+    </div>
+
+{{/isValid}}

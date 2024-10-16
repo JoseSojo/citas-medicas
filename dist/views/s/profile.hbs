@@ -1,0 +1,110 @@
+<div class="card">
+    <div class="card-body py-0 pt-2 d-flex justify-content-between">
+        <h3>{{user.name}}</h3>
+        <ul class="d-flex gap-4">
+            
+            <li style="list-style: none;">
+                <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalAccessUser">
+                    datos
+                    <i class="bi bi-pen-fill"></i>
+                </button>
+            </li>
+
+            <li style="list-style: none;">
+                <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalSecurityUser">
+                    seguridad
+                    <i class="bi bi-shield-fill-exclamation"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="card mby-3">
+    <div class="card-body">
+        <h3>{{user.name}} {{user.lastname}}</h3>
+        <ul>
+            <li><b>{{user.role}}</b></li>
+            <li>Cédula: <b>{{user.ci}}</b></li>
+            <li>Correo: <b>{{user.email}}</b></li>
+            <li>Teléfono: <b>{{user.phoneCode}} {{user.phoneNumber}}</b></li>
+        </ul>
+    
+        {{#if user.parentReference}}
+        <ul>
+            <li>
+                Creado por: <a href="/user/{{user.parentReference.id}}">{{user.parentReference.name}} {{user.parentReference.lastname}}</a></li>
+        </ul>
+        {{/if}}
+
+        {{#isDoctor user}}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5>Datos</h5>
+                    <ul>
+                        <li>CMEG N: {{user.cmeg_n}}</li>
+                        <li>Matrícula: {{user.matricula}}</li>
+                        <li>Pacientes atendidos: {{user._count.patient}}</li>
+                        <li>Especialidades: {{user._count.speciality}}</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    {{#if user.speciality}}
+                        <h5>Especialidades</h5>
+                        <ul>
+                            {{#each user.speciality}}
+                                <li class="">{{this.specialityReference.name}}</li>
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        no hay especialidad
+                    {{/if}}
+                </div>
+            </div>
+
+            {{#if user.schedule}}
+                <div class="card mt-3">
+
+                    {{#each user.schedule}}
+                        <div class="card-body">
+                            <h5>Horario Activo</h5>
+
+                            <p>{{this.description}}</p>
+                            <div class="container">
+                            <div class="row">
+                                {{!-- {{this.}} --}}
+                                {{#each this.detail}}
+                                    <div class="card col">
+                                        <h5>{{this.day}}</h5>
+                                        <p class="w-100 text-center border"><small>{{this.time_start}}</small></p>
+                                        <p class="w-100 text-center border"><small>{{this.time_end}}</small></p>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                no hay especialidad
+            {{/if}}
+        {{/isDoctor}}
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5>Dirección</h5>
+                <ul class="d-flex gap-3">
+                    <a href="/address/{{user.addressReference.parentReference.parentReference.id}}">{{user.addressReference.parentReference.parentReference.description}}</a>
+                    >
+                    <a href="/address/{{user.addressReference.parentReference.id}}">{{user.addressReference.parentReference.description}}</a>
+                    >
+                    <a href="/address/{{user.addressReference.id}}">{{user.addressReference.description}}</a>
+                </ul>
+            </div>
+        </div>
+        
+
+    </div>
+</div>

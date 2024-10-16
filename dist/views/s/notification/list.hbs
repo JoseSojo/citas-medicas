@@ -1,0 +1,90 @@
+
+
+<div class="card mb-4  w-100">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-4">
+            <i class="bi bi-grid-3x3 me-1"></i>
+            {{titlePag}}
+        </div>
+        <form class="row">
+            
+        </form>
+    </div>
+
+    <div class="card-body">
+        <table id="" class="table table-sm table-bordered">
+            <thead>
+                <tr>
+                    {{#each labels}}
+                        <th class="text-center">{{this}}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#if list}}
+                    {{#each list}}
+                        <tr>
+                            <td class="text-center">{{this.message}}</td>
+                            <td class="text-center">{{this.fromReference.name}} {{this.fromReference.lastname}}</td>
+                            <td class="text-center">{{this.toReference.name}} {{this.toReference.lastname}}</td>
+                            <td class="text-center">{{this.subject}}</td>
+                            <td class="d-flex justify-content-center">
+                                {{#propietaryNotification ../user.id this }}
+                                    <a href="/notification/{{../this.id}}" class="btn btn-primary btn-sm mx-1">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+                                {{/propietaryNotification}}
+                                {{#isValid ../user.id this.toReference.id}}
+                                    {{#if this.read}}
+                                        <span class="p-2 py-1 bg-light btn-sm mx-1">
+                                            <i class="bi bi-eye-slash-fill"></i>
+                                        </span> 
+                                    {{else}}
+                                        <form action="/notification/{{this.id}}/read" method="post">
+                                            <button type="submit" class="btn btn-success btn-sm mx-1">
+                                                <i class="bi bi-eye-fill"></i>  
+                                            </button>
+                                        </form>
+                                    {{/if}}
+                                {{/isValid}}
+                                {{#isValid ../user.id this.fromReference.id}}
+                                    {{#if this.read}}
+                                        <span class="p-2 py-1 bg-light btn-sm mx-1">
+                                            <i class="bi bi-eye-fill"> leído</i>
+                                        </span> 
+                                    {{else}}
+                                        <span class="p-2 py-1 bg-light btn-sm mx-1">
+                                            <i class="bi bi-eye-slash-fill"> no leído</i>
+                                        </span>
+                                    {{/if}}
+                                {{/isValid}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    <p>{{notFoundMessage}}</p>
+                {{/if}}
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer d-flex justify-content-between">
+        <span></span>
+        <ul class="d-flex justify-content-center">
+            {{#if foundPrevious}}
+                <li class="btn btn-outline-primary" style="list-style: none;"><a style="text-decoration: none;" href="{{urlPrevious}}">anterior</a></li>
+            {{else}}
+                <li class="" style="list-style: none;"></li>
+            {{/if}}
+            
+            <li class="btn" style="list-style: none;">{{countRender}}</li>
+
+            {{#if foundNext}}
+                <li class="btn btn-outline-primary" style="list-style: none;"><a style="text-decoration: none;" href="{{urlNext}}">siguiente</a></li>
+            {{else}}
+                <li class="" style="list-style: none;"></li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

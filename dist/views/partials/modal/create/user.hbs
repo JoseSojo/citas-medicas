@@ -1,0 +1,121 @@
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalCreateUser" tabindex="-1" aria-labelledby="{{form.label}}" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 80vw;">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="{{form.label}}">{{form.title}}</h1>
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="{{form.action}}" method="{{form.method}}" class="row">
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="name" id="inputName" type="text" placeholder="name@example.com" />
+                        <label for="inputName">Nombre</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="lastname" id="inputLastname" type="text" placeholder="name@example.com" />
+                        <label for="inputLastname">Apellido</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="ci" id="inputCi" type="text" placeholder="name@example.com" />
+                        <label for="inputCi">Cédula</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" />
+                        <label for="inputEmail">Correo Electrónico</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="cmeg_n" id="cmeg_n" type="text" placeholder="name@example.com" />
+                        <label for="cmeg_n">Número de inscripción</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="matricula" id="matricula" type="text" placeholder="name@example.com" />
+                        <label for="matricula">Matrícula</label>
+                    </div>
+
+                    {{#if address}}
+                    <div class="form-floating col-12 mb-3">
+                        <select class="form-control" name="addressId" id="address">
+                            <option selected>Selecciona una opción</option>
+                            {{#each address}}
+                            <option value="{{this.id}}">{{this.description}}</option>
+                            {{/each}}
+                        </select>
+                        <label for="address">Dirección</label>
+                    </div>
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="rif" id="rif" type="text" />
+                        <label for="rif">Rif</label>
+                    </div>
+
+                    {{else}}
+                    <p class="form-control">Debes crear direcciones</p>
+                    {{/if}}
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <select class="form-control" name="role" id="address">
+                            <option selected>Selecciona una opción</option>
+                                <option selected>DOCTOR</option>
+                                <option>PACIENTE</option>
+                                <option>ADMIN</option>
+                        </select>
+                        <label for="address">Permisos</label>
+                    </div>
+
+                    {{#if university}}
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <select class="form-control" name="universityId" id="universityId">
+                            <option selected>Selecciona una opción</option>
+                            {{#each university}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                        <label for="universityId">Universidad</label>
+                    </div>
+                    {{else}}
+                        <p class="form-control">Debes crear universidades</p>
+                    {{/if}}
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="egresDate" id="egresDate" type="date" />
+                        <label for="egresDate">Fecha Egreso</label>
+                    </div>
+
+                    <div class="col-12 mb-3 row gap-0">
+                        <div class="form-floating col-3">
+                            <select class="form-control mx-0" name="phoneCode" id="phoneCode">
+                                <option selected>Selecciona una opción</option>
+                                <option>0412</option>
+                                <option>0414</option>
+                                <option>0416</option>
+                                <option>0424</option>
+                                <option>0426</option>
+                            </select>
+                            <label for="phoneCode">Código</label>
+                        </div>
+                        <div class="form-floating col-9">
+                            <input class="form-control mx-0" name="phoneNumber" id="phoneNumber" type="number" placeholder="">
+                            <label for="phoneNumber">Número</label>
+                        </div>
+                    </div>
+                    
+
+                    <div class="d-flex gap-3 justify-content-end">
+                         
+                        <button type="submit" class="btn btn-primary">
+                            <i class="{{formCreate.submit.ico}}"></i>
+                            {{form.submit.text}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
