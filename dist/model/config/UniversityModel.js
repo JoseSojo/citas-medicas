@@ -31,7 +31,15 @@ class UniversityModel extends AbstractModel_1.default {
             return yield prisma.university.findFirst({
                 where: filter,
                 include: {
-                    _count: true
+                    _count: true,
+                    createReference: true,
+                    withAddress: {
+                        include: {
+                            adressReference: true,
+                        },
+                        skip: 0,
+                        take: 1
+                    }
                 }
             });
         });
@@ -50,7 +58,10 @@ class UniversityModel extends AbstractModel_1.default {
                 orderBy: { createAt: "asc" },
                 include: {
                     _count: true,
-                    createReference: true
+                    createReference: true,
+                    withAddress: {
+                        include: { adressReference: true }
+                    },
                 },
                 skip,
                 take

@@ -28,9 +28,12 @@
                     {{#each list}}
                         <tr>
                             <td>{{this.description}}</td>
-                            <td>{{this._count.user}}</td>
                             <td>{{this._count.children}}</td>
+                            <td>
+                                <a href="/user/?addressId={{this.id}}" class="btn btn-sm btn-primary"><b>{{this._count.user}}</b></a>
+                            </td>
                             <td class="d-flex justify-content-center">
+
                                 <a href="/address/{{this.id}}" class="btn btn-primary btn-sm mx-1">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>

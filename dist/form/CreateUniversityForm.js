@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateSpecialityFrom = exports.CreateUniversityFrom = exports.CreateUniversityInput = void 0;
+exports.UpdateUniversityFrom = exports.CreateUniversityFrom = exports.CreateUniversityInput = void 0;
 exports.CreateUniversityInput = [
     {
         cols: `col-12`,
@@ -18,8 +18,8 @@ exports.CreateUniversityInput = [
     }
 ];
 exports.CreateUniversityFrom = {
-    action: `/speciality/create`,
-    title: `Crear Especialidad`,
+    action: `/university/create`,
+    title: `Crear Universidad`,
     method: `POST`,
     submit: {
         text: `crear`,
@@ -27,10 +27,10 @@ exports.CreateUniversityFrom = {
     },
     class: ``,
 };
-const UpdateSpecialityFrom = (id) => {
+const UpdateUniversityFrom = (id) => {
     return {
-        action: `/speciality/${id}/update`,
-        title: `Actualizar Especialidad`,
+        action: `/university/${id}/update`,
+        title: `Actualizar universidad`,
         method: `POST`,
         submit: {
             text: `actualizar`,
@@ -39,4 +39,4 @@ const UpdateSpecialityFrom = (id) => {
         class: ``,
     };
 };
-exports.UpdateSpecialityFrom = UpdateSpecialityFrom;
+exports.UpdateUniversityFrom = UpdateUniversityFrom;

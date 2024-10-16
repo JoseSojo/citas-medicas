@@ -36,7 +36,7 @@ class UserController extends AbstractController_1.default {
             const user = req.user;
             const noti = new NotificationModel_1.default();
             const univ = new UniversityModel_1.default();
-            const { param, role } = req.query;
+            const { param, role, addressId } = req.query;
             let queryString = ``;
             // rol
             // param (email,name,lastname,ci,cmeg,matricula,address)
@@ -59,6 +59,10 @@ class UserController extends AbstractController_1.default {
                 //     return;
                 // }
                 filter.push({ role: role });
+            }
+            if (addressId) {
+                filter.push({ addressId });
+                queryString += queryString ? `&addressId=${addressId}` : `addressId=${addressId}`;
             }
             const listPromise = instance.findManyUser({
                 filter: { AND: [{ isDelete: false }, { OR: filter }] },

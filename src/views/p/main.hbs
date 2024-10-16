@@ -17,6 +17,7 @@
         </div>
     </header>
 
+
     {{#if speciality}}
         <main class="container-fluid mt-3">
             <div class="row">
@@ -42,6 +43,30 @@
 
         </main>
     {{else}}
+        {{#if address}}
+            <main class="container-fluid mt-3">
+                <div class="row">
+                    <h4>Resultados: {{count}}</h4>
+                </div>
+
+                <table class="table table-sm table-bordered">
+                    <tr>
+                        <td>Nombre</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {{#each list}}
+                        <tr>
+                            <td>{{this.description}}</td>
+                            <td>
+                                <a href="/?addressId={{this.id}}" class="btn btn-primary">ver doctores</a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </table>
+
+            </main>
+        {{else}}
         <main class="container-fluid mt-3">
             <div class="row">
                 <h4>Resultados: {{count}}</h4>
@@ -81,6 +106,7 @@
                 
             </div>
         </main>
+        {{/if}}
     {{/if}}
 
 </body>
