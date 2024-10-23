@@ -30,8 +30,6 @@ class UniversityController extends AbstractController_1.default {
             const user = req.user;
             const { param } = req.query;
             let queryString = ``;
-            // rol
-            // param (email,name,lastname,ci,cmeg,matricula,address)
             const addressListPromise = address.findManyAdress({ filter: {}, skip: 0, take: 500 });
             const take = req.query.take ? Number(req.query.take) : 10;
             const skip = req.query.skip ? Number(req.query.skip) : 0;
@@ -106,7 +104,6 @@ class UniversityController extends AbstractController_1.default {
                 const instance = new UniversityModel_1.default();
                 const { name, adressId } = req.body;
                 const user = req.user;
-                console.log(req.body);
                 const create = yield instance.createUniversity({
                     data: {
                         name,
@@ -118,6 +115,7 @@ class UniversityController extends AbstractController_1.default {
                         }
                     }
                 });
+                yield instance.CreateHistory({ des: `Creación de universidad ${name} dirección:${create.withAddress[0].adressReference.description}`, name: `university`, userId: user.id });
                 req.flash(`succ`, `Universidad creada`);
                 return res.redirect(`/university/`);
             }

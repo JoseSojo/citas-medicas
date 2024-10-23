@@ -19,6 +19,7 @@ const UserModel_1 = __importDefault(require("../../../model/user/UserModel"));
 const QuotesModel_1 = __importDefault(require("../../../model/quotes/QuotesModel"));
 const ScheduleModel_1 = __importDefault(require("../../../model/schedule/ScheduleModel"));
 const client_1 = require("@prisma/client");
+const SpecialityModel_1 = __importDefault(require("../../../model/config/SpecialityModel"));
 class DoctorControlelr extends AbstractController_1.default {
     constructor() {
         super();
@@ -87,8 +88,13 @@ class DoctorControlelr extends AbstractController_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const { espAdd, universityAdd, date } = req.body;
             const id = req.params.id;
+            const user = req.user;
             const userModel = new UserModel_1.default();
+            const specialityModel = new SpecialityModel_1.default();
+            const speciality = yield specialityModel.findSpeciality({ filter: { id: espAdd } });
+            const userInt = yield userModel.findUser({ filter: { id } });
             yield userModel.connectSpeciality({ user: id, date, speciality: espAdd, university: universityAdd });
+            yield userModel.CreateHistory({ des: `Agregada especialidad ${speciality === null || speciality === void 0 ? void 0 : speciality.name} al doctor ${userInt === null || userInt === void 0 ? void 0 : userInt.name} ${userInt === null || userInt === void 0 ? void 0 : userInt.lastname}`, name: `user`, userId: user.id });
             req.flash(`succ`, `Especialidad agregada.`);
             return res.redirect(`/user/${id}`);
         });

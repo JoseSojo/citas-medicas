@@ -15,7 +15,6 @@ export default class PatientControlelr extends AbstractController {
         super();
     }
 
-
     public async DoctorDashboard(req: Request, res: Response) {
         const noti = new NotificationModel();
         const user = req.user as any;

@@ -70,7 +70,7 @@ class UserController extends AbstractController_1.default {
                 take,
             });
             const countPromise = instance.countUser({ filter: { AND: [{ isDelete: false }, { OR: filter }] } });
-            const addressListPromise = address.findManyAdress({ filter: { isDelete: false }, skip: 0, take: 200 });
+            const addressListPromise = address.findManyAdress({ filter: { AND: [{ isDelete: false }, { children: undefined }] }, skip: 0, take: 200 });
             const specialityListPromise = speciality.findManySpeciality({ filter: { isDelete: false }, skip: 0, take: 200 });
             const universityListPromise = univ.findManyUniversity({ filter: { isDelete: false }, skip: 0, take: 200 });
             const returnData = {
@@ -93,7 +93,8 @@ class UserController extends AbstractController_1.default {
                     skip,
                     take,
                     param,
-                    role
+                    role,
+                    addressId
                 }
             };
             const specialityList = yield specialityListPromise;
@@ -186,12 +187,15 @@ class UserController extends AbstractController_1.default {
             if (parentId) {
                 data = Object.assign(Object.assign({}, data), { parentReference: { connect: { id: parentId } } });
             }
-            console.log(data);
             yield instance.createUser({ data });
+            yield instance.CreateHistory({
+                des: `Creación de Usuario [${role}] Nombre:${name} Apellido:${lastname} Teléfono:${phoneCode} ${phoneNumber} Rif:${rif ? rif : `sin definir`}`,
+                name: `user`,
+                userId: user.id
+            });
             req.flash(`succ`, `Usuario creado`);
             return res.redirect(`/user/`);
             // } catch (error) {
-            // console.log(error);
             req.flash(`Error`, `Error temporal`);
             return res.redirect(`/user/`);
             // }
@@ -201,32 +205,59 @@ class UserController extends AbstractController_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const instance = new UserModel_1.default();
+                const user = req.user;
                 const { rif, ci, name, lastname, phoneCode, phoneNumber, cmeg_n, matricula, email } = req.body;
                 const id = req.params.id;
                 let dataUpdate = {};
-                if (ci)
+                let descr = ``;
+                if (ci) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { ci });
-                if (email)
+                    descr += ` Cédula:${ci}`;
+                }
+                if (email) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { email });
-                if (name)
+                    descr += ` Correo:${email}`;
+                }
+                if (name) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { name });
-                if (lastname)
+                    descr += ` Nombre:${name}`;
+                }
+                if (lastname) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { lastname });
-                if (phoneCode)
+                    descr += ` Apellido:${lastname}`;
+                }
+                if (phoneCode) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { phoneCode });
-                if (phoneNumber)
+                    descr += ` Teléfono Código:${phoneCode}`;
+                }
+                if (phoneNumber) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { phoneNumber });
-                if (email)
+                    descr += ` Teléfono Número:${phoneNumber}`;
+                }
+                if (email) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { email });
-                if (cmeg_n)
+                    descr += ` Correo:${email}`;
+                }
+                if (cmeg_n) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { cmeg_n });
-                if (matricula)
+                    descr += ` CMEG:${cmeg_n}`;
+                }
+                if (matricula) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { matricula });
-                if (rif)
+                    descr += ` Matricula:${matricula}`;
+                }
+                if (rif) {
                     dataUpdate = Object.assign(Object.assign({}, dataUpdate), { rif });
+                    descr += ` Rif:${rif}`;
+                }
                 yield instance.updateUser({
                     data: dataUpdate,
                     id
+                });
+                yield instance.CreateHistory({
+                    des: descr,
+                    name: `user`,
+                    userId: user.id
                 });
                 // req.flash(`succ`, `Usuario actualizado`);
                 return res.redirect(`/profile`);
@@ -241,8 +272,10 @@ class UserController extends AbstractController_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const instance = new UserModel_1.default();
+                const user = req.user;
                 const id = req.params.id;
                 yield instance.deleteUser({ id });
+                yield instance.CreateHistory({ des: `Eliminación de usuario`, name: `user`, userId: user.id });
                 req.flash(`succ`, `Eliminado exitosamente.`);
                 return res.redirect(`/user/`);
             }
@@ -256,6 +289,7 @@ class UserController extends AbstractController_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const instance = new UserModel_1.default();
+                const user = req.user;
                 const { password, passwordNew, passwordRepeat, currentPassword } = req.body;
                 const id = req.params.id;
                 if (passwordNew !== passwordRepeat) {
@@ -273,6 +307,7 @@ class UserController extends AbstractController_1.default {
                     },
                     id
                 });
+                yield instance.CreateHistory({ des: `Actualización de contraseña`, name: `user`, userId: user.id });
                 req.flash(`succ`, `Usuario actualizado`);
                 return res.render(`/profiel`);
             }

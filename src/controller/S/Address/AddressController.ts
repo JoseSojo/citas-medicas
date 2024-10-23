@@ -104,6 +104,7 @@ export default class AdressController extends AbstractController {
         try {
             const instance = new AdressSubModel();
             const { description, parentId } = req.body;
+            const user = req.user as any;
 
             if(!description) {
                 req.flash(`error`,`Debe completar los datos correctamente`);
@@ -111,11 +112,15 @@ export default class AdressController extends AbstractController {
             }
 
             if (parentId) {
+                const parentInstance = instance.findAdress({ filter:{id:parentId} });
                 const createPromise = instance.createAdress({
                     data: { description,parentReference: {connect: { id:parentId }}}
                 });
 
+                const currentParent = await parentInstance;
                 const create = await createPromise;
+
+                await instance.CreateHistory({ des:`Creación de subdirección ${description} en ${currentParent?.description}`, name:`address`, userId:user.id });
 
                 req.flash(`succ`, `Dirección creada`);
                 return res.redirect(`/address/`);
@@ -126,6 +131,8 @@ export default class AdressController extends AbstractController {
                     description,
                 }
             });        
+            await instance.CreateHistory({ des:`Creación de dirección`, name:`address`, userId:user.id });
+
 
             req.flash(`succ`, `Dirección creada`);
             return res.redirect(`/address/`);
@@ -141,6 +148,7 @@ export default class AdressController extends AbstractController {
             const instance = new AdressSubModel();
             const { description } = req.body;
             const id = req.params.id as string;
+            const user = req.user as any;
 
             if(!description) {
                 req.flash(`error`,`Debe completar los datos correctamente`);
@@ -152,7 +160,9 @@ export default class AdressController extends AbstractController {
                     description,
                 },
                 filter: { id }
-            });        
+            });     
+
+            await instance.CreateHistory({ des:`Actualización de dirección/subdirección ${description}`, name:`address`, userId:user.id });
 
             req.flash(`succ`, `Dirección creada`);
             return res.redirect(`/address/`);
@@ -166,8 +176,11 @@ export default class AdressController extends AbstractController {
         try {
             const instance = new AdressSubModel();
             const id = req.params.id as string;
+            const user = req.user as any;
 
             const currentDelete = await instance.deleteAdress({ id });        
+
+            await instance.CreateHistory({ des:`Eliminación de dirección ${currentDelete.description}`, name:`address`, userId:user.id });
 
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/address/`);

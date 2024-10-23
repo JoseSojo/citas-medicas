@@ -63,6 +63,8 @@ model User {
   notificationFromTo  Notification[]  @relation(name: "to")
   university          University[]    @relation(name: "create")
 
+  historys            History[]
+
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
   isDelete Boolean  @default(false)
@@ -362,4 +364,19 @@ model StaticticsYear {
   totalMonth10 Int
   totalMonth11 Int
   totalMonth12 Int
+}
+
+model History {
+  id                  String        @id         @default(uuid())
+
+  objectName          String?
+  objectId            String?
+  objectReference     Boolean?           @default(false)
+
+  userId              String        
+  userReference       User              @relation(fields: [userId], references: [id])
+
+  description String
+
+  createAt                  DateTime @default(now())
 }

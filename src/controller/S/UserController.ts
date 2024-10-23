@@ -205,14 +205,18 @@ export default class UserController extends AbstractController {
                 }
             }
 
-            console.log(data);
 
             await instance.createUser({data}); 
             
+            await instance.CreateHistory({ 
+                des:`Creación de Usuario [${role}] Nombre:${name} Apellido:${lastname} Teléfono:${phoneCode} ${phoneNumber} Rif:${rif ? rif : `sin definir`}`, 
+                name:`user`,
+                userId:user.id
+            });
+
             req.flash(`succ`, `Usuario creado`);
             return res.redirect(`/user/`);
         // } catch (error) {
-            // console.log(error);
             req.flash(`Error`, `Error temporal`);
             return res.redirect(`/user/`);            
         // }
@@ -221,27 +225,66 @@ export default class UserController extends AbstractController {
     public async EditLogic(req:Request,res:Response) {
         try {
             const instance = new UserModel();
+            const user = req.user as any;
 
             const { rif,ci,name,lastname,phoneCode,phoneNumber,cmeg_n,matricula,email } = req.body;
             const id = req.params.id as string;
 
             let dataUpdate: Prisma.UserUpdateInput = {};
 
-            if(ci) dataUpdate = {...dataUpdate, ci};
-            if(email) dataUpdate = {...dataUpdate, email};
-            if(name) dataUpdate = {...dataUpdate, name};
-            if(lastname) dataUpdate = {...dataUpdate, lastname};
-            if(phoneCode) dataUpdate = {...dataUpdate, phoneCode};
-            if(phoneNumber) dataUpdate = {...dataUpdate, phoneNumber};
-            if(email) dataUpdate = {...dataUpdate, email};
-            if(cmeg_n) dataUpdate = {...dataUpdate, cmeg_n};
-            if(matricula) dataUpdate = {...dataUpdate, matricula};
-            if(rif) dataUpdate = {...dataUpdate, rif};
+            let descr = ``;
+
+            if(ci) {
+                dataUpdate = {...dataUpdate, ci};
+                descr += ` Cédula:${ci}`; 
+            }
+            if(email) {
+                dataUpdate = {...dataUpdate, email};
+                descr += ` Correo:${email}`; 
+            }
+            if(name) {
+                dataUpdate = {...dataUpdate, name};
+                descr += ` Nombre:${name}`; 
+            }
+            if(lastname) {
+                dataUpdate = {...dataUpdate, lastname};
+                descr += ` Apellido:${lastname}`; 
+            }
+            if(phoneCode) {
+                dataUpdate = {...dataUpdate, phoneCode};
+                descr += ` Teléfono Código:${phoneCode}`; 
+            }
+            if(phoneNumber) {
+                dataUpdate = {...dataUpdate, phoneNumber};
+                descr += ` Teléfono Número:${phoneNumber}`; 
+            }
+            if(email) {
+                dataUpdate = {...dataUpdate, email};
+                descr += ` Correo:${email}`; 
+            }
+            if(cmeg_n) {
+                dataUpdate = {...dataUpdate, cmeg_n};
+                descr += ` CMEG:${cmeg_n}`; 
+            }
+            if(matricula) {
+                dataUpdate = {...dataUpdate, matricula};
+                descr += ` Matricula:${matricula}`; 
+            }
+            if(rif) {
+                dataUpdate = {...dataUpdate, rif};
+                descr += ` Rif:${rif}`; 
+            }
 
             await instance.updateUser({
                 data: dataUpdate,
                 id
-            });       
+            });   
+            
+            await instance.CreateHistory({ 
+                des:descr, 
+                name:`user`,
+                userId:user.id
+            });
 
             // req.flash(`succ`, `Usuario actualizado`);
             return res.redirect(`/profile`);
@@ -254,10 +297,12 @@ export default class UserController extends AbstractController {
     public async DeleteLogic(req:Request,res:Response) {
         try {
             const instance = new UserModel();
+            const user = req.user as any;
             const id = req.params.id as string;
 
             await instance.deleteUser({ id });        
 
+            await instance.CreateHistory({ des:`Eliminación de usuario`, name:`user`,userId:user.id });
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/user/`);
         } catch (error) {
@@ -269,6 +314,7 @@ export default class UserController extends AbstractController {
     public async UpdatePasswordLogic(req:Request,res:Response) {
         try {
             const instance = new UserModel();
+            const user = req.user as any;
 
             const { password, passwordNew, passwordRepeat,currentPassword } = req.body;
             const id = req.params.id as string;
@@ -290,6 +336,8 @@ export default class UserController extends AbstractController {
                 },
                 id
             }); 
+
+            await instance.CreateHistory({ des:`Actualización de contraseña`, name:`user`,userId:user.id });
 
             req.flash(`succ`, `Usuario actualizado`);
             return res.render(`/profiel`);

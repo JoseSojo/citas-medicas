@@ -21,7 +21,7 @@ class UniversityModel extends AbstractModel_1.default {
     createUniversity(_a) {
         return __awaiter(this, arguments, void 0, function* ({ data }) {
             const prisma = new client_1.PrismaClient();
-            const result = yield prisma.university.create({ data });
+            const result = yield prisma.university.create({ data, include: { withAddress: { include: { adressReference: true } } } });
             return result;
         });
     }

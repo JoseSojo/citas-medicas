@@ -7,9 +7,10 @@ export default class UniversityModel extends AbstractModel {
         super();
     }
 
+    
     public async createUniversity({ data }: { data: Prisma.UniversityCreateInput }) {
         const prisma = new PrismaClient();
-        const result = await prisma.university.create({ data });
+        const result = await prisma.university.create({ data, include:{ withAddress: { include:{ adressReference:true } } } });
         return result;
     }
 

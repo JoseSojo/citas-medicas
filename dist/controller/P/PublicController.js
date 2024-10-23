@@ -48,7 +48,6 @@ class PublicController extends AbstractController_1.default {
             const userModel = new UserModel_1.default();
             const specialityMode = new SpecialityModel_1.default();
             const addressModel = new AddressSubModel_1.default();
-            console.log(req.query);
             const filter = [];
             const filterText = [];
             filter.push({ isDelete: false });
@@ -97,6 +96,7 @@ class PublicController extends AbstractController_1.default {
             const param = req.query.param ? req.query.param : ``;
             return res.render(`p/main.hbs`, {
                 address: true,
+                action: `/p/address`,
                 list: yield addressModel.findManyAdress({
                     filter: {
                         AND: [
@@ -126,6 +126,7 @@ class PublicController extends AbstractController_1.default {
             const param = req.query.param ? req.query.param : ``;
             return res.render(`p/main.hbs`, {
                 speciality: true,
+                action: `/p/speciality`,
                 list: yield specialityMode.findManySpeciality({
                     filter: {
                         AND: [

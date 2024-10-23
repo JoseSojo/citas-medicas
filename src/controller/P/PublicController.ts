@@ -45,8 +45,6 @@ export default class PublicController extends AbstractController {
         const specialityMode = new SpecialitySubModel();
         const addressModel = new AdressSubModel();
 
-        console.log(req.query);
-
         const filter: Prisma.UserWhereInput[] = [];
         const filterText: string[] = [];
         filter.push({ isDelete: false });

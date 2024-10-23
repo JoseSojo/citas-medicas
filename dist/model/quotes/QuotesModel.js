@@ -21,7 +21,7 @@ class QuotesSubModel extends AbstractModel_1.default {
     createQuotes(_a) {
         return __awaiter(this, arguments, void 0, function* ({ data }) {
             const prisma = new client_1.PrismaClient();
-            return prisma.quotes.create({ data });
+            return prisma.quotes.create({ data, include: { doctorReference: true } });
         });
     }
     findQuotes(_a) {

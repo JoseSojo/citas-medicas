@@ -112,8 +112,6 @@ export default class UniversityController extends AbstractController {
             const { name, adressId } = req.body;
             const user = req.user as any;
 
-            console.log(req.body);
-
             const create = await instance.createUniversity({
                 data: { 
                     name,
@@ -126,6 +124,7 @@ export default class UniversityController extends AbstractController {
                 }
             });    
 
+            await instance.CreateHistory({ des:`Creación de universidad ${name} dirección:${create.withAddress[0].adressReference.description}`,name:`university`,userId:user.id });
             
             req.flash(`succ`, `Universidad creada`);
             return res.redirect(`/university/`);

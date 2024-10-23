@@ -220,5 +220,20 @@ class AbstractModel extends Kernel_1.default {
         const date = new Date();
         return date.getDate();
     }
+    CreateHistory(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.prisma.history.create({
+                data: {
+                    description: data.des,
+                    objectReference: data.id ? true : false,
+                    objectId: data.id,
+                    objectName: data.name,
+                    userReference: {
+                        connect: { id: data.userId }
+                    }
+                }
+            });
+        });
+    }
 }
 exports.default = AbstractModel;

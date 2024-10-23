@@ -63,6 +63,7 @@ class PorfolioController extends AbstractController_1.default {
                             } }
                     }
                 });
+                yield instance.CreateHistory({ des: `Agregación de foto profesional por: ${user.name} ${user.lastname}`, name: `user`, userId: user.id });
             }
             else {
                 yield instance.createUserDetail({
@@ -85,8 +86,10 @@ class PorfolioController extends AbstractController_1.default {
             const instance = new UserDetailModel_1.default();
             const userInstance = new UserModel_1.default();
             const userSocialMedia = new SocialMediaByUserModel_1.default();
+            const socialMediaModel = new SocialMediaModel_1.default();
             const user = req.user;
-            const { link, username, socialMediaId, detailId } = req.body;
+            const { link, username, socialMediaId } = req.body;
+            const socialMedia = yield socialMediaModel.findSocialMedia({ filter: { id: socialMediaId } });
             const socialUserFound = yield userSocialMedia.findTest({ socialId: socialMediaId, userId: user.id });
             if (socialUserFound) {
                 yield userSocialMedia.updateTest({ data: { link, username }, id: socialUserFound.id });
@@ -104,6 +107,7 @@ class PorfolioController extends AbstractController_1.default {
                     id: user.id
                 });
             }
+            yield instance.CreateHistory({ des: `Agregación de foto red social ${socialMedia === null || socialMedia === void 0 ? void 0 : socialMedia.name} por: ${user.name} ${user.lastname}`, name: `user`, userId: user.id });
             req.flash(`succ`, `Operación exitosa`);
             return res.redirect(`/porfolio`);
         });
@@ -114,9 +118,7 @@ class PorfolioController extends AbstractController_1.default {
             const { description } = req.body;
             const user = req.user;
             const detailFound = yield instance.findUserDetail({ filter: { userId: user.id } });
-            console.log(0, true, detailFound);
             if (detailFound) {
-                console.log(1, false);
                 yield instance.updateUserDetail({
                     data: {
                         userReference: { connect: { id: user.id } },
@@ -124,15 +126,16 @@ class PorfolioController extends AbstractController_1.default {
                     },
                     filter: { id: detailFound.id }
                 });
+                yield instance.CreateHistory({ des: `Creación de descripción profesional por: ${user.name} ${user.lastname}`, name: `user`, userId: user.id });
             }
             else {
-                console.log(1, true);
                 yield instance.createUserDetail({
                     data: {
                         description: description ? description : undefined,
                         userReference: { connect: { id: user.id } }
                     }
                 });
+                yield instance.CreateHistory({ des: `Agregación de descripción profesional por: ${user.name} ${user.lastname}`, name: `user`, userId: user.id });
             }
             req.flash(`succ`, `Descripción agregada`);
             return res.redirect(`/porfolio`);

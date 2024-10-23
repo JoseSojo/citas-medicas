@@ -7,6 +7,7 @@ export default class SpecialitySubModel extends AbstractModel {
         super();
     }
 
+    
     public async createSpeciality({ data }: { data: Prisma.SpecialityCreateInput }) {
         const prisma = new PrismaClient();
         const result = await prisma.speciality.create({ data });

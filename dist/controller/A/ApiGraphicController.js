@@ -28,18 +28,15 @@ class ApiGraphicController extends AbstractController_1.default {
             const service = new GraphicService_1.default();
             if (userId && role) {
                 const userFound = yield userModel.findUser({ filter: { id: userId } });
-                console.log(req.query);
                 if (role === "DOCTOR") {
                     if (type === "spaceCiteQuoteYear") {
                         const { year } = req.query;
                         const { label, data } = yield service.YearGraphicQuote({ year, id: userId, ObjectName: `DOCTOR` });
-                        console.log(label, data);
                         return res.status(200).json({ label, data });
                     }
                     else if (type === "spaceCiteQuoteMonth") {
                         const { month } = req.query;
                         const { label, data } = yield service.MonthGraphicQuote({ month, id: userId });
-                        console.log(label, data);
                         return res.status(200).json({ label, data });
                     }
                     const { data, label } = yield service.PieQuoteDoctorStatusChart({ id: userId });

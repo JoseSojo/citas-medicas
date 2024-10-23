@@ -8,3 +8,6 @@ uploads/*.jpeg
 uploads/*.gif
 prisma/*.db
 dist/*.js
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.png

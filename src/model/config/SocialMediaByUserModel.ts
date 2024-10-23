@@ -6,6 +6,7 @@ export default class SocialMediaByUserModel extends AbstractModel {
         super();
     }
 
+    
     public async createOrUpdate({ data }: { data: {link:string, username:string, socialId:string, userId:string} }) {
         const prisma = new PrismaClient();
         const socialFound = await prisma.socialMediaByUser.findFirst({ 

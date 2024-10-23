@@ -212,6 +212,7 @@ class PatientQuoteController extends AbstractController_1.default {
                         message,
                     } });
                 yield instance.PushStatictics({ objectId: ``, objectName: `CITAS` });
+                yield instance.CreateHistory({ des: `Creación de cita por el paciente ${user.name} ${user.lastname} para el doctor ${create.doctorReference.name} ${create.doctorReference.lastname}`, name: `patient.quote`, userId: user.id });
                 req.flash(`succ`, `Cita agendada, esperando aprobación`);
                 return res.redirect(`/quote/${create.id}`);
             }

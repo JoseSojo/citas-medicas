@@ -7,6 +7,7 @@ export default class AdressSubModel extends AbstractModel {
         super();
     }
 
+
     public async createAdress({ data }: { data: Prisma.AddressCreateInput }) {
         const prisma = new PrismaClient();
         return prisma.address.create({ data });

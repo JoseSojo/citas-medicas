@@ -7,6 +7,7 @@ import QuotesSubModel from "../../../model/quotes/QuotesModel";
 import ScheduleSubModel from "../../../model/schedule/ScheduleModel";
 import { PrismaClient } from "@prisma/client";
 import UniversityModel from "../../../model/config/UniversityModel";
+import SpecialitySubModel from "../../../model/config/SpecialityModel";
 
 export default class DoctorControlelr extends AbstractController {
 
@@ -78,13 +79,18 @@ export default class DoctorControlelr extends AbstractController {
         return res.render(`s/doctor/dashboard.hbs`, dataReturn);
     }
 
-
     public async AddSpeciality(req: Request, res: Response) {
         const { espAdd, universityAdd, date } = req.body as { espAdd:string, universityAdd:string, date:string };
         const id = req.params.id;
+        const user = req.user as any;
         const userModel = new UserModel();
+        const specialityModel = new SpecialitySubModel();
   
+        const speciality = await specialityModel.findSpeciality({ filter:{id:espAdd} });
+        const userInt = await userModel.findUser({ filter:{id} });
+
         await userModel.connectSpeciality({ user:id, date, speciality:espAdd,university:universityAdd });
+        await userModel.CreateHistory({ des:`Agregada especialidad ${speciality?.name} al doctor ${userInt?.name} ${userInt?.lastname}`, name:`user`, userId:user.id });
 
         req.flash(`succ`, `Especialidad agregada.`);
         return res.redirect(`/user/${id}`);

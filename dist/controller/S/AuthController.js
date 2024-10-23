@@ -65,7 +65,6 @@ class AuthController extends AbstractController_1.default {
                     const create = yield instance.createUser({ data });
                 }
                 catch (error) {
-                    console.log(error);
                     req.flash(`Error`, `Error temporal`);
                     return res.redirect(`/login/`);
                 }
@@ -73,7 +72,6 @@ class AuthController extends AbstractController_1.default {
                 return res.redirect(`/login/`);
             }
             catch (error) {
-                console.log(error);
                 req.flash(`Error`, `Error temporal`);
                 return res.redirect(`/login/`);
             }

@@ -44,6 +44,7 @@ class DoctorQuoteControlelr extends AbstractController_1.default {
                         const { starDoctor, descriptionDoctor, currentDetail } = req.body;
                         const detailPromise = detail.updateQuotesDetail({ data: { descriptionDoctor, starDoctor: starDoctor ? Number(starDoctor) : 1 }, filter: { id: currentDetail } });
                         const instancePromise = instance.updateQuotes({ data: { status }, filter: { id } });
+                        yield instance.CreateHistory({ des: `Doctor califica a paciente`, name: `user`, userId: user.id });
                         yield instance.PushStatictics({ objectId: user.id, objectName: `DOCTOR` });
                         yield detailPromise;
                         yield instancePromise;
@@ -52,6 +53,7 @@ class DoctorQuoteControlelr extends AbstractController_1.default {
                         const { starPatient, descriptionPatient, currentDetail } = req.body;
                         const detailPromise = detail.updateQuotesDetail({ data: { descriptionPatient, starPatient: starPatient ? Number(starPatient) : 1 }, filter: { id: currentDetail } });
                         const staticticPromise = instance.PushStatictics({ objectId: user.id, objectName: `PACIENTE` });
+                        yield instance.CreateHistory({ des: `Paciente califica a doctor`, name: `user`, userId: user.id });
                         yield detailPromise;
                         yield staticticPromise;
                     }
@@ -59,6 +61,7 @@ class DoctorQuoteControlelr extends AbstractController_1.default {
                 else {
                     if (user.role === `DOCTOR`) {
                         const instancePromise = instance.updateQuotes({ data: { status }, filter: { id } });
+                        yield instance.CreateHistory({ des: `Cambio de estado de cita`, name: `user`, userId: user.id });
                         yield instancePromise;
                     }
                 }

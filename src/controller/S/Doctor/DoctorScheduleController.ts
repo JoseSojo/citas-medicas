@@ -14,7 +14,6 @@ export default class DoctorScheduleControlelr extends AbstractController {
         super();
     }
 
-
     public async DoctorSchedule(req: Request, res: Response) {
         const noti = new NotificationModel();
         const instance = new ScheduleSubModel();
@@ -142,7 +141,8 @@ export default class DoctorScheduleControlelr extends AbstractController {
         const user = req.user as any;
 
         try {
-            await instance.singPrimary({ id, user:user.id });
+            const sing = await instance.singPrimary({ id, user:user.id });
+            await instance.CreateHistory({ des:`Horario a principal ${sing.description} del doctor: ${user.name} ${user.lastname}`, name:`user`, userId:user.id });
             return res.redirect(`/doctor/schedule`);
         } catch (error) {
             return res.redirect(`/doctor/schedule`);
@@ -155,6 +155,7 @@ export default class DoctorScheduleControlelr extends AbstractController {
         const id = req.params.id;
         const { start_payload, time_start, end_payload, time_end } = req.body as { start_payload:string, time_start:string, end_payload:string, time_end:string };
         const instance = new ScheduleDetailModel();
+        const user = req.user as any;
 
         const result = await instance.updateScheduleTime({
             filter: { id },
@@ -165,6 +166,8 @@ export default class DoctorScheduleControlelr extends AbstractController {
                 time_end: time_end ? time_end : ``,
             }
         });
+
+        await instance.CreateHistory({ des:`Actualización de horario del doctor: ${user.name} ${user.lastname}`, name:`user`, userId:id });
 
         return res.redirect(`/doctor/schedule/`);
     }
@@ -180,5 +183,4 @@ export default class DoctorScheduleControlelr extends AbstractController {
 
         return this.router;
     }
-
 } 

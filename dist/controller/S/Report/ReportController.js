@@ -192,8 +192,6 @@ class ReportController extends AbstractController_1.default {
                 const rows = [];
                 do {
                     const result = yield quoteModel.findManyQuotes({ filter: { AND: [{ isDelete: false }, { doctorId }] }, skip, take });
-                    console.clear();
-                    console.log(result);
                     result.forEach((item, i) => {
                         rows.push([
                             (i + 1).toString(),
@@ -285,7 +283,6 @@ class ReportController extends AbstractController_1.default {
                     count
                 });
             }
-            console.log(pdf);
             return res.render(`s/report/doctor.hbs`, {
                 addressList: yield addressPromise,
                 doctorList: yield doctorPromise,
@@ -317,8 +314,6 @@ class ReportController extends AbstractController_1.default {
                 const rows = [];
                 do {
                     const result = yield quoteModel.findManyQuotes({ filter: { AND: [{ isDelete: false }, { patientId }] }, skip, take });
-                    console.clear();
-                    console.log(result);
                     result.forEach((item, i) => {
                         rows.push([
                             (i + 1).toString(),
@@ -383,8 +378,6 @@ class ReportController extends AbstractController_1.default {
                 const rows = [];
                 do {
                     const result = yield userModel.findForReport({ filter: { AND: [{ isDelete: false }, { role: `PACIENTE` }] }, skip, take });
-                    console.clear();
-                    console.log(count, result);
                     result.forEach((item, i) => {
                         var _a;
                         rows.push([
@@ -406,7 +399,6 @@ class ReportController extends AbstractController_1.default {
                     count
                 });
             }
-            console.log(yield pdf);
             return res.render(`s/report/patient.hbs`, {
                 addressList: yield addressPromise,
                 patientList: yield patientPromise,

@@ -21,19 +21,14 @@ export default class ApiGraphicController extends AbstractController {
 
         if(userId && role) {
             const userFound = await userModel.findUser({ filter:{ id:userId } });
-
-            console.log(req.query);
-
             if(role === "DOCTOR") {
                 if(type === "spaceCiteQuoteYear") {
                     const {year} = req.query;
                     const {label,data} = await service.YearGraphicQuote({year,id:userId,ObjectName:`DOCTOR`});
-                    console.log(label,data);
                     return res.status(200).json({label,data});
                 } else if(type === "spaceCiteQuoteMonth") {
                     const {month} = req.query;
                     const {label,data} = await service.MonthGraphicQuote({month,id:userId});
-                    console.log(label,data);
                     return res.status(200).json({label,data});
                 }
                 

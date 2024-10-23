@@ -108,12 +108,13 @@ export default class SpecialityController extends AbstractController {
         try {
             const instance = new SpecialityModel();
             const { name, description } = req.body;
+            const user = req.user as any;
 
             const create = await instance.createSpeciality({
                 data: { name, description }
             });    
 
-            
+            await instance.CreateHistory({ des:`Creación de especialidad Nombre:${name}, Descripción:${description}`, name:`speciality`, userId:user.id });            
 
             req.flash(`succ`, `Especialidad creada`);
             return res.redirect(`/speciality/`);

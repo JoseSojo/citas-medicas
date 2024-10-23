@@ -9,7 +9,7 @@ export default class QuotesSubModel extends AbstractModel {
 
     public async createQuotes({ data }: { data: Prisma.QuotesCreateInput }) {
         const prisma = new PrismaClient();
-        return prisma.quotes.create({ data });
+        return prisma.quotes.create({ data, include:{doctorReference:true} });
     }
 
     public async findQuotes({ filter }: { filter: Prisma.QuotesWhereInput }) {

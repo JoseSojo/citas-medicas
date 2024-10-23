@@ -25,7 +25,6 @@ class DashboardController extends AbstractController_1.default {
     RenderDashboard(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = req.user;
-            console.log(user);
             if (user.role === "DOCTOR")
                 return res.redirect(`/doctor`);
             if (user.role === "PACIENTE")

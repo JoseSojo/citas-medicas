@@ -115,12 +115,14 @@ class AdressController extends AbstractController_1.default {
                 const instance = new SocialMediaModel_1.default();
                 const { icoUrl, name } = req.body;
                 const id = req.params.id;
+                const user = req.user;
                 const update = yield instance.updateSocialMedia({
                     data: {
                         icoUrl, name
                     },
                     filter: { id }
                 });
+                yield instance.CreateHistory({ des: `Actualización de medio social, ${update.name}`, name: `socialmedia`, userId: user.id });
                 req.flash(`succ`, `Red social creada`);
                 return res.redirect(`/social/`);
             }

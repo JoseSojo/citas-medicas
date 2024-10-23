@@ -213,8 +213,6 @@ class ReportController extends AbstractController {
             const rows: string[][] = [];
             do {
                 const result = await quoteModel.findManyQuotes({ filter:{AND:[{isDelete:false},{doctorId}]}, skip, take });
-                console.clear();
-                console.log(result);
 
                 result.forEach((item,i)=>{
                     rows.push([
@@ -315,8 +313,6 @@ class ReportController extends AbstractController {
             });
         }
 
-        console.log(pdf);
-
         return res.render(`s/report/doctor.hbs`, {
             addressList: await addressPromise,
             doctorList: await doctorPromise,
@@ -356,8 +352,6 @@ class ReportController extends AbstractController {
             const rows: string[][] = [];
             do {
                 const result = await quoteModel.findManyQuotes({ filter:{AND:[{isDelete:false},{patientId}]}, skip, take });
-                console.clear();
-                console.log(result);
 
                 result.forEach((item,i)=>{
                     rows.push([
@@ -430,9 +424,6 @@ class ReportController extends AbstractController {
             do {
                 const result = await userModel.findForReport({ filter:{AND:[{isDelete:false},{role:`PACIENTE`}]}, skip, take });
                 
-                console.clear();
-                console.log(count, result);
-
                 result.forEach((item,i)=>{
                     rows.push([
                         (i+1).toString(),
@@ -455,8 +446,6 @@ class ReportController extends AbstractController {
                 count
             });
         }
-
-        console.log(await pdf);
 
         return res.render(`s/report/patient.hbs`, {
             addressList: await addressPromise,

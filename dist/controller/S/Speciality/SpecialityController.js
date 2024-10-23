@@ -102,9 +102,11 @@ class SpecialityController extends AbstractController_1.default {
             try {
                 const instance = new SpecialityModel_1.default();
                 const { name, description } = req.body;
+                const user = req.user;
                 const create = yield instance.createSpeciality({
                     data: { name, description }
                 });
+                yield instance.CreateHistory({ des: `Creación de especialidad Nombre:${name}, Descripción:${description}`, name: `speciality`, userId: user.id });
                 req.flash(`succ`, `Especialidad creada`);
                 return res.redirect(`/speciality/`);
             }

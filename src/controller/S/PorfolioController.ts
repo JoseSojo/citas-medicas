@@ -62,6 +62,7 @@ export default class PorfolioController extends AbstractController {
                     } }
                 }
             });
+            await instance.CreateHistory({ des:`Agregación de foto profesional por: ${user.name} ${user.lastname}`, name:`user`, userId:user.id })
         }
         else {
             await instance.createUserDetail({
@@ -84,9 +85,11 @@ export default class PorfolioController extends AbstractController {
         const instance = new UserDetailSubModel();
         const userInstance = new UserModel();
         const userSocialMedia = new SocialMediaByUserModel();
+        const socialMediaModel = new SocialMediaSubModel();
         const user = req.user as any;
-        const { link,username,socialMediaId,detailId } = req.body;
+        const { link,username,socialMediaId } = req.body;
 
+        const socialMedia = await socialMediaModel.findSocialMedia({ filter:{ id:socialMediaId } });
         const socialUserFound = await userSocialMedia.findTest({ socialId:socialMediaId,userId:user.id });
 
         if(socialUserFound) {
@@ -105,6 +108,8 @@ export default class PorfolioController extends AbstractController {
             });
         }
 
+        await instance.CreateHistory({ des:`Agregación de foto red social ${socialMedia?.name} por: ${user.name} ${user.lastname}`, name:`user`, userId:user.id })
+
         req.flash(`succ`, `Operación exitosa`);
         return res.redirect(`/porfolio`);
     }
@@ -115,27 +120,28 @@ export default class PorfolioController extends AbstractController {
         const user = req.user as any;
 
         const detailFound = await instance.findUserDetail({ filter:{ userId: user.id } });
-        console.log(0, true, detailFound);
-
 
         if (detailFound) {
-            console.log(1, false);
             await instance.updateUserDetail({
                 data: {
                     userReference: { connect:{ id:user.id } },
                     description: description ? description : undefined 
                 },
                 filter: { id:detailFound.id }
-            })
+            });
+            await instance.CreateHistory({ des:`Creación de descripción profesional por: ${user.name} ${user.lastname}`, name:`user`, userId:user.id })
+
         } else {
-            console.log(1, true);
             await instance.createUserDetail({
                 data: {
                     description: description ? description : undefined,
                     userReference: { connect:{id:user.id} }
                 }
             });
+            await instance.CreateHistory({ des:`Agregación de descripción profesional por: ${user.name} ${user.lastname}`, name:`user`, userId:user.id })
+
         }
+
 
         req.flash(`succ`, `Descripción agregada`);
         return res.redirect(`/porfolio`);

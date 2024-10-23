@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-lg-6 mx-auto">
                 <div class="card shadow">
-                    <form action="/" method="GET" class="card-body">
-                        <input type="text" name="param" placeholder="Doctor" class="form-control" />
+                    <form action="{{action}}" method="GET" class="card-body">
+                        <input type="text" name="param" placeholder="Buscar" class="form-control" />
                         <button type="submit" class="mt-2 btn btn-primary">
                             <i class="bi bi-search"> Buscar</i>
                         </button>
@@ -20,50 +20,57 @@
 
     {{#if speciality}}
         <main class="container-fluid mt-3">
-            <div class="row">
-                <h4>Resultados: {{count}}</h4>
-            </div>
+                <div class="row">
+                    <h4 class="col-12">Resultados: {{count}}</h4>
+                
 
-            <table class="table table-sm table-bordered">
-                <tr>
-                    <td>Nombre</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {{#each list}}
-                    <tr>
-                        <td>{{this.name}}</td>
-                        <td>{{this.description}}</td>
-                        <td>
-                            <a href="/?specialityId={{this.id}}" class="btn btn-primary">ver doctores</a>
-                        </td>
-                    </tr>
-                {{/each}}
-            </table>
+                    <div class="card col-12 col-lg-8 m-auto shadow">
+                        <div class="card-body">
+                            <table class="table table-sm table-bordered">
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td></td>
+                                </tr>
+                                {{#each list}}
+                                    <tr>
+                                        <td>{{this.description}}</td>
+                                        <td>
+                                            <a href="/?addressId={{this.id}}" class="btn btn-primary">ver doctores</a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-        </main>
+            </main>
     {{else}}
         {{#if address}}
             <main class="container-fluid mt-3">
                 <div class="row">
-                    <h4>Resultados: {{count}}</h4>
-                </div>
+                    <h4 class="col-12">Resultados: {{count}}</h4>
+                
 
-                <table class="table table-sm table-bordered">
-                    <tr>
-                        <td>Nombre</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    {{#each list}}
-                        <tr>
-                            <td>{{this.description}}</td>
-                            <td>
-                                <a href="/?addressId={{this.id}}" class="btn btn-primary">ver doctores</a>
-                            </td>
-                        </tr>
-                    {{/each}}
-                </table>
+                    <div class="card col-12 col-lg-8 m-auto shadow">
+                        <div class="card-body">
+                            <table class="table table-sm table-bordered">
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td></td>
+                                </tr>
+                                {{#each list}}
+                                    <tr>
+                                        <td>{{this.description}}</td>
+                                        <td>
+                                            <a href="/?addressId={{this.id}}" class="btn btn-primary">ver doctores</a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
             </main>
         {{else}}

@@ -36,26 +36,28 @@ export default class DoctorQuoteControlelr extends AbstractController {
                     const {starDoctor,descriptionDoctor,currentDetail} = req.body;
                     const detailPromise = detail.updateQuotesDetail({ data:{ descriptionDoctor,starDoctor:starDoctor ? Number(starDoctor) : 1 }, filter:{ id:currentDetail } })
                     const instancePromise = instance.updateQuotes({ data:{ status }, filter:{ id } });
+                    await instance.CreateHistory({ des:`Doctor califica a paciente`, name:`user`, userId:user.id });
                     await instance.PushStatictics({ objectId:user.id,objectName:`DOCTOR` });
                     await detailPromise;
                     await instancePromise;
-
+                   
                 }
                 if(user.role === `PACIENTE`) {
                     const {starPatient,descriptionPatient,currentDetail} = req.body;
                     const detailPromise = detail.updateQuotesDetail({ data:{ descriptionPatient,starPatient:starPatient ? Number(starPatient) : 1 }, filter:{ id:currentDetail } })
                     const staticticPromise = instance.PushStatictics({ objectId:user.id,objectName:`PACIENTE` });
+                    await instance.CreateHistory({ des:`Paciente califica a doctor`, name:`user`, userId:user.id });
                     await detailPromise;
                     await staticticPromise;
                 }
             } else {
                 if(user.role === `DOCTOR`) {
                     const instancePromise = instance.updateQuotes({ data:{ status }, filter:{ id } });
+                    await instance.CreateHistory({ des:`Cambio de estado de cita`, name:`user`, userId:user.id });
                     await instancePromise;
 
                 }
             }
-
         
             req.flash(`Cita ${status}`);
             return res.redirect(`/quote/${id}`);
@@ -64,7 +66,6 @@ export default class DoctorQuoteControlelr extends AbstractController {
             return res.redirect(`/doctor`);
         }
     }
-
 
     public loadRoutes () {
         this.router.get(`/doctor/quote`, OnSession, OnDoctor, this.DoctorQuote);

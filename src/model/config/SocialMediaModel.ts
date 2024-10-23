@@ -6,6 +6,7 @@ export default class SocialMediaSubModel extends AbstractModel {
     constructor () {
         super();
     }
+    
 
     public async createSocialMedia({ data }: { data: Prisma.SocialMediaCreateInput }) {
         const prisma = new PrismaClient();

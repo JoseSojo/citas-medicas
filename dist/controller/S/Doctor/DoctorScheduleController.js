@@ -131,7 +131,8 @@ class DoctorScheduleControlelr extends AbstractController_1.default {
             const instance = new ScheduleModel_1.default();
             const user = req.user;
             try {
-                yield instance.singPrimary({ id, user: user.id });
+                const sing = yield instance.singPrimary({ id, user: user.id });
+                yield instance.CreateHistory({ des: `Horario a principal ${sing.description} del doctor: ${user.name} ${user.lastname}`, name: `user`, userId: user.id });
                 return res.redirect(`/doctor/schedule`);
             }
             catch (error) {
@@ -145,6 +146,7 @@ class DoctorScheduleControlelr extends AbstractController_1.default {
             const id = req.params.id;
             const { start_payload, time_start, end_payload, time_end } = req.body;
             const instance = new ScheduleDetailModel_1.default();
+            const user = req.user;
             const result = yield instance.updateScheduleTime({
                 filter: { id },
                 data: {
@@ -154,6 +156,7 @@ class DoctorScheduleControlelr extends AbstractController_1.default {
                     time_end: time_end ? time_end : ``,
                 }
             });
+            yield instance.CreateHistory({ des: `Actualización de horario del doctor: ${user.name} ${user.lastname}`, name: `user`, userId: id });
             return res.redirect(`/doctor/schedule/`);
         });
     }

@@ -122,13 +122,16 @@ export default class AdressController extends AbstractController {
             const instance = new SocialMediaModel()
             const { icoUrl, name } = req.body;
             const id = req.params.id as string;
+            const user = req.user as any;
 
             const update = await instance.updateSocialMedia({
                 data: {
                     icoUrl,name
                 },
                 filter: { id }
-            });        
+            });  
+            
+            await instance.CreateHistory({ des:`Actualización de medio social, ${update.name}`,name:`socialmedia`,userId:user.id });
 
             req.flash(`succ`, `Red social creada`);
             return res.redirect(`/social/`);

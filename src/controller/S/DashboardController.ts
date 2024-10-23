@@ -17,7 +17,6 @@ export default class DashboardController extends AbstractController {
     public async RenderDashboard(req:Request,res:Response) {
         const user = req.user as any;
 
-        console.log(user);
         if(user.role === "DOCTOR") return res.redirect(`/doctor`);
         if(user.role === "PACIENTE") return res.redirect(`/patient`);
 

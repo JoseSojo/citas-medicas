@@ -64,7 +64,6 @@ export default class AuthController extends AbstractController {
                 const create = await instance.createUser({data}); 
 
             } catch (error) {
-                console.log(error);
                 req.flash(`Error`, `Error temporal`);
                 return res.redirect(`/login/`); 
             }   
@@ -72,7 +71,6 @@ export default class AuthController extends AbstractController {
             req.flash(`succ`, `Usuario creado`);
             return res.redirect(`/login/`);
         } catch (error) {
-            console.log(error);
             req.flash(`Error`, `Error temporal`);
             return res.redirect(`/login/`);            
         }
