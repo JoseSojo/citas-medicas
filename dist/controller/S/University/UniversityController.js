@@ -91,7 +91,12 @@ class UniversityController extends AbstractController_1.default {
             const dataReturn = {
                 data: {},
                 form: {},
-                notifications: yield noti.GetNowNotification({ id: user.id })
+                notifications: yield noti.GetNowNotification({ id: user.id }),
+                delete: {
+                    id: id,
+                    url: `/university/${id}/delete`,
+                    name: `Eliminar universidad`
+                }
             };
             dataReturn.data = yield data;
             dataReturn.form = (0, CreateUniversityForm_1.UpdateUniversityFrom)(dataReturn.data.id);
@@ -151,7 +156,9 @@ class UniversityController extends AbstractController_1.default {
             try {
                 const instance = new UniversityModel_1.default();
                 const id = req.params.id;
+                const user = req.user;
                 const currentDelete = yield instance.deleteUniversity({ id });
+                yield instance.CreateHistory({ des: `Eliminación de universidad`, name: `university`, userId: user.id, id });
                 req.flash(`succ`, `Eliminado exitosamente.`);
                 return res.redirect(`/university/`);
             }

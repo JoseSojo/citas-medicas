@@ -98,7 +98,12 @@ export default class UniversityController extends AbstractController {
         const dataReturn = {
             data: {} as any,
             form: {} as any,
-            notifications: await noti.GetNowNotification({ id:user.id })
+            notifications: await noti.GetNowNotification({ id:user.id }),
+            delete: {
+                id: id,
+                url: `/university/${id}/delete`,
+                name: `Eliminar universidad`
+            }
         }
 
         dataReturn.data = await data;
@@ -160,9 +165,11 @@ export default class UniversityController extends AbstractController {
         try {
             const instance = new UniversityModel();
             const id = req.params.id as string;
+            const user = req.user as any;
 
             const currentDelete = await instance.deleteUniversity({ id });        
 
+            await instance.CreateHistory({ des:`Eliminación de universidad`, name:`university`,userId:user.id, id });
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/university/`);
         } catch (error) {

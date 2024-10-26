@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import Kernel from "../Kernel";
 import { MONTH_STRUCT } from "../types/app";
@@ -231,6 +231,33 @@ class AbstractModel extends Kernel {
                 userReference: {
                     connect: { id:data.userId }
                 }
+            }
+        });
+    }
+
+    // findMany one register
+    public async findManyUserHistory({filter,skip,take}: {filter:Prisma.HistoryWhereInput,skip:number,take:number}) {
+        console.log(true, filter);
+        const prisma = new PrismaClient();
+        return prisma.history.findMany({
+            where: {
+                ...filter,
+            },
+            orderBy: {createAt:"asc"},
+            include: {
+                userReference: true
+            },
+            skip,
+            take
+        });
+    }
+
+    public async findManyCount({filter}: {filter:Prisma.HistoryWhereInput}) {
+        console.log(true, filter);
+        const prisma = new PrismaClient();
+        return prisma.history.count({
+            where: {
+                ...filter,
             }
         });
     }

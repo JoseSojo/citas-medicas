@@ -30,6 +30,7 @@ class NotificationController extends AbstractController_1.default {
             const skip = req.query.skip ? Number(req.query.skip) : 0;
             const filter = [];
             filter.push({ isDelete: false });
+            filter.push({ toRole: user.role });
             filter.push({ fromId: user.id });
             filter.push({ toId: user.id });
             if (param) {
@@ -104,6 +105,9 @@ class NotificationController extends AbstractController_1.default {
                     return res.redirect(`/notification/`);
                 }
                 req.flash(`succ`, `Notificado.`);
+                if (toRole) {
+                    return res.redirect(`/`);
+                }
                 return res.redirect(`/user/${toId}`);
             }
             catch (error) {
@@ -117,7 +121,9 @@ class NotificationController extends AbstractController_1.default {
             try {
                 const instance = new NotificationModel_1.default();
                 const id = req.params.id;
+                const user = req.user;
                 yield instance.deleteNotification({ id });
+                yield instance.CreateHistory({ des: `Eliminación de usuario`, name: `user`, userId: user.id, id });
                 req.flash(`succ`, `Eliminado exitosamente.`);
                 return res.redirect(`/notification/`);
             }
@@ -162,6 +168,7 @@ class NotificationController extends AbstractController_1.default {
     loadRoutes() {
         this.router.get(`/notification/`, auth_1.OnSession, auth_1.OnAdminORDoctor, this.RenderList);
         this.router.get(`/notification/:id`, auth_1.OnSession, auth_1.OnAdminORDoctor, this.RenderUnique);
+        this.router.post(`/notification/create`, auth_1.OnSession, this.CreateLogic);
         this.router.post(`/notification/:id/create`, auth_1.OnSession, this.CreateLogic);
         this.router.post(`/notification/:id/read`, auth_1.OnSession, this.ReadNotification);
         this.router.post(`/notification/:id/delete`, auth_1.OnSession, this.DeleteLogic);

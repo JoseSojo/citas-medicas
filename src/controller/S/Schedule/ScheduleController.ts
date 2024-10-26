@@ -118,7 +118,12 @@ export default class UserController extends AbstractController {
         const dataReturn = {
             data: [] as any,
             form: {} as any,
-            notifications: await noti.GetNowNotification({ id:user.id })
+            notifications: await noti.GetNowNotification({ id:user.id }),
+            delete: {
+                id: id,
+                url: `/schedule/${id}/delete`,
+                name: `Eliminar especialidad`
+            }
         }
 
         dataReturn.data = await data;

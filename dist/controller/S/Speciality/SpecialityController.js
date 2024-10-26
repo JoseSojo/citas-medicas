@@ -90,7 +90,12 @@ class SpecialityController extends AbstractController_1.default {
             const dataReturn = {
                 data: {},
                 form: {},
-                notifications: yield noti.GetNowNotification({ id: user.id })
+                notifications: yield noti.GetNowNotification({ id: user.id }),
+                delete: {
+                    id: id,
+                    url: `/speciality/${id}/delete`,
+                    name: `Eliminar especialidad`
+                }
             };
             dataReturn.data = yield data;
             dataReturn.form = (0, CreateSpecialityForm_1.UpdateSpecialityFrom)(dataReturn.data.id);
@@ -142,7 +147,9 @@ class SpecialityController extends AbstractController_1.default {
             try {
                 const instance = new SpecialityModel_1.default();
                 const id = req.params.id;
+                const user = req.user;
                 const currentDelete = yield instance.deleteSpeciality({ id });
+                yield instance.CreateHistory({ des: `Eliminación de usuario`, name: `speciality`, userId: user.id, id });
                 req.flash(`succ`, `Eliminado exitosamente.`);
                 return res.redirect(`/speciality/`);
             }

@@ -235,5 +235,30 @@ class AbstractModel extends Kernel_1.default {
             });
         });
     }
+    // findMany one register
+    findManyUserHistory(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ filter, skip, take }) {
+            console.log(true, filter);
+            const prisma = new client_1.PrismaClient();
+            return prisma.history.findMany({
+                where: Object.assign({}, filter),
+                orderBy: { createAt: "asc" },
+                include: {
+                    userReference: true
+                },
+                skip,
+                take
+            });
+        });
+    }
+    findManyCount(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ filter }) {
+            console.log(true, filter);
+            const prisma = new client_1.PrismaClient();
+            return prisma.history.count({
+                where: Object.assign({}, filter)
+            });
+        });
+    }
 }
 exports.default = AbstractModel;

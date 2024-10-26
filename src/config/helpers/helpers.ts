@@ -1,6 +1,22 @@
+import { History } from "@prisma/client";
 import { STATUS } from "../../types/app";
 
 const Helpers = {
+    isHistoryDelete(history:History, options: any) {
+        console.log(history);
+        if(history.description.includes(`liminaci`)) {
+            return `
+                <form method="POST" action="/history/restore">
+                    <input type="hidden" value="${history.objectName}" name="name" />
+                    <input type="hidden" value="${history.objectId}" name="id" />
+                    <button type="submit" class="btn btn-sm btn-warning">
+                        <i class="bi bi-warning" style="font-size:12px;font-weight:700"> recuperar</i>
+                    </button>
+                </form>
+            `;
+        }
+    },
+
     isAdmin (user: any, options: any) {
         return user.role === `ADMIN` ? options.fn(this) : null;
     },

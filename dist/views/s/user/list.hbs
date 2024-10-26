@@ -9,19 +9,27 @@
         </div>
         <form class="row">
             <select class="form-control col" name="addressId">
-                <option value="{{filter.addressId}}" selected>{{filter.address.description}}</option>
+                {{#if filter.addressId}}
+                    <option value="{{filter.addressId}}" selected>{{filter.address.description}}</option>
+                {{else}}
+                    <option value="" selected>Dirección</option>
+                {{/if}}
                 {{#each address}}
                     <option value="{{this.id}}">{{this.description}}</option>
                 {{/each}}
                 <label>Direcciones</label>
             </select>
             <select class="form-control col" name="role">
-                <option value="{{filter.value}}" selected>{{filter.role}}</option>
+                {{#if filter.role}}
+                    <option value="{{filter.value}}" selected>{{filter.role}}</option>
+                {{else}}
+                    <option value="" selected>Permisos</option>
+                {{/if}}
                 {{#each roleList}}
                     <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
-            <input type="text" class="form-control col" name="param" value="{{filter.param}}" />
+            <input type="text" class="form-control col" name="param" placeholder="Buscar" value="{{filter.param}}" />
             <button type="submit" class="btn btn-primary col-2">
                 <i class="bi bi-search"></i>
             </button>
@@ -64,9 +72,6 @@
                                     {{/isValid}}                                    
                                     <a href="/user/{{this.id}}" class="btn btn-primary btn-sm mx-1">
                                         <i class="bi bi-eye-fill"></i>
-                                    </a>
-                                    <a href="/user/{{this.id}}" class="btn btn-danger btn-sm mx-1">
-                                        <i class="bi bi-trash-fill"></i>
                                     </a>
                                 {{/isAdmin}}
                             </td>

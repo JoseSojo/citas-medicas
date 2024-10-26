@@ -137,7 +137,12 @@ class UserController extends AbstractController_1.default {
                 year: yield instance.getYears(),
                 speciality: [],
                 university: [],
-                notifications: yield noti.GetNowNotification({ id: user.id })
+                notifications: yield noti.GetNowNotification({ id: user.id }),
+                delete: {
+                    id: id,
+                    url: `/user/${id}/delete`,
+                    name: `Eliminar usuario`
+                }
             };
             dataReturn.data = yield data;
             dataReturn.form = (0, CreateUserForm_1.UpdateUserFrom)(dataReturn.data.id);
@@ -275,7 +280,7 @@ class UserController extends AbstractController_1.default {
                 const user = req.user;
                 const id = req.params.id;
                 yield instance.deleteUser({ id });
-                yield instance.CreateHistory({ des: `Eliminación de usuario`, name: `user`, userId: user.id });
+                yield instance.CreateHistory({ des: `Eliminación de usuario`, name: `user`, userId: user.id, id });
                 req.flash(`succ`, `Eliminado exitosamente.`);
                 return res.redirect(`/user/`);
             }

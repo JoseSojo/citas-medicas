@@ -96,7 +96,12 @@ export default class SpecialityController extends AbstractController {
         const dataReturn = {
             data: {} as any,
             form: {} as any,
-            notifications: await noti.GetNowNotification({ id:user.id })
+            notifications: await noti.GetNowNotification({ id:user.id }),
+            delete: {
+                id: id,
+                url: `/speciality/${id}/delete`,
+                name: `Eliminar especialidad`
+            }
         }
 
         dataReturn.data = await data;
@@ -149,9 +154,11 @@ export default class SpecialityController extends AbstractController {
         try {
             const instance = new SpecialityModel();
             const id = req.params.id as string;
+            const user = req.user as any;
 
             const currentDelete = await instance.deleteSpeciality({ id });        
 
+            await instance.CreateHistory({ des:`Eliminación de usuario`, name:`speciality`,userId:user.id, id });
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/speciality/`);
         } catch (error) {

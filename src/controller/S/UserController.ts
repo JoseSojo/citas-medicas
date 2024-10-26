@@ -143,7 +143,12 @@ export default class UserController extends AbstractController {
             year: await instance.getYears(),
             speciality: [] as any,
             university: [] as any,
-            notifications: await noti.GetNowNotification({ id:user.id })
+            notifications: await noti.GetNowNotification({ id:user.id }),
+            delete: {
+                id: id,
+                url: `/user/${id}/delete`,
+                name: `Eliminar usuario`
+            }
         }
 
         dataReturn.data = await data;
@@ -302,7 +307,7 @@ export default class UserController extends AbstractController {
 
             await instance.deleteUser({ id });        
 
-            await instance.CreateHistory({ des:`Eliminación de usuario`, name:`user`,userId:user.id });
+            await instance.CreateHistory({ des:`Eliminación de usuario`, name:`user`,userId:user.id, id });
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/user/`);
         } catch (error) {

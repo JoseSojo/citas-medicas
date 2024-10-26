@@ -32,6 +32,7 @@ import PorfolioController from "./controller/S/PorfolioController";
 import ReportController from "./controller/S/Report/ReportController";
 import ApiGraphicController from "./controller/A/ApiGraphicController";
 import UniversityController from "./controller/S/University/UniversityController";
+import HistoryController from "./controller/S/HistoryController";
 
 
 class App extends Kernel {
@@ -121,6 +122,7 @@ class App extends Kernel {
         const reportInstance = new ReportController();
         const universityInstance = new UniversityController();
         const api = new ApiGraphicController();
+        const history = new HistoryController();
 
         app.use(publicInstance.loadRoutes());           // rutas públicas
         app.use(dashboardInstance.loadRoutes());        // rutas panel de control
@@ -142,6 +144,8 @@ class App extends Kernel {
         app.use(reportInstance.LoadRouters());             // rutas paciente   -   Cita
         app.use(universityInstance.loadRoutes());             // rutas paciente   -   Cita
         app.use(porfolioInstance.loadRoutes());         // rutas portafolio
+        app.use(history.loadRoutes());         // rutas portafolio
+
 
         app.use(api.loadRoutes());
 

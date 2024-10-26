@@ -112,7 +112,12 @@ class UserController extends AbstractController_1.default {
             const dataReturn = {
                 data: [],
                 form: {},
-                notifications: yield noti.GetNowNotification({ id: user.id })
+                notifications: yield noti.GetNowNotification({ id: user.id }),
+                delete: {
+                    id: id,
+                    url: `/schedule/${id}/delete`,
+                    name: `Eliminar especialidad`
+                }
             };
             dataReturn.data = yield data;
             dataReturn.form = (0, CreateUserForm_1.UpdateUserFrom)(dataReturn.data.id);

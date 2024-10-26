@@ -1,19 +1,19 @@
 
-<div class="modal modal fade" id="modalNotification" tabindex="-1" aria-labelledby="modalNotificationLabel" aria-hidden="true">
+<div class="modal modal fade" id="modalNotificationAdmin" tabindex="-1" aria-labelledby="modalNotificationAdminLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalNotificationLabel">Crear Notificación</h1>
+                <h1 class="modal-title fs-5" id="modalNotificationAdminLabel">Notificar Adminsitradores</h1>
                  
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 
             </div>
 
             <div class="modal-body container-fluid">
-                <form action="/notification/{{data.id}}/create" method="POST" class="row">
+                <form action="/notification/create" method="POST" class="row">
 
-                    <input type="hidden" value="{{data.id}}" name="toId" />
+                    <input type="hidden" value="ADMIN" name="toRole" />
 
                     <div class="form-floating col-12 mb-3">
                         <input class="form-control" name="message" id="inputName" type="text" />

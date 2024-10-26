@@ -82,10 +82,16 @@ class AdressController extends AbstractController_1.default {
     RenderUnique(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const instance = new SocialMediaModel_1.default();
+            const id = req.params.id;
             const noti = new NotificationModel_1.default();
             const user = req.user;
             const dataReturn = {
-                notifications: yield noti.GetNowNotification({ id: user.id })
+                notifications: yield noti.GetNowNotification({ id: user.id }),
+                delete: {
+                    id: id,
+                    url: `/social/${id}/delete`,
+                    name: `Eliminar especialidad`
+                }
             };
             return res.render(`s/social/unique.hbs`, dataReturn);
         });
@@ -137,7 +143,9 @@ class AdressController extends AbstractController_1.default {
             try {
                 const instance = new SocialMediaModel_1.default();
                 const id = req.params.id;
+                const user = req.user;
                 const currentDelete = yield instance.deleteAdress({ id });
+                yield instance.CreateHistory({ des: `Eliminación de usuario`, name: `social`, userId: user.id, id });
                 req.flash(`succ`, `Eliminado exitosamente.`);
                 return res.redirect(`/social/`);
             }

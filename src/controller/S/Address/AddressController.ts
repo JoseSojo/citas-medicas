@@ -92,7 +92,12 @@ export default class AdressController extends AbstractController {
         const dataReturn = {
             data: {} as any,
             form: {} as any,
-            notifications: await noti.GetNowNotification({ id:user.id })
+            notifications: await noti.GetNowNotification({ id:user.id }),
+            delete: {
+                id: id,
+                url: `/address/${id}/delete`,
+                name: `Eliminar especialidad`
+            }
         }
 
         dataReturn.data = await data;
@@ -180,7 +185,7 @@ export default class AdressController extends AbstractController {
 
             const currentDelete = await instance.deleteAdress({ id });        
 
-            await instance.CreateHistory({ des:`Eliminación de dirección ${currentDelete.description}`, name:`address`, userId:user.id });
+            await instance.CreateHistory({ des:`Eliminación de dirección ${currentDelete.description}`, name:`address`, userId:user.id, id });
 
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/address/`);

@@ -24,6 +24,7 @@ export default class NotificationController extends AbstractController {
 
         const filter: Prisma.NotificationWhereInput[] = [];
         filter.push({ isDelete:false });
+        filter.push({ toRole:user.role })
         filter.push({ fromId: user.id });
         filter.push({ toId: user.id });
 
@@ -119,19 +120,27 @@ export default class NotificationController extends AbstractController {
             }   
             
             req.flash(`succ`, `Notificado.`);
+            if(toRole) {
+                return res.redirect(`/`);
+            }   
             return res.redirect(`/user/${toId}`);
+
         } catch (error) {
             req.flash(`Error`, `Error temporal`);
             return res.redirect(`/notification/`);            
         }
     }
 
+    
+
     public async DeleteLogic(req:Request,res:Response) {
         try {
             const instance = new NotificationModel();
             const id = req.params.id as string;
-
+            const user = req.user as any;
             await instance.deleteNotification({ id });        
+
+            await instance.CreateHistory({ des:`Eliminación de usuario`, name:`user`,userId:user.id, id });
 
             req.flash(`succ`, `Eliminado exitosamente.`);
             return res.redirect(`/notification/`);
@@ -179,6 +188,7 @@ export default class NotificationController extends AbstractController {
         this.router.get(`/notification/`, OnSession, OnAdminORDoctor, this.RenderList);
         this.router.get(`/notification/:id`, OnSession, OnAdminORDoctor, this.RenderUnique);
 
+        this.router.post(`/notification/create`, OnSession, this.CreateLogic);
         this.router.post(`/notification/:id/create`, OnSession, this.CreateLogic);
         this.router.post(`/notification/:id/read`, OnSession, this.ReadNotification);
         this.router.post(`/notification/:id/delete`, OnSession, this.DeleteLogic);
