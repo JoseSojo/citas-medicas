@@ -36,9 +36,10 @@ class DoctorQuoteControlelr extends AbstractController_1.default {
             try {
                 const instance = new QuotesModel_1.default();
                 const detail = new QuotesDetailModel_1.default();
-                const { status } = req.body;
+                const { status, date } = req.body;
                 const user = req.user;
                 const id = req.params.id;
+                console.log(status, date);
                 if (status == `FINALIZADO`) {
                     if (user.role === `DOCTOR`) {
                         const { starDoctor, descriptionDoctor, currentDetail } = req.body;
@@ -59,9 +60,16 @@ class DoctorQuoteControlelr extends AbstractController_1.default {
                     }
                 }
                 else {
+                    console.log(status, date);
+                    let customUpdate = ``;
+                    if (date) {
+                        const nowDate = date.split(`T`);
+                        customUpdate = `${nowDate[0]} ${nowDate[1]}`;
+                    }
                     if (user.role === `DOCTOR`) {
-                        const instancePromise = instance.updateQuotes({ data: { status }, filter: { id } });
+                        const instancePromise = instance.updateQuotes({ data: { status, date: `${customUpdate}` }, filter: { id } });
                         yield instance.CreateHistory({ des: `Cambio de estado de cita`, name: `user`, userId: user.id });
+                        console.log(status, date);
                         yield instancePromise;
                     }
                 }

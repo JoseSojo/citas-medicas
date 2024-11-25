@@ -17,7 +17,7 @@ export default class DoctorQuoteControlelr extends AbstractController {
         const user = req.user as any;
 
         const dataReturn = {
-            notifications: await noti.GetNowNotification({ id:user.id })
+            notifications: await noti.GetNowNotification({ id: user.id })
         }
 
         return res.render(`s/doctor/quote/list.hbs`, dataReturn);
@@ -27,38 +27,47 @@ export default class DoctorQuoteControlelr extends AbstractController {
         try {
             const instance = new QuotesSubModel();
             const detail = new QuotesDetailSubModel();
-            const {status} = req.body;
+            const { status, date } = req.body;
             const user = req.user as any;
             const id = req.params.id;
 
-            if(status == `FINALIZADO`) {
-                if(user.role === `DOCTOR`) {
-                    const {starDoctor,descriptionDoctor,currentDetail} = req.body;
-                    const detailPromise = detail.updateQuotesDetail({ data:{ descriptionDoctor,starDoctor:starDoctor ? Number(starDoctor) : 1 }, filter:{ id:currentDetail } })
-                    const instancePromise = instance.updateQuotes({ data:{ status }, filter:{ id } });
-                    await instance.CreateHistory({ des:`Doctor califica a paciente`, name:`user`, userId:user.id });
-                    await instance.PushStatictics({ objectId:user.id,objectName:`DOCTOR` });
+            console.log(status, date);
+
+            if (status == `FINALIZADO`) {
+                if (user.role === `DOCTOR`) {
+                    const { starDoctor, descriptionDoctor, currentDetail } = req.body;
+                    const detailPromise = detail.updateQuotesDetail({ data: { descriptionDoctor, starDoctor: starDoctor ? Number(starDoctor) : 1 }, filter: { id: currentDetail } })
+                    const instancePromise = instance.updateQuotes({ data: { status }, filter: { id } });
+                    await instance.CreateHistory({ des: `Doctor califica a paciente`, name: `user`, userId: user.id });
+                    await instance.PushStatictics({ objectId: user.id, objectName: `DOCTOR` });
                     await detailPromise;
                     await instancePromise;
-                   
+
                 }
-                if(user.role === `PACIENTE`) {
-                    const {starPatient,descriptionPatient,currentDetail} = req.body;
-                    const detailPromise = detail.updateQuotesDetail({ data:{ descriptionPatient,starPatient:starPatient ? Number(starPatient) : 1 }, filter:{ id:currentDetail } })
-                    const staticticPromise = instance.PushStatictics({ objectId:user.id,objectName:`PACIENTE` });
-                    await instance.CreateHistory({ des:`Paciente califica a doctor`, name:`user`, userId:user.id });
+                if (user.role === `PACIENTE`) {
+                    const { starPatient, descriptionPatient, currentDetail } = req.body;
+                    const detailPromise = detail.updateQuotesDetail({ data: { descriptionPatient, starPatient: starPatient ? Number(starPatient) : 1 }, filter: { id: currentDetail } })
+                    const staticticPromise = instance.PushStatictics({ objectId: user.id, objectName: `PACIENTE` });
+                    await instance.CreateHistory({ des: `Paciente califica a doctor`, name: `user`, userId: user.id });
                     await detailPromise;
                     await staticticPromise;
                 }
             } else {
-                if(user.role === `DOCTOR`) {
-                    const instancePromise = instance.updateQuotes({ data:{ status }, filter:{ id } });
-                    await instance.CreateHistory({ des:`Cambio de estado de cita`, name:`user`, userId:user.id });
+                console.log(status, date);
+                let customUpdate = ``;
+                if(date) {
+                    const nowDate = date.split(`T`);
+                    customUpdate =  `${nowDate[0]} ${nowDate[1]}`;
+                }
+                if (user.role === `DOCTOR`) {
+                    const instancePromise = instance.updateQuotes({ data: { status, date: `${customUpdate}` }, filter: { id } });
+                    await instance.CreateHistory({ des: `Cambio de estado de cita`, name: `user`, userId: user.id });
+                    console.log(status, date);
                     await instancePromise;
 
                 }
             }
-        
+
             req.flash(`Cita ${status}`);
             return res.redirect(`/quote/${id}`);
         } catch (error) {
@@ -67,7 +76,7 @@ export default class DoctorQuoteControlelr extends AbstractController {
         }
     }
 
-    public loadRoutes () {
+    public loadRoutes() {
         this.router.get(`/doctor/quote`, OnSession, OnDoctor, this.DoctorQuote);
         this.router.post(`/doctor/quote/status/:id`, OnSession, this.ChangeStatus);
 

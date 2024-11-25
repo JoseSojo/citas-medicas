@@ -47,11 +47,23 @@
         <b class="lead">{{porfolio.addressReference.description}}</b>
     </small>
     <small>
-        citas: <b>{{porfolio._count.doctor}}</b>
+        {{!-- citas: <b>{{porfolio._count.doctor}}</b> --}}
     </small>
     <div class="text-center" style="width: 70%;">
         {{porfolio.detail.description}}
     </div>
+
+    <div class="row w-100 d-flex justify-content-center gap-3">
+        {{#each porfolio.service}}
+            <div class="card col-5 col-lg-3">
+                <div class="card-body text-center">
+                    {{this.name}}
+                    <span class="text-success" style="font-weight: bold;">{{this.price}}</span>
+                    <p class="text-center w-full">{{this.description}}</p>
+                </div>
+            </div>
+        {{/each}}
+    </div>   
     
     <div class="row w-100 d-flex justify-content-center gap-3">
         {{#each porfolio.speciality}}

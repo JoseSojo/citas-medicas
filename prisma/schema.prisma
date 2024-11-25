@@ -44,6 +44,7 @@ model User {
   universityReference                         University?        @relation("cirujano", fields: [universityId], references: [id])
 
   speciality DoctroWithSpeciality[]
+  service Services[]
   schedule   Schedule[]
 
   doctor  Quotes[] @relation(name: "doctor")
@@ -97,6 +98,34 @@ model UserDetail {
   createAt          DateTime            @default(now())
   updateAt          DateTime            @updatedAt
   isDelete          Boolean             @default(false)
+}
+
+// model DoctroWithService {
+//   id                    String @id @default(uuid())
+
+//   userId                String
+//   userReference         User   @relation(fields: [userId], references: [id])
+
+//   serviceId             String
+//   serviceReference      Services @relation(fields: [serviceId], references: [id])
+
+//   createAt              DateTime   @default(now())
+//   updateAt              DateTime   @updatedAt
+//   isDelete              Boolean    @default(false)
+// }
+
+model Services {
+  id                    String        @id             @default(uuid())
+
+  name                  String
+  description           String
+
+  doctorId              String
+  doctorReference       User          @relation(fields: [doctorId], references: [id])
+
+  createAt              DateTime   @default(now())
+  updateAt              DateTime   @updatedAt
+  isDelete              Boolean    @default(false)
 }
 
 model DoctroWithSpeciality {
@@ -261,6 +290,8 @@ model Quotes {
 
   status  String @default("PROCESADO")
   message String
+
+  date            String?
 
   doctorId        String
   doctorReference User   @relation(fields: [doctorId], references: [id], name: "doctor")

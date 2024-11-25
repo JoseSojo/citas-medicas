@@ -95,7 +95,8 @@ class UserModel extends AbstractModel_1.default {
                             universityReference: true
                         }
                     },
-                    _count: true
+                    service: true,
+                    _count: true,
                 }
             });
         });

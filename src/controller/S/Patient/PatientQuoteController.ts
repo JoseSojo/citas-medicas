@@ -159,7 +159,7 @@ export default class PatientQuoteController extends AbstractController {
         const returnData = {
             titlePag: `Citas`,
             notFoundMessage: `No hay citas`,
-            labels: [`Mensaje`,`Doctor`,`Paciente`,`Estado`,``],
+            labels: [`Mensaje`,`Doctor`,`Paciente`,`Estado`,`Fecha`,``],
             list: [] as any,
             countRender: ``,
             foundNext: false,

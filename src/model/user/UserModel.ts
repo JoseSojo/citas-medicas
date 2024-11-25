@@ -89,7 +89,8 @@ class UserModel extends AbstractModel {
 
                     }
                 },
-                _count: true
+                service: true,
+                _count: true,
             }
         });
     }

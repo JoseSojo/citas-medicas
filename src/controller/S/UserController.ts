@@ -192,8 +192,9 @@ export default class UserController extends AbstractController {
                 egresDate: egresDate
             }
 
-            if(universityId) data = {...data, egresUniversityReference:{ connect:{id:universityId} }}
+            console.log();
 
+            if(universityId) data = {...data, egresUniversityReference:{ connect:{id:universityId} }}
             if(!addressId.includes(`opción`)) {
                 data = {
                     ...data,
