@@ -37,7 +37,7 @@ class DashboardController extends AbstractController_1.default {
             const adminCountPromise = userModel.countUser({ filter: { AND: [{ role: `ADMIN` }, { isDelete: false }] } });
             const quoteCountPromise = quoteModel.countQuotes({ filter: { isDelete: false } });
             const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `PROCESADO` }] } });
-            const quoteAprovadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `APROVADO` }] } });
+            const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `Aprobado` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `FINALIZADO` }] } });
             const dataReturn = {
@@ -59,7 +59,7 @@ class DashboardController extends AbstractController_1.default {
                         count: yield doctorCountPromise
                     },
                     {
-                        title: `Administradoes`,
+                        title: `Administradores`,
                         link: `/user/?role=ADMIN`,
                         color: `border-left-primary`,
                         ico: `bi-person-workspace`,
@@ -80,9 +80,9 @@ class DashboardController extends AbstractController_1.default {
                         count: yield quoteProcesadoCountPromise
                     },
                     {
-                        title: `Aprovado`,
-                        link: `/quote/?status=APROVADO`,
-                        count: yield quoteAprovadoCountPromise
+                        title: `Aprobado`,
+                        link: `/quote/?status=Aprobado`,
+                        count: yield quoteAprobadoCountPromise
                     },
                     {
                         title: `Cancelado`,

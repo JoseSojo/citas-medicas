@@ -26,7 +26,7 @@ export default class PatientControlelr extends AbstractController {
         const scheduleCountPromise = userModel.findUser({ filter:{id:user.id} });
 
         const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`PROCESADO` }, { patientId:user.id }]} });
-        const quoteAprovadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`APROVADO` }, { patientId:user.id }]} });
+        const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`Aprobado` }, { patientId:user.id }]} });
         const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`CANCELADO` }, { patientId:user.id }]} });
         const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`FINALIZADO` }, { patientId:user.id }]} });
 
@@ -49,9 +49,9 @@ export default class PatientControlelr extends AbstractController {
                     count: await quoteProcesadoCountPromise
                 },
                 {
-                    title: `Aprovado`,
-                    link: `/quote/?status=APROVADO`,
-                    count: await quoteAprovadoCountPromise
+                    title: `Aprobado`,
+                    link: `/quote/?status=Aprobado`,
+                    count: await quoteAprobadoCountPromise
                 },
                 {
                     title: `Cancelado`,

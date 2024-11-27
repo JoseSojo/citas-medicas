@@ -206,15 +206,15 @@ class GraphicService extends AbstractModel_1.default {
             const quoteModel = new QuotesModel_1.default();
             const filter = [{ isDelete: false }];
             const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `PROCESADO` }] } });
-            const quoteAprovadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `APROVADO` }] } });
+            const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `Aprobado` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `FINALIZADO` }] } });
             const procesado = yield quoteProcesadoCountPromise;
-            const aprovado = yield quoteAprovadoCountPromise;
+            const Aprobado = yield quoteAprobadoCountPromise;
             const cancelado = yield quoteCanceladoCountPromise;
             const finalizado = yield quoteFinalizadoCountPromise;
             const label = [`PROCESADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
-            const data = [procesado, aprovado, cancelado, finalizado];
+            const data = [procesado, Aprobado, cancelado, finalizado];
             return { label, data };
         });
     }
@@ -224,15 +224,15 @@ class GraphicService extends AbstractModel_1.default {
             const model = new AbstractModel_1.default();
             const quoteModel = new QuotesModel_1.default();
             const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `PROCESADO` }] } });
-            const quoteAprovadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `APROVADO` }] } });
+            const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `Aprobado` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `FINALIZADO` }] } });
             const procesado = yield quoteProcesadoCountPromise;
-            const aprovado = yield quoteAprovadoCountPromise;
+            const Aprobado = yield quoteAprobadoCountPromise;
             const cancelado = yield quoteCanceladoCountPromise;
             const finalizado = yield quoteFinalizadoCountPromise;
             const label = [`PROCESADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
-            const data = [procesado, aprovado, cancelado, finalizado];
+            const data = [procesado, Aprobado, cancelado, finalizado];
             return { label, data };
         });
     }
@@ -243,15 +243,15 @@ class GraphicService extends AbstractModel_1.default {
             const quoteModel = new QuotesModel_1.default();
             const filter = [{ isDelete: false }, { patientId: id }];
             const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `PROCESADO` }] } });
-            const quoteAprovadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `APROVADO` }] } });
+            const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `Aprobado` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `FINALIZADO` }] } });
             const procesado = yield quoteProcesadoCountPromise;
-            const aprovado = yield quoteAprovadoCountPromise;
+            const Aprobado = yield quoteAprobadoCountPromise;
             const cancelado = yield quoteCanceladoCountPromise;
             const finalizado = yield quoteFinalizadoCountPromise;
             const label = [`PROCESADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
-            const data = [procesado, aprovado, cancelado, finalizado];
+            const data = [procesado, Aprobado, cancelado, finalizado];
             return { label, data };
         });
     }
