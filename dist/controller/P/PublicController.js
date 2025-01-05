@@ -16,7 +16,6 @@ const AbstractController_1 = __importDefault(require("../AbstractController"));
 const auth_1 = require("../../middlewares/auth");
 const UserModel_1 = __importDefault(require("../../model/user/UserModel"));
 const SocialMediaModel_1 = __importDefault(require("../../model/config/SocialMediaModel"));
-const client_1 = require("@prisma/client");
 const SpecialityModel_1 = __importDefault(require("../../model/config/SpecialityModel"));
 const AddressSubModel_1 = __importDefault(require("../../model/config/AddressSubModel"));
 class PublicController extends AbstractController_1.default {
@@ -57,28 +56,17 @@ class PublicController extends AbstractController_1.default {
             const address = req.query.addressId ? req.query.addressId : null;
             const param = req.query.param ? req.query.param : null;
             const schedule = req.query.schedule ? req.query.schedule : null;
+            console.log(speciality);
+            if (req.query.specialityId)
+                filter.push({ speciality: { some: { id: req.query.specialityId } } });
             const skip = req.query.skip ? req.query.skip : 0;
             const take = req.query.take ? req.query.take : 10;
-            if (speciality) {
-                const prisma = new client_1.PrismaClient();
-                const result = yield prisma.doctroWithSpeciality.findMany({ where: { specialityReference: { id: speciality } } });
-                const ids = result.map(item => item.userId);
-                const currentNewArray = [];
-                ids.forEach(item => { currentNewArray.push({ id: item }); });
-                if (currentNewArray.length > 0)
-                    filter.push({ OR: currentNewArray });
-                else {
-                    filter.push({ ci: `0` });
-                }
-            }
-            else if (param) {
+            if (param) {
                 filter.push({ OR: [{ name: { contains: param } }, { lastname: { contains: param } }, { email: { contains: param } }] });
             }
-            else if (address) {
+            if (address) {
                 filter.push({ addressId: address });
             }
-            else if (schedule) { }
-            else { }
             const count = userModel.countUser({ filter: { AND: filter } });
             const resultPromise = userModel.findManyUser({ filter: { AND: filter }, skip, take });
             return res.render(`p/main.hbs`, {
