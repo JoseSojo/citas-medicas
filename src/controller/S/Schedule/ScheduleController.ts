@@ -6,7 +6,6 @@ import { CreateUserFrom, UpdateUserFrom } from "../../../form/CreateUserForm";
 import AdressSubModel from "../../../model/config/AddressSubModel";
 import SpecialityModel from "../../../model/config/SpecialityModel";
 import ScheduleModel from "../../../model/schedule/ScheduleModel";
-import ScheduleDetailModel from "../../../model/schedule/ScheduleDetailModel";
 import NotificationModel from "../../../model/user/notification/NotificationModel";
 
 

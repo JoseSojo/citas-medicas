@@ -56,29 +56,20 @@ export default class PublicController extends AbstractController {
         const param = req.query.param ? req.query.param : null;
         const schedule = req.query.schedule ? req.query.schedule : null;
 
+        console.log(speciality)
+
+        if(req.query.specialityId) filter.push({ speciality:{some:{id:req.query.specialityId}} })
+
         const skip = req.query.skip ? req.query.skip : 0;
         const take = req.query.take ? req.query.take : 10;
 
-        if (speciality) {
-            const prisma = new PrismaClient();
-            const result = await prisma.doctroWithSpeciality.findMany({ where: { specialityReference: { id: speciality } } });
-
-            const ids = result.map(item => item.userId);
-
-            const currentNewArray: { id: string }[] = [];
-            ids.forEach(item => { currentNewArray.push({ id: item }); });
-
-            if (currentNewArray.length > 0) filter.push({ OR: currentNewArray });
-            else { filter.push({ ci: `0` }) }
-        } else if (param) {
+        if (param) {
             filter.push({ OR: [{ name: { contains: param } }, { lastname: { contains: param } }, { email: { contains: param } }] });
         }
-        else if (address) {
+        if (address) {
 
             filter.push({ addressId:address });
         }
-        else if (schedule) { }
-        else { }
 
         const count = userModel.countUser({ filter: { AND: filter } });
         const resultPromise = userModel.findManyUser({ filter: { AND: filter }, skip, take });

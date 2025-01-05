@@ -176,5 +176,6 @@ function PushBarGraphic({element, type, labels,data, max}) {
     new Chart(element, optionsChart);
 }
 
+const allCarousel = document.querySelectorAll(`.carousel-item`);
 
 
