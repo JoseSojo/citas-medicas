@@ -35,10 +35,11 @@ class AuthController extends AbstractController_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const instance = new UserModel_1.default();
-                const { exacAddress, birthdate, name, ci, email, lastname, phoneCode, phoneNumber } = req.body;
+                const { exacAddress, birthdate, name, ci, email, lastname, phoneCode, phoneNumber, password } = req.body;
                 const user = req.user;
                 let parentId;
                 const age = (0, util_1.caclAge)(birthdate);
+                console.log(`############### ${password}`);
                 if (user)
                     parentId = user.id;
                 if (!name) {
@@ -48,7 +49,7 @@ class AuthController extends AbstractController_1.default {
                 let data = {
                     ci,
                     email,
-                    password: ci,
+                    password,
                     name,
                     lastname,
                     role: `PACIENTE`,

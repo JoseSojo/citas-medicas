@@ -37,7 +37,7 @@ export default class ServicesControlelr extends AbstractController {
         const returnData = {
             titlePag: `Servicios`,
             notFoundMessage: `No hay servicios`,
-            labels: [`Nombre`,`Descripción`],
+            labels: [`Nombre`,`Costo`],
             list: [] as any,
             countRender: ``,
             foundNext: false,
@@ -81,11 +81,12 @@ export default class ServicesControlelr extends AbstractController {
 
     public async CreateLogic(req:Request,res:Response) {
         const instance = new ServicesModel();
-        const {name, description} = req.body;
+        const {name, description,costo} = req.body;
         const user = req.user as any;
 
         const data: Prisma.ServicesCreateInput = {
-            description,
+            // description,
+            costo: Number(costo),
             name,
             doctorReference: {
                 connect: { id:user.id }

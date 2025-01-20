@@ -10,17 +10,21 @@ passport.use("local.login", new Strategy({
 }, async (email: string, password: string, done: any) => {
   const user: any | null = await User.findUser({filter:{ email }});
 
+  console.log(email, password);
+
+  console.log(user);
+
   if (user) {
     const dbPassword: string = user.password;
     const match = await User.ComparePassword({password, dbPassword: dbPassword});
     if (match) {
       return done(null, user);
     } else {
-      return done(null, false, {message: "Verifica tus credenciales. p"});
+      return done(null, false, {message: "Verifica tus credenciales."});
     }
   } else {
 
-    return done(null, false, {message: "Verifica tus credenciales. e"});
+    return done(null, false, {message: "Verifica tus credenciales."});
   }
 }));
 

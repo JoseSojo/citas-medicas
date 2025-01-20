@@ -13,7 +13,7 @@ export const OffSession = function(req: any, res: any, next: NextFunction) {
     if (!req.isAuthenticated()) {
         next();
     } else {
-        req.flash("err", "No puedes visitar esa pagina.");
+        // req.flash("err", "No puedes visitar esa pagina.");
         res.redirect("/dashboard");
     }
 };

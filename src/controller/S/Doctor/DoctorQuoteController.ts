@@ -31,8 +31,6 @@ export default class DoctorQuoteControlelr extends AbstractController {
             const user = req.user as any;
             const id = req.params.id;
 
-            console.log(status, date);
-
             if (status == `FINALIZADO`) {
                 if (user.role === `DOCTOR`) {
                     const { starDoctor, descriptionDoctor, currentDetail } = req.body;

@@ -27,10 +27,12 @@ export default class AuthController extends AbstractController {
         try {
             const instance = new UserModel();
 
-            const { exacAddress,birthdate,name,ci,email,lastname,phoneCode,phoneNumber } = req.body as { exacAddress:string,birthdate:string,name:string,ci:string,email:string,lastname:string,phoneCode:string,phoneNumber:string};
+            const { exacAddress,birthdate,name,ci,email,lastname,phoneCode,phoneNumber,password } = req.body as { password:string,exacAddress:string,birthdate:string,name:string,ci:string,email:string,lastname:string,phoneCode:string,phoneNumber:string};
             const user = req.user as any;
             let parentId;
             const age = caclAge(birthdate);
+
+            console.log(`############### ${password}`)
 
             if(user) parentId = user.id;
 
@@ -42,7 +44,7 @@ export default class AuthController extends AbstractController {
             let data: Prisma.UserCreateInput = { 
                 ci,
                 email,
-                password:ci,
+                password,
                 name,
                 lastname,
                 role:`PACIENTE`,

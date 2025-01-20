@@ -128,8 +128,8 @@ class AbstractModel extends Kernel {
 
     public async create({objectId, objectName,type, prisma}: {type:`MONTH` | `YEAR`,objectName:string, objectId:string, prisma:PrismaClient}) {
         if(type === "MONTH") {
-            const monthNumber = this.getMonth();
-            const month: MONTH_STRUCT = this.getMonths(monthNumber-1) as MONTH_STRUCT;
+            const monthNumber = this.getMonth()+1;
+            const month: MONTH_STRUCT = this.getMonths(monthNumber) as MONTH_STRUCT;
 
             const day = this.getDay();
             return await prisma.staticticsMonth.create({

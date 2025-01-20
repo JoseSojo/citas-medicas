@@ -16,7 +16,7 @@ const OffSession = function (req, res, next) {
         next();
     }
     else {
-        req.flash("err", "No puedes visitar esa pagina.");
+        // req.flash("err", "No puedes visitar esa pagina.");
         res.redirect("/dashboard");
     }
 };

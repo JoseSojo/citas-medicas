@@ -11,8 +11,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                {{!-- <img src="/assets/img/error-404-monochrome.svg" /> --}}
+                            <div class="col-lg-6 d-none d-lg-flex justify-content-center bg-login-image py-5">
+                                <img src="/cita.png" style="width: 15em; height: auto;" />
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -24,17 +24,16 @@
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="steven01@gmail.com"
-                                                value="leni.admin@example.com"
-                                                {{!-- leni.admin@example.com --}}
-                                                >
+                                                placeholder="steven01@gmail.com" value="leni.admin@example.com" {{!--
+                                                leni.admin@example.com --}}>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password"
-                                                value="1234567890"
-                                                {{!-- 1234567890 --}}
-                                                >
+                                            <input type="password" name="password"
+                                                class="form-control form-control-user" id="exampleInputPassword"
+                                                placeholder="Password" value="1234567890" {{!-- 1234567890 --}}>
+                                            <div class="text-end">
+                                                <button type="button" class="border-0 bg-transparent" id="buttonShowPassord" style="font-size: 14px; color:#717579">ver contraseña</button>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Iniciar sesión
@@ -58,3 +57,15 @@
     </div>
 
 </body>
+
+<script>
+    const btn = document.getElementById(`buttonShowPassord`);
+    const input = document.getElementById(`exampleInputPassword`);
+
+    btn.addEventListener(`click`, (evt) => {
+        const type = input.getAttribute(`type`);
+        if(type === `password`) input.setAttribute(`type`,`text`);
+        else input.setAttribute(`type`,`password`);
+    })
+
+</script>

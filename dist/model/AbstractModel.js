@@ -138,8 +138,8 @@ class AbstractModel extends Kernel_1.default {
     create(_a) {
         return __awaiter(this, arguments, void 0, function* ({ objectId, objectName, type, prisma }) {
             if (type === "MONTH") {
-                const monthNumber = this.getMonth();
-                const month = this.getMonths(monthNumber - 1);
+                const monthNumber = this.getMonth() + 1;
+                const month = this.getMonths(monthNumber);
                 const day = this.getDay();
                 return yield prisma.staticticsMonth.create({
                     data: {

@@ -45,7 +45,7 @@ class ServicesControlelr extends AbstractController_1.default {
             const returnData = {
                 titlePag: `Servicios`,
                 notFoundMessage: `No hay servicios`,
-                labels: [`Nombre`, `Descripción`],
+                labels: [`Nombre`, `Costo`],
                 list: [],
                 countRender: ``,
                 foundNext: false,
@@ -83,10 +83,11 @@ class ServicesControlelr extends AbstractController_1.default {
     CreateLogic(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const instance = new ServiceModel_1.default();
-            const { name, description } = req.body;
+            const { name, description, costo } = req.body;
             const user = req.user;
             const data = {
-                description,
+                // description,
+                costo: Number(costo),
                 name,
                 doctorReference: {
                     connect: { id: user.id }

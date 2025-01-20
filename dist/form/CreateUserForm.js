@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserFrom = exports.CreateUserFrom = void 0;
 exports.CreateUserFrom = {
     action: `/user/create`,
-    title: `Crear Doctror`,
+    title: `Crear Usuario`,
     method: `POST`,
     submit: {
         text: `crear`,

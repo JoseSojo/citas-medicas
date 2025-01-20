@@ -118,7 +118,8 @@ model Services {
   id                    String        @id             @default(uuid())
 
   name                  String
-  description           String
+  description           String?
+  costo                 Decimal?
 
   doctorId              String
   doctorReference       User          @relation(fields: [doctorId], references: [id])
