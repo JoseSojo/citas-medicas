@@ -62,11 +62,8 @@ class ReportController extends AbstractController {
                 count
             });
 
-            return res.render(`s/report/doctor.hbs`, {
-                patientList: await patientPromise,
-                doctorList: await doctorPromise,
-                report: (await pdf).download 
-            });
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`); 
         }
         else if(patientId) {
             const headers = [``,`DOCTOR`,`DESCIPCIÓN`,`CALIFICACIÓN DOCTOR`, `COLIFICACIÓN PACIENTE`];
@@ -103,13 +100,14 @@ class ReportController extends AbstractController {
                 count
             });
 
-            return res.render(`s/report/doctor.hbs`, {
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`);    
+        } else {
+            if(!req.query.generate) return res.render(`s/report/quote.hbs`, {
                 patientList: await patientPromise,
                 doctorList: await doctorPromise,
-                report: (await pdf).download 
+                // report: (await pdf).download 
             });
-    
-        } else {
             const count = await quoteModel.countQuotes({filter:{isDelete:false}, });
     
             let i = 0;
@@ -139,13 +137,10 @@ class ReportController extends AbstractController {
                 filter: [],
                 count
             });
-        }
 
-        return res.render(`s/report/quote.hbs`, {
-            patientList: await patientPromise,
-            doctorList: await doctorPromise,
-            report: (await pdf).download 
-        });
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`); 
+        }
     }
 
     public async findDoctorApi(req:Request, res:Response) {
@@ -238,13 +233,9 @@ class ReportController extends AbstractController {
                 count
             });
 
-            return res.render(`s/report/doctor.hbs`, {
-                addressList: await addressPromise,
-                doctorList: await doctorPromise,
-                report: (await pdf).download 
-            });
-        }
-        else if(address) {
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`);
+        } else if(address) {
             const count = await userModel.countUser({ 
                 filter:{AND:[{isDelete:false},{role:`DOCTOR`},{addressReference:{ id:address }}]}, 
             })
@@ -278,7 +269,13 @@ class ReportController extends AbstractController {
                 count
             });
     
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`);
         } else {
+            if(!req.query.generate) return res.render(`s/report/doctor.hbs`, {
+                addressList: await addressPromise,
+                doctorList: await doctorPromise,
+            });;
             const count = await userModel.countUser({ 
                 filter:{AND:[{isDelete:false},{role:`DOCTOR`}]}, 
             })
@@ -311,12 +308,15 @@ class ReportController extends AbstractController {
                 filter: [],
                 count
             });
-        }
 
+            const pdfResult = await pdf;
+            console.log(pdfResult);
+            return res.redirect(`${pdfResult.download}`);
+        }
         return res.render(`s/report/doctor.hbs`, {
             addressList: await addressPromise,
             doctorList: await doctorPromise,
-            report: (await pdf).download 
+            // // report: (await pdf).download 
         });
     }
     
@@ -377,11 +377,8 @@ class ReportController extends AbstractController {
                 count
             });
 
-            return res.render(`s/report/patient.hbs`, {
-                addressList: await addressPromise,
-                doctorList: await patientPromise,
-                report: (await pdf).download 
-            });
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`);
         }
         else if(address) {
             const count = await userModel.countUser({ 
@@ -413,8 +410,15 @@ class ReportController extends AbstractController {
                 filter: [],
                 count
             });
-    
+
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`);    
          } else {
+            if(!req.query.generate) return res.render(`s/report/patient.hbs`, {
+                addressList: await addressPromise,
+                patientList: await patientPromise,
+                // report: (await pdf).download 
+            });
             const count = await userModel.countUser({ 
                 filter:{AND:[{isDelete:false},{role:`PACIENTE`}]}, 
             })
@@ -445,12 +449,15 @@ class ReportController extends AbstractController {
                 filter: [],
                 count
             });
+
+            const pdfResult = await pdf;
+            return res.redirect(`${pdfResult.download}`);
         }
 
         return res.render(`s/report/patient.hbs`, {
             addressList: await addressPromise,
             patientList: await patientPromise,
-            report: (await pdf).download 
+            // report: (await pdf).download 
         });
     }
 

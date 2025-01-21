@@ -3,16 +3,12 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-between mb-3">
             <h3>Reportes Doctores</h3>
-            {{#if report}}
-                <a href="{{report}}" target="_blank" class="btn btn-danger">
-                    <i class="bi bi-pdf"> Descargar Reporte</i>
-                </a>
-            {{/if}}
+            
         </div>
     </div>
     <div class="row">
         <div class="card">
-            <form class="card-body">
+            <div class="card-body">
                 <label>Dirección</label>
                 <select name="address" class="form-control">
                     <option selected></option>
@@ -29,8 +25,8 @@
                     {{/each}}
                 </select>
 
-                <button type="submit" class="btn btn-primary mt-3">Generar</button>
-            </form>
+                <a href="?generate=true" target="_blank" class="btn btn-primary mt-3">Generar</a>
+            </div>
         </div>
     </div>
 </div>

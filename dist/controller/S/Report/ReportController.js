@@ -61,11 +61,8 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
-                return res.render(`s/report/doctor.hbs`, {
-                    patientList: yield patientPromise,
-                    doctorList: yield doctorPromise,
-                    report: (yield pdf).download
-                });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             else if (patientId) {
                 const headers = [``, `DOCTOR`, `DESCIPCIÓN`, `CALIFICACIÓN DOCTOR`, `COLIFICACIÓN PACIENTE`];
@@ -96,13 +93,16 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
-                return res.render(`s/report/doctor.hbs`, {
-                    patientList: yield patientPromise,
-                    doctorList: yield doctorPromise,
-                    report: (yield pdf).download
-                });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             else {
+                if (!req.query.generate)
+                    return res.render(`s/report/quote.hbs`, {
+                        patientList: yield patientPromise,
+                        doctorList: yield doctorPromise,
+                        // report: (await pdf).download 
+                    });
                 const count = yield quoteModel.countQuotes({ filter: { isDelete: false }, });
                 let i = 0;
                 const rows = [];
@@ -129,12 +129,9 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
-            return res.render(`s/report/quote.hbs`, {
-                patientList: yield patientPromise,
-                doctorList: yield doctorPromise,
-                report: (yield pdf).download
-            });
         });
     }
     findDoctorApi(req, res) {
@@ -213,11 +210,8 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
-                return res.render(`s/report/doctor.hbs`, {
-                    addressList: yield addressPromise,
-                    doctorList: yield doctorPromise,
-                    report: (yield pdf).download
-                });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             else if (address) {
                 const count = yield userModel.countUser({
@@ -250,8 +244,16 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             else {
+                if (!req.query.generate)
+                    return res.render(`s/report/doctor.hbs`, {
+                        addressList: yield addressPromise,
+                        doctorList: yield doctorPromise,
+                    });
+                ;
                 const count = yield userModel.countUser({
                     filter: { AND: [{ isDelete: false }, { role: `DOCTOR` }] },
                 });
@@ -282,11 +284,14 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
+                const pdfResult = yield pdf;
+                console.log(pdfResult);
+                return res.redirect(`${pdfResult.download}`);
             }
             return res.render(`s/report/doctor.hbs`, {
                 addressList: yield addressPromise,
                 doctorList: yield doctorPromise,
-                report: (yield pdf).download
+                // // report: (await pdf).download 
             });
         });
     }
@@ -335,11 +340,8 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
-                return res.render(`s/report/patient.hbs`, {
-                    addressList: yield addressPromise,
-                    doctorList: yield patientPromise,
-                    report: (yield pdf).download
-                });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             else if (address) {
                 const count = yield userModel.countUser({
@@ -369,8 +371,16 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             else {
+                if (!req.query.generate)
+                    return res.render(`s/report/patient.hbs`, {
+                        addressList: yield addressPromise,
+                        patientList: yield patientPromise,
+                        // report: (await pdf).download 
+                    });
                 const count = yield userModel.countUser({
                     filter: { AND: [{ isDelete: false }, { role: `PACIENTE` }] },
                 });
@@ -398,11 +408,13 @@ class ReportController extends AbstractController_1.default {
                     filter: [],
                     count
                 });
+                const pdfResult = yield pdf;
+                return res.redirect(`${pdfResult.download}`);
             }
             return res.render(`s/report/patient.hbs`, {
                 addressList: yield addressPromise,
                 patientList: yield patientPromise,
-                report: (yield pdf).download
+                // report: (await pdf).download 
             });
         });
     }
