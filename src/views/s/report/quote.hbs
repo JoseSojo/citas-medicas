@@ -3,20 +3,20 @@
         <div class="col-12 d-flex justify-content-between mb-3">
             <h3>Reportes Citas</h3>
             {{#if report}}
-                <a href="{{report}}" target="_blank" class="btn btn-danger">
-                    <i class="bi bi-pdf"> Descargar Reporte</i>
-                </a>
+            <a href="{{report}}" target="_blank" class="btn btn-danger">
+                <i class="bi bi-pdf"> Descargar Reporte</i>
+            </a>
             {{/if}}
         </div>
     </div>
     <div class="row">
-        <div class="card">
+        <form class="card" target="_blank" action="?generate=true">
             <div class="card-body">
                 <label>Pacientes</label>
                 <select name="patient" class="form-control">
                     <option selected></option>
                     {{#each patientList}}
-                        <option value="{{this.id}}">{{this.name}} {{this.lastname}}</option>
+                    <option value="{{this.id}}">{{this.name}} {{this.lastname}}</option>
                     {{/each}}
                 </select>
 
@@ -24,12 +24,12 @@
                 <select name="doctor" class="form-control">
                     <option selected></option>
                     {{#each doctorList}}
-                        <option value="{{this.id}}">{{this.name}} {{this.lastname}}</option>
+                    <option value="{{this.id}}">{{this.name}} {{this.lastname}}</option>
                     {{/each}}
                 </select>
 
-                <a href="?generate=true" target="_blank" class="btn btn-primary mt-3">Generar</a>
+                <button type="submit" target="_blank" class="btn btn-primary mt-3">Generar</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

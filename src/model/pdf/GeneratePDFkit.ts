@@ -3,7 +3,7 @@ import PDFDocument from "pdfkit-table";
 import path from "path";
 import fs from "fs";
 
-export const pushPdf = async ({title,headers, rows,filter,count}:{title:string,headers:string[],rows:string[][],filter:string[],count:number}) => {
+export const pushPdf = async ({title,headers, rows,filter,count,list}:{list?:string,title:string,headers:string[],rows:string[][],filter:string[],count:number}) => {
     const date = new Date();
     const ext = `pdf`;
     const datetime = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -16,11 +16,12 @@ export const pushPdf = async ({title,headers, rows,filter,count}:{title:string,h
     doc.text(`Colego de médicos - Reporte ${datetime}`);
     (async function () {
         doc.text(`Resultados: ${count}`, { height:10 });
+        doc.text(`${title}`, {height:24});
         filter.forEach((item) => {
             doc.text(item);
         })
-        const table = { 
-            title,
+        const table = {
+            title:`Detalles:`, 
             headers,
             rows
         };

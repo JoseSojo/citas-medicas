@@ -17,7 +17,7 @@ exports.pushPdf = void 0;
 const pdfkit_table_1 = __importDefault(require("pdfkit-table"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const pushPdf = (_a) => __awaiter(void 0, [_a], void 0, function* ({ title, headers, rows, filter, count }) {
+const pushPdf = (_a) => __awaiter(void 0, [_a], void 0, function* ({ title, headers, rows, filter, count, list }) {
     const date = new Date();
     const ext = `pdf`;
     const datetime = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -30,11 +30,12 @@ const pushPdf = (_a) => __awaiter(void 0, [_a], void 0, function* ({ title, head
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
             doc.text(`Resultados: ${count}`, { height: 10 });
+            doc.text(`${title}`, { height: 24 });
             filter.forEach((item) => {
                 doc.text(item);
             });
             const table = {
-                title,
+                title: `Detalles:`,
                 headers,
                 rows
             };

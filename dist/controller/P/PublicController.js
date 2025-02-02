@@ -72,6 +72,7 @@ class PublicController extends AbstractController_1.default {
             return res.render(`p/main.hbs`, {
                 list: yield resultPromise,
                 count: yield count,
+                dashboard: true,
                 filterText
             });
         });
@@ -150,7 +151,7 @@ class PublicController extends AbstractController_1.default {
         });
     }
     loadRoutes() {
-        this.router.get(`${this.prefix}/`, auth_1.OffSession, this.RenderPublic);
+        this.router.get(`${this.prefix}/`, this.RenderPublic);
         this.router.get(`${this.prefix}/p/address`, auth_1.OffSession, this.RenderAddress);
         this.router.get(`${this.prefix}/p/speciality`, auth_1.OffSession, this.RenderSpeciality);
         this.router.get(`${this.prefix}/p/porfolio`, auth_1.OffSession, this.PorfolioRender);

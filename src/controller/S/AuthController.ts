@@ -17,7 +17,7 @@ export default class AuthController extends AbstractController {
 
     public async LoginController(req: Request, res: Response, next: NextFunction) {
         passport.authenticate("local.login", {
-            successRedirect: "/",
+            successRedirect: "/dashboard",
             failureRedirect: "/login",
             failureFlash: true
         })(req, res, next);
@@ -31,8 +31,6 @@ export default class AuthController extends AbstractController {
             const user = req.user as any;
             let parentId;
             const age = caclAge(birthdate);
-
-            console.log(`############### ${password}`)
 
             if(user) parentId = user.id;
 

@@ -25,7 +25,7 @@ class AuthController extends AbstractController_1.default {
     LoginController(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             passport_1.default.authenticate("local.login", {
-                successRedirect: "/",
+                successRedirect: "/dashboard",
                 failureRedirect: "/login",
                 failureFlash: true
             })(req, res, next);
@@ -39,7 +39,6 @@ class AuthController extends AbstractController_1.default {
                 const user = req.user;
                 let parentId;
                 const age = (0, util_1.caclAge)(birthdate);
-                console.log(`############### ${password}`);
                 if (user)
                     parentId = user.id;
                 if (!name) {

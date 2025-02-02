@@ -26,7 +26,13 @@
                         <tr>
                             <td class="text-center">{{this.message}}</td>
                             <td class="text-center">{{this.fromReference.name}} {{this.fromReference.lastname}}</td>
-                            <td class="text-center">{{this.toReference.name}} {{this.toReference.lastname}}</td>
+                            <td class="text-center">
+                                {{#if this.toReference}}
+                                    {{this.toReference.name}} {{this.toReference.lastname}}
+                                {{else}}
+                                    ADMINISTRADORES
+                                {{/if}}
+                                </td>
                             <td class="text-center">{{this.subject}}</td>
                             <td class="d-flex justify-content-center">
                                 {{#propietaryNotification ../user.id this }}

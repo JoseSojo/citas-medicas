@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="card">
+        <form class="card" target="_blank" action="?generate=true">
             <div class="card-body">
                 <label>Dirección</label>
                 <select name="address" class="form-control">
@@ -29,8 +29,8 @@
                     {{/each}}
                 </select>
 
-                <a href="?generate=true" target="_blank" class="btn btn-primary mt-3">Generar</a>
+                <button type="submit" target="_blank" class="btn btn-primary mt-3">Generar</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

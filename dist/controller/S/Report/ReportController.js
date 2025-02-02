@@ -165,6 +165,7 @@ class ReportController extends AbstractController_1.default {
     }
     HandleReportDoctor(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const userModel = new UserModel_1.default();
             const addressModel = new AddressSubModel_1.default();
             const addressPromise = addressModel.findManyAdress({ filter: { isDelete: false }, skip: 0, take: 60 });
@@ -207,8 +208,12 @@ class ReportController extends AbstractController_1.default {
                     headers,
                     rows,
                     title: `Reporte de Doctor ${currentDoctor === null || currentDoctor === void 0 ? void 0 : currentDoctor.name} ${currentDoctor === null || currentDoctor === void 0 ? void 0 : currentDoctor.lastname}`,
-                    filter: [],
-                    count
+                    filter: [
+                        `Teléfono: ${currentDoctor === null || currentDoctor === void 0 ? void 0 : currentDoctor.phoneCode} ${currentDoctor === null || currentDoctor === void 0 ? void 0 : currentDoctor.phoneNumber}`,
+                        `Correo: ${currentDoctor === null || currentDoctor === void 0 ? void 0 : currentDoctor.email}`,
+                        `Dirección: ${(_a = currentDoctor === null || currentDoctor === void 0 ? void 0 : currentDoctor.addressReference) === null || _a === void 0 ? void 0 : _a.description}`,
+                    ],
+                    count,
                 });
                 const pdfResult = yield pdf;
                 return res.redirect(`${pdfResult.download}`);
@@ -285,7 +290,6 @@ class ReportController extends AbstractController_1.default {
                     count
                 });
                 const pdfResult = yield pdf;
-                console.log(pdfResult);
                 return res.redirect(`${pdfResult.download}`);
             }
             return res.render(`s/report/doctor.hbs`, {
@@ -297,6 +301,7 @@ class ReportController extends AbstractController_1.default {
     }
     HandleReportPatient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const userModel = new UserModel_1.default();
             const addressModel = new AddressSubModel_1.default();
             const addressPromise = addressModel.findManyAdress({ filter: { isDelete: false }, skip: 0, take: 60 });
@@ -337,7 +342,11 @@ class ReportController extends AbstractController_1.default {
                     headers,
                     rows,
                     title: `Reporte de Paciente ${currentPatient === null || currentPatient === void 0 ? void 0 : currentPatient.name} ${currentPatient === null || currentPatient === void 0 ? void 0 : currentPatient.lastname}`,
-                    filter: [],
+                    filter: [
+                        `Teléfono: ${currentPatient === null || currentPatient === void 0 ? void 0 : currentPatient.phoneCode} ${currentPatient === null || currentPatient === void 0 ? void 0 : currentPatient.phoneNumber}`,
+                        `Correo: ${currentPatient === null || currentPatient === void 0 ? void 0 : currentPatient.email}`,
+                        `Dirección: ${(_a = currentPatient === null || currentPatient === void 0 ? void 0 : currentPatient.addressReference) === null || _a === void 0 ? void 0 : _a.description}`,
+                    ],
                     count
                 });
                 const pdfResult = yield pdf;

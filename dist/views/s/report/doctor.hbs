@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="card">
-            <div class="card-body">
+            <form target="_blank" action="?generate=true" class="card-body">
                 <label>Dirección</label>
                 <select name="address" class="form-control">
                     <option selected></option>
@@ -25,8 +25,10 @@
                     {{/each}}
                 </select>
 
-                <a href="?generate=true" target="_blank" class="btn btn-primary mt-3">Generar</a>
-            </div>
+                <button type="submit" target="_blank" class="btn btn-primary mt-3">Generar</button>
+
+                {{!-- <a href="" target="_blank" class="btn btn-primary mt-3">Generar</a> --}}
+            </form>
         </div>
     </div>
 </div>

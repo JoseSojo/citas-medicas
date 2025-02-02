@@ -229,8 +229,12 @@ class ReportController extends AbstractController {
                 headers,
                 rows,
                 title:`Reporte de Doctor ${currentDoctor?.name} ${currentDoctor?.lastname}`,
-                filter: [],
-                count
+                filter: [
+                    `Teléfono: ${currentDoctor?.phoneCode} ${currentDoctor?.phoneNumber}`,
+                    `Correo: ${currentDoctor?.email}`,
+                    `Dirección: ${currentDoctor?.addressReference?.description}`,
+                ],
+                count,
             });
 
             const pdfResult = await pdf;
@@ -310,7 +314,6 @@ class ReportController extends AbstractController {
             });
 
             const pdfResult = await pdf;
-            console.log(pdfResult);
             return res.redirect(`${pdfResult.download}`);
         }
         return res.render(`s/report/doctor.hbs`, {
@@ -373,7 +376,11 @@ class ReportController extends AbstractController {
                 headers,
                 rows,
                 title:`Reporte de Paciente ${currentPatient?.name} ${currentPatient?.lastname}`,
-                filter: [],
+                filter: [
+                    `Teléfono: ${currentPatient?.phoneCode} ${currentPatient?.phoneNumber}`,
+                    `Correo: ${currentPatient?.email}`,
+                    `Dirección: ${currentPatient?.addressReference?.description}`,
+                ],
                 count
             });
 

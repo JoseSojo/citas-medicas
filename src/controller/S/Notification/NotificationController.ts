@@ -129,9 +129,7 @@ export default class NotificationController extends AbstractController {
             req.flash(`Error`, `Error temporal`);
             return res.redirect(`/notification/`);            
         }
-    }
-
-    
+    } 
 
     public async DeleteLogic(req:Request,res:Response) {
         try {
@@ -182,7 +180,6 @@ export default class NotificationController extends AbstractController {
         dataReturn.data = await data;
         return res.render(`s/notification/unique.hbs`, dataReturn);
     }
-
 
     public loadRoutes () {
         this.router.get(`/notification/`, OnSession, OnAdminORDoctor, this.RenderList);

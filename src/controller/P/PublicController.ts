@@ -77,6 +77,7 @@ export default class PublicController extends AbstractController {
         return res.render(`p/main.hbs`, {
             list: await resultPromise,
             count: await count,
+            dashboard: true,
             filterText
         });
     }
@@ -154,7 +155,7 @@ export default class PublicController extends AbstractController {
     }
 
     public loadRoutes() {
-        this.router.get(`${this.prefix}/`, OffSession, this.RenderPublic);
+        this.router.get(`${this.prefix}/`, this.RenderPublic);
         this.router.get(`${this.prefix}/p/address`, OffSession, this.RenderAddress);
         this.router.get(`${this.prefix}/p/speciality`, OffSession, this.RenderSpeciality);
         this.router.get(`${this.prefix}/p/porfolio`, OffSession, this.PorfolioRender);
