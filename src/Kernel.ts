@@ -9,7 +9,7 @@ class Kernel {
     }
 
     public getStatus(): STATUS[] {
-        return [`CANCELADA`,`FINALIZADO`,`PROCESADO`,`APROVADA`];
+        return [`CANCELADA`,`FINALIZADO`,`REGISTRADO`,`APROVADA`];
     }
 
     public getStatusEnable() {

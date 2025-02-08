@@ -5,7 +5,7 @@ export function getRoles(): ROLES[] {
 }
 
 export function getStatus(): STATUS[] {
-    return [`CANCELADA`, `FINALIZADO`, `PROCESADO`];
+    return [`CANCELADA`, `FINALIZADO`, `REGISTRADO`];
 }
 
 export function getStatusEnable() {

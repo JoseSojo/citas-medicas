@@ -210,7 +210,7 @@ export default class GraphicService extends AbstractModel {
 
         const filter: Prisma.QuotesWhereInput[] = [{ isDelete:false }];
 
-        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`PROCESADO` }]} });
+        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`REGISTRADO` }]} });
         const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`Aprobado` }]} });
         const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`CANCELADO` }]} });
         const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`FINALIZADO` }]} });
@@ -220,7 +220,7 @@ export default class GraphicService extends AbstractModel {
         const cancelado = await quoteCanceladoCountPromise;
         const finalizado = await quoteFinalizadoCountPromise;
 
-        const label: STATUS[] = [`PROCESADO`,"APROVADA","CANCELADA","FINALIZADO"];
+        const label: STATUS[] = [`REGISTRADO`,"APROVADA","CANCELADA","FINALIZADO"];
         const data = [procesado,Aprobado,cancelado,finalizado];
 
         return {label, data};
@@ -231,7 +231,7 @@ export default class GraphicService extends AbstractModel {
         const model = new AbstractModel();
         const quoteModel = new QuotesSubModel();
 
-        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false }, {doctorId:id},{ status:`PROCESADO` }]} });
+        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false }, {doctorId:id},{ status:`REGISTRADO` }]} });
         const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false }, {doctorId:id},{ status:`Aprobado` }]} });
         const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false }, {doctorId:id},{ status:`CANCELADO` }]} });
         const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false }, {doctorId:id},{ status:`FINALIZADO` }]} });
@@ -241,7 +241,7 @@ export default class GraphicService extends AbstractModel {
         const cancelado = await quoteCanceladoCountPromise;
         const finalizado = await quoteFinalizadoCountPromise;
 
-        const label: STATUS[] = [`PROCESADO`,"APROVADA","CANCELADA","FINALIZADO"];
+        const label: STATUS[] = [`REGISTRADO`,"APROVADA","CANCELADA","FINALIZADO"];
         const data = [procesado,Aprobado,cancelado,finalizado];
 
         return {label, data};
@@ -264,7 +264,7 @@ export default class GraphicService extends AbstractModel {
         const cancelado = await quoteCanceladoCountPromise;
         const finalizado = await quoteFinalizadoCountPromise;
 
-        const label: STATUS[] = [`PROCESADO`,"APROVADA","CANCELADA","FINALIZADO"];
+        const label: STATUS[] = [`REGISTRADO`,"APROVADA","CANCELADA","FINALIZADO"];
         const data = [procesado,Aprobado,cancelado,finalizado];
 
         return {label, data};

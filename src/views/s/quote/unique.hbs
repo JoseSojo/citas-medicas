@@ -22,7 +22,7 @@
                 </li>
             {{/isAdmin}}
             {{#isValid user.id data.doctorReference.id}}
-                    {{#isValid data.status "PROCESADO"}}
+                    {{#isValid data.status "REGISTRADO"}}
                         <li style="list-style: none;">
                             <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalAprovedQuote">
                                 APROBAR

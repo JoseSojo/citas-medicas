@@ -205,7 +205,7 @@ class GraphicService extends AbstractModel_1.default {
             const model = new AbstractModel_1.default();
             const quoteModel = new QuotesModel_1.default();
             const filter = [{ isDelete: false }];
-            const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `PROCESADO` }] } });
+            const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `REGISTRADO` }] } });
             const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `Aprobado` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `FINALIZADO` }] } });
@@ -213,7 +213,7 @@ class GraphicService extends AbstractModel_1.default {
             const Aprobado = yield quoteAprobadoCountPromise;
             const cancelado = yield quoteCanceladoCountPromise;
             const finalizado = yield quoteFinalizadoCountPromise;
-            const label = [`PROCESADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
+            const label = [`REGISTRADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
             const data = [procesado, Aprobado, cancelado, finalizado];
             return { label, data };
         });
@@ -223,7 +223,7 @@ class GraphicService extends AbstractModel_1.default {
             const prisma = new client_1.PrismaClient();
             const model = new AbstractModel_1.default();
             const quoteModel = new QuotesModel_1.default();
-            const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `PROCESADO` }] } });
+            const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `REGISTRADO` }] } });
             const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `Aprobado` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { doctorId: id }, { status: `FINALIZADO` }] } });
@@ -231,7 +231,7 @@ class GraphicService extends AbstractModel_1.default {
             const Aprobado = yield quoteAprobadoCountPromise;
             const cancelado = yield quoteCanceladoCountPromise;
             const finalizado = yield quoteFinalizadoCountPromise;
-            const label = [`PROCESADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
+            const label = [`REGISTRADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
             const data = [procesado, Aprobado, cancelado, finalizado];
             return { label, data };
         });
@@ -250,7 +250,7 @@ class GraphicService extends AbstractModel_1.default {
             const Aprobado = yield quoteAprobadoCountPromise;
             const cancelado = yield quoteCanceladoCountPromise;
             const finalizado = yield quoteFinalizadoCountPromise;
-            const label = [`PROCESADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
+            const label = [`REGISTRADO`, "APROVADA", "CANCELADA", "FINALIZADO"];
             const data = [procesado, Aprobado, cancelado, finalizado];
             return { label, data };
         });

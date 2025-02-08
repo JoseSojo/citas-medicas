@@ -25,7 +25,7 @@ export default class PatientControlelr extends AbstractController {
         const quoteCountPromise = quoteModel.countQuotes({ filter:{AND:[{isDelete:false},{patientId:user.id}]} }); // citas totales
         const scheduleCountPromise = userModel.findUser({ filter:{id:user.id} });
 
-        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`PROCESADO` }, { patientId:user.id }]} });
+        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`REGISTRADO` }, { patientId:user.id }]} });
         const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`Aprobado` }, { patientId:user.id }]} });
         const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`CANCELADO` }, { patientId:user.id }]} });
         const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`FINALIZADO` }, { patientId:user.id }]} });
@@ -44,8 +44,8 @@ export default class PatientControlelr extends AbstractController {
             ],
             itemQoute: [
                 {
-                    title: `Procesado`,
-                    link: `/quote/?status=PROCESADO`,
+                    title: `Registrado`,
+                    link: `/quote/?status=REGISTRADO`,
                     count: await quoteProcesadoCountPromise
                 },
                 {
