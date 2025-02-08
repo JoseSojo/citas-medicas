@@ -60,7 +60,6 @@ export default class DoctorQuoteControlelr extends AbstractController {
                 if (user.role === `DOCTOR`) {
                     const instancePromise = instance.updateQuotes({ data: { status, date: `${customUpdate}` }, filter: { id } });
                     await instance.CreateHistory({ des: `Cambio de estado de cita`, name: `user`, userId: user.id });
-                    console.log(status, date);
                     await instancePromise;
 
                 }

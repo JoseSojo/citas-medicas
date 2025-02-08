@@ -34,8 +34,6 @@ export default class UserFixtures extends AbstractFixture {
             const name = names[this.SelectMinMax({ min:0, max:names.length-1 })];
             const lastname = lastnames[this.SelectMinMax({ min:0, max:lastnames.length-1 })];
 
-            console.log(`PACIENTE`, i, name, lastname);
-
             await instance.createUser({
                 data: {
                     name: name,
