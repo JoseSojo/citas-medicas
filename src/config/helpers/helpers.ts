@@ -44,10 +44,10 @@ const Helpers = {
     badgeStatus(status: STATUS, options: any) {
 
         const color = 
-            status == "REGISTRADO" ? `#03346E`
+            status == "APROVADA" ? `#03346E`
             : status == "FINALIZADO" ? `#387F39`
             : status == "CANCELADA" ? `#3C3D37`
-            : status == "APROBADO" ? `#7FA1C3` 
+            : status == "REGISTRADO" ? `#7FA1C3` 
             : `#E7E8D8`;
 
         const cls = `padding:3px 8px;font-family: monospace ;font-size:14px;border-radius:7px; background: ${color}; color:#f2f2f2;text-shadow: 0 0 2px #212529;`

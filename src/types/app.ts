@@ -1,7 +1,7 @@
 
 export type ROLES = `DOCTOR` | `ADMIN` | `PACIENTE`;
 
-export type STATUS = `REGISTRADO` | `FINALIZADO` | `CANCELADA`;
+export type STATUS = `REGISTRADO` | `FINALIZADO` | `CANCELADA` | `APROVADA`;
 
 export interface MONTH_STRUCT {
     name:   string;

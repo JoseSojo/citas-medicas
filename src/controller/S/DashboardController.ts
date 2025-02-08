@@ -30,7 +30,7 @@ export default class DashboardController extends AbstractController {
         const quoteCountPromise = quoteModel.countQuotes({ filter:{ isDelete:false } });
 
         const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`REGISTRADO` }]} });
-        const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`APROBADO` }]} });
+        const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`Aprobado` }]} });
         const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`CANCELADO` }]} });
         const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter:{AND:[{ isDelete:false },{ status:`FINALIZADO` }]} });
 
@@ -76,7 +76,7 @@ export default class DashboardController extends AbstractController {
                 },
                 {
                     title: `Aprobado`,
-                    link: `/quote/?status=APROBADO`,
+                    link: `/quote/?status=Aprobado`,
                     count: await quoteAprobadoCountPromise
                 },
                 {

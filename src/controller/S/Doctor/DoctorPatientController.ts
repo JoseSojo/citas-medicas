@@ -11,6 +11,7 @@ export default class DoctorPatientControlelr extends AbstractController {
         super();
     }
 
+
     public async DoctorPatient(req: Request, res: Response) {
         const instance = new QuotesSubModel();
         const user = req.user as any;
