@@ -60,7 +60,7 @@ class DoctorControlelr extends AbstractController_1.default {
                 ],
                 itemQoute: [
                     {
-                        title: `Regsitrado`,
+                        title: `Registrado`,
                         link: `/quote/?status=REGISTRADO`,
                         count: yield quoteProcesadoCountPromise
                     },

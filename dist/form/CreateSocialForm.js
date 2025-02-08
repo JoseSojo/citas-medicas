@@ -6,7 +6,7 @@ exports.CreateSocialFrom = {
     title: `Crear Red Social`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -17,7 +17,7 @@ const UpdateSocialFrom = (id) => {
         title: `Actualizar Medio Social`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

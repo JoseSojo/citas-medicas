@@ -22,7 +22,7 @@ export const CreateUniversityFrom: STRUC_FORM = {
     title: `Crear Universidad`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -35,7 +35,7 @@ export const UpdateUniversityFrom = (id:string) => {
         title: `Actualizar universidad`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

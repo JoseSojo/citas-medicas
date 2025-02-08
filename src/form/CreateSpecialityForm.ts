@@ -22,7 +22,7 @@ export const CreateSpecialityFrom: STRUC_FORM = {
     title: `Crear Especialidad`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -35,7 +35,7 @@ export const UpdateSpecialityFrom = (id:string) => {
         title: `Actualizar Especialidad`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

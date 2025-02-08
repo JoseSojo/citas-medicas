@@ -5,7 +5,7 @@ export const CreateAddressFrom: STRUC_FORM = {
     title: `Agregar Dirección`,
     method: `POST`,
     submit: {
-        text: `agregar`,
+        text: `Agregar`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -17,7 +17,7 @@ export const UpdateDirecciónFrom = (id:string) => {
         title: `Actualizar Dirección`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

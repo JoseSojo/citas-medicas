@@ -6,7 +6,7 @@ exports.CreateAddressFrom = {
     title: `Agregar Dirección`,
     method: `POST`,
     submit: {
-        text: `agregar`,
+        text: `Agregar`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -17,7 +17,7 @@ const UpdateDirecciónFrom = (id) => {
         title: `Actualizar Dirección`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

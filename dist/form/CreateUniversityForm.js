@@ -22,7 +22,7 @@ exports.CreateUniversityFrom = {
     title: `Crear Universidad`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -33,7 +33,7 @@ const UpdateUniversityFrom = (id) => {
         title: `Actualizar universidad`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

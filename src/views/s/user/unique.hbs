@@ -4,7 +4,7 @@
         <ul class="d-flex gap-4">
             <li style="list-style: none;">
                 <a href="/user" class="btn btn-primary">
-                    lista
+                    Lista
                     <i class="bi bi-card-list"></i>
                 </a>
             </li>
@@ -12,13 +12,13 @@
                 {{#isDoctor data}}
                     <li style="list-style: none;"></li>
                         <a href="/report/doctor/?doctor={{data.id}}" class="btn btn-success d-flex gap-2">
-                            reporte
+                            Reporte
                             <i class="bi bi-file-pdf-fill"></i>
                         </a>
                     </li>
                     <li style="list-style: none;">
                         <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalSpecialityAdded">
-                            especialidad
+                            Especialidad
                             <i class="bi bi-eye"></i>
                         </button>
                     </li>
@@ -26,7 +26,7 @@
                 {{#isPatient data}}
                     <li style="list-style: none;"></li>
                         <a href="/report/patient/?patient={{data.id}}" class="btn btn-success d-flex gap-2">
-                            reporte
+                            Reporte
                             <i class="bi bi-file-pdf-fill"></i>
                         </a>
                     </li>
@@ -35,7 +35,7 @@
             {{#isAdmin user}}
             <li style="list-style: none;">
                 <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalAdminUser">
-                    actualizar
+                    Actualizar
                     <i class="bi bi-pen-fill"></i>
                 </button>
             </li>
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                     {{else}}
-                        no hay especialidad
+                        No hay especialidad
                     {{/if}}
                 </div>
             </div>
@@ -135,7 +135,7 @@
                 </div>
             {{else}}
                 <div class="card mt-3">
-                    <div class="card-body">no hay Horario</div>
+                    <div class="card-body">No hay Horario</div>
                 </div>
             {{/if}}
         {{/isDoctor}}

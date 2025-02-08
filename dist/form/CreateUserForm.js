@@ -6,7 +6,7 @@ exports.CreateUserFrom = {
     title: `Crear Usuario`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``
@@ -17,7 +17,7 @@ const UpdateUserFrom = (id) => {
         title: `Actualizar Usuario`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

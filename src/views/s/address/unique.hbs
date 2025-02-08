@@ -4,19 +4,19 @@
         <ul class="d-flex gap-4">
             <li style="list-style: none;">
                 <a href="/address" class="btn btn-primary">
-                    lista
+                    Lista
                     <i class="bi bi-card-list"></i>
                 </a>
             </li>
             <li style="list-style: none;">
                 <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalCreateAddress">
-                    actualizar
+                    Actualizar
                     <i class="bi bi-pen-fill"></i>
                 </button>
             </li>
             <li style="list-style: none;">
                 <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#deleteObject">
-                    eliminar
+                    Eliminar
                     <i class="bi bi-pen-fill"></i>
                 </button>
             </li>
@@ -33,7 +33,7 @@
     
         {{#if data.parentReference}}
         <ul>
-            <li>Dirección padre: 
+            <li>Dirección Padre: 
                 <a href="/address/{{data.parentReference.id}}">
                     {{data.parentReference.description}}
                 </a>

@@ -6,7 +6,7 @@ export const CreateSocialFrom: STRUC_FORM = {
     title: `Crear Red Social`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -18,7 +18,7 @@ export const UpdateSocialFrom = (id:string) => {
         title: `Actualizar Medio Social`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

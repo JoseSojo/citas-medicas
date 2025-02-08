@@ -22,7 +22,7 @@ exports.CreateSpecialityFrom = {
     title: `Crear Especialidad`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``,
@@ -33,7 +33,7 @@ const UpdateSpecialityFrom = (id) => {
         title: `Actualizar Especialidad`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

@@ -70,7 +70,7 @@ export default class DashboardController extends AbstractController {
 
             itemQoute: [
                 {
-                    title: `Regsitrados`,
+                    title: `Registrados`,
                     link: `/quote/?status=REGISTRADO`,
                     count: await quoteProcesadoCountPromise
                 },

@@ -54,7 +54,7 @@ export default class DoctorControlelr extends AbstractController {
             ],
             itemQoute: [
                 {
-                    title: `Regsitrado`,
+                    title: `Registrado`,
                     link: `/quote/?status=REGISTRADO`,
                     count: await quoteProcesadoCountPromise
                 },

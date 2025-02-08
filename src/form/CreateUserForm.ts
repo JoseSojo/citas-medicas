@@ -5,7 +5,7 @@ export const CreateUserFrom: STRUC_FORM = {
     title: `Crear Usuario`,
     method: `POST`,
     submit: {
-        text: `crear`,
+        text: `Crear`,
         ico: `bi bi-send-fill`
     },
     class: ``
@@ -17,7 +17,7 @@ export const UpdateUserFrom = (id:string) => {
         title: `Actualizar Usuario`,
         method: `POST`,
         submit: {
-            text: `actualizar`,
+            text: `Actualizar`,
             ico: `bi bi-send-fill`
         },
         class: ``,

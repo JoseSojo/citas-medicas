@@ -75,7 +75,7 @@ class DashboardController extends AbstractController_1.default {
                 ],
                 itemQoute: [
                     {
-                        title: `Regsitrados`,
+                        title: `Registrados`,
                         link: `/quote/?status=REGISTRADO`,
                         count: yield quoteProcesadoCountPromise
                     },
