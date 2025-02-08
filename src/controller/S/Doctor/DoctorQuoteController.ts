@@ -28,6 +28,7 @@ export default class DoctorQuoteControlelr extends AbstractController {
             const instance = new QuotesSubModel();
             const detail = new QuotesDetailSubModel();
             const { status, date } = req.body;
+            console.log(status, date);
             const user = req.user as any;
             const id = req.params.id;
 
@@ -51,18 +52,15 @@ export default class DoctorQuoteControlelr extends AbstractController {
                     await staticticPromise;
                 }
             } else {
-                console.log(status, date);
                 let customUpdate = ``;
-                if(date) {
+                if (date) {
                     const nowDate = date.split(`T`);
-                    customUpdate =  `${nowDate[0]} ${nowDate[1]}`;
+                    customUpdate = `${nowDate[0]} ${nowDate[1]}`;
                 }
                 if (user.role === `DOCTOR`) {
                     const instancePromise = instance.updateQuotes({ data: { status, date: `${customUpdate}` }, filter: { id } });
                     await instance.CreateHistory({ des: `Cambio de estado de cita`, name: `user`, userId: user.id });
-                    console.log(status, date);
                     await instancePromise;
-
                 }
             }
 

@@ -44,7 +44,7 @@ const Helpers = {
     badgeStatus(status: STATUS, options: any) {
 
         const color = 
-            status == "APROVADA" ? `#03346E`
+            status == "APROBADO" ? `#03346E`
             : status == "FINALIZADO" ? `#387F39`
             : status == "CANCELADA" ? `#3C3D37`
             : status == "REGISTRADO" ? `#7FA1C3` 
