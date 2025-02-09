@@ -26,12 +26,16 @@ class AbstractModel extends Kernel {
     // connect or create
     public async PushStatictics({objectId, objectName}: {objectName:string, objectId:string}) {
         const prisma = this.prisma;
+        const month = this.getMonth();
+
+        console.log(`Estadistica en: ${month}`, objectName, objectId);
 
         const staticticsMonthPromise = prisma.staticticsMonth.findFirst({
             where: {
                 AND: [
                     { objectName },
-                    { objectId }
+                    { objectId },
+                    { monthNumber:month }
                 ]
             }
         });
@@ -127,9 +131,12 @@ class AbstractModel extends Kernel {
     } 
 
     public async create({objectId, objectName,type, prisma}: {type:`MONTH` | `YEAR`,objectName:string, objectId:string, prisma:PrismaClient}) {
+        console.log(134,objectId, objectName,type);
         if(type === "MONTH") {
-            const monthNumber = this.getMonth()+1;
-            const month: MONTH_STRUCT = this.getMonths(monthNumber) as MONTH_STRUCT;
+            const monthNumber = this.getMonth();
+            const month: MONTH_STRUCT = this.getMonths(monthNumber-1) as MONTH_STRUCT;
+
+            console.log(`MONTH`, month);
 
             const day = this.getDay();
             return await prisma.staticticsMonth.create({
@@ -213,6 +220,7 @@ class AbstractModel extends Kernel {
 
     public getMonth() {
         const date = new Date();
+        console.log(date, date.getMonth(), date.getMonth()+1)
         return date.getMonth()+1;
     }
 
