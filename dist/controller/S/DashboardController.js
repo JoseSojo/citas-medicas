@@ -37,7 +37,7 @@ class DashboardController extends AbstractController_1.default {
             const adminCountPromise = userModel.countUser({ filter: { AND: [{ role: `ADMIN` }, { isDelete: false }] } });
             const quoteCountPromise = quoteModel.countQuotes({ filter: { isDelete: false } });
             const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `REGISTRADO` }] } });
-            const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `Aprobado` }] } });
+            const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `APROBADO` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [{ isDelete: false }, { status: `FINALIZADO` }] } });
             const dataReturn = {
@@ -81,7 +81,7 @@ class DashboardController extends AbstractController_1.default {
                     },
                     {
                         title: `Aprobado`,
-                        link: `/quote/?status=Aprobado`,
+                        link: `/quote/?status=APROBADO`,
                         count: yield quoteAprobadoCountPromise
                     },
                     {

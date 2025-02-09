@@ -38,11 +38,14 @@ class AbstractModel extends Kernel_1.default {
     PushStatictics(_a) {
         return __awaiter(this, arguments, void 0, function* ({ objectId, objectName }) {
             const prisma = this.prisma;
+            const month = this.getMonth();
+            console.log(`Estadistica en: ${month}`, objectName, objectId);
             const staticticsMonthPromise = prisma.staticticsMonth.findFirst({
                 where: {
                     AND: [
                         { objectName },
-                        { objectId }
+                        { objectId },
+                        { monthNumber: month }
                     ]
                 }
             });
@@ -137,9 +140,11 @@ class AbstractModel extends Kernel_1.default {
     }
     create(_a) {
         return __awaiter(this, arguments, void 0, function* ({ objectId, objectName, type, prisma }) {
+            console.log(134, objectId, objectName, type);
             if (type === "MONTH") {
-                const monthNumber = this.getMonth() + 1;
-                const month = this.getMonths(monthNumber);
+                const monthNumber = this.getMonth();
+                const month = this.getMonths(monthNumber - 1);
+                console.log(`MONTH`, month);
                 const day = this.getDay();
                 return yield prisma.staticticsMonth.create({
                     data: {
@@ -214,6 +219,7 @@ class AbstractModel extends Kernel_1.default {
     }
     getMonth() {
         const date = new Date();
+        console.log(date, date.getMonth(), date.getMonth() + 1);
         return date.getMonth() + 1;
     }
     getDay() {
