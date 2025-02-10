@@ -254,7 +254,7 @@ export default class GraphicService extends AbstractModel {
 
         const filter: Prisma.QuotesWhereInput[] = [{ isDelete:false }, {patientId:id}];
 
-        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`PROCESADO` }]} });
+        const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`REGISTRADO` }]} });
         const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`APROBADO` }]} });
         const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`CANCELADO` }]} });
         const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter:{AND:[...filter,{ status:`FINALIZADO` }]} });

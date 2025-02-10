@@ -228,7 +228,8 @@ export default class PatientQuoteController extends AbstractController {
                 quoteDetailReference: {
                     create: {}
                 },
-                message,                
+                message,
+                status: `REGISTRADO`          
             } });
 
             await instance.PushStatictics({ objectId:``,objectName:`CITAS` });

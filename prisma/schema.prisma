@@ -289,7 +289,7 @@ model Notification {
 model Quotes {
   id String @id @default(uuid())
 
-  status  String @default("PROCESADO")
+  status  String @default("REGISTRADO")
   message String
 
   date            String?

@@ -242,7 +242,7 @@ class GraphicService extends AbstractModel_1.default {
             const model = new AbstractModel_1.default();
             const quoteModel = new QuotesModel_1.default();
             const filter = [{ isDelete: false }, { patientId: id }];
-            const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `PROCESADO` }] } });
+            const quoteProcesadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `REGISTRADO` }] } });
             const quoteAprobadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `APROBADO` }] } });
             const quoteCanceladoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `CANCELADO` }] } });
             const quoteFinalizadoCountPromise = quoteModel.countQuotes({ filter: { AND: [...filter, { status: `FINALIZADO` }] } });
