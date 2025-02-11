@@ -19,6 +19,8 @@ export default class ApiGraphicController extends AbstractController {
         const { type, userId, role } = req.query as { type:GraphicPayload, userId?:string, role?:`DOCTOR`|`PACIENTE` };
         const service = new GraphicService();
 
+        console.log(req.query);
+
         if(userId && role) {
             const userFound = await userModel.findUser({ filter:{ id:userId } });
             if(role === "DOCTOR") {
@@ -40,7 +42,7 @@ export default class ApiGraphicController extends AbstractController {
                     const {label,data} = await service.YearGraphicQuote({year,id:userId,ObjectName:`PACIENTE`});
                     return res.status(200).json({label,data});
                 } else if(type === "spaceCiteQuoteMonth") {
-                    const {month} = req.query;
+                    const {month,year} = req.query;
                     const {label,data} = await service.MonthGraphicQuote({month,id:userId});
                     return res.status(200).json({label,data});
                 }
@@ -49,7 +51,6 @@ export default class ApiGraphicController extends AbstractController {
                 return res.status(200).json({label,data});
             }
         }
-
 
         if(type === "spaceCiteQuoteStatus") {
             const {label,data} = await service.PieQuoteStatusChart({id:userId});
@@ -61,7 +62,8 @@ export default class ApiGraphicController extends AbstractController {
             return res.status(200).json({label,data});
         }
         else if(type === "spaceCiteQuoteMonth") {
-            const {month} = req.query;
+            console.log(req.query);
+            const {month,year} = req.query;
             const {label,data} = await service.MonthGraphicQuote({month,id:userId});
             return res.status(200).json({label,data});
         }

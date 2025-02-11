@@ -51,9 +51,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card shadow border-left-info py-2">
-            <div class="card-header">
-                <select name="" class="form-control" id="monthSelect">
-                    <option>selecciona una opción</option>
+            <div class="card-header d-flex gap-3">
+                <select name="" class="col-6 form-control" id="monthSelect">
+                    <option value="">selecciona un mes</option>
                     <option value="1">Enero</option>
                     <option value="2">Febrero</option>
                     <option value="3">Marzo</option>
@@ -66,6 +66,12 @@
                     <option value="10">Octubre</option>
                     <option value="11">Noviembre</option>
                     <option value="12">Diciembre</option>
+                </select>
+                <select name="" class="col-6 form-control" id="yearSelectMonth">
+                    <option value="">selecciona un año</option>
+                    {{#each year}}
+                        <option value="{{this.year}}">{{this}}</option>
+                    {{/each}}
                 </select>
             </div>
             <div class="card-body">
@@ -82,7 +88,7 @@
         <div class="card shadow border-left-info py-2">
             <div class="card-header">
                 <select name="" class="form-control" id="yearSelect">
-                    <option>selecciona una opción</option>
+                    <option value="">selecciona una opción</option>
                     {{#each year}}
                         <option value="{{this.year}}">{{this}}</option>
                     {{/each}}
