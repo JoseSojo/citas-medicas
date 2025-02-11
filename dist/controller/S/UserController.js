@@ -315,7 +315,7 @@ class UserController extends AbstractController_1.default {
                 });
                 yield instance.CreateHistory({ des: `Actualización de contraseña`, name: `user`, userId: user.id });
                 req.flash(`succ`, `Usuario actualizado`);
-                return res.render(`/profiel`);
+                return res.render(`/profile`);
             }
             catch (error) {
                 req.flash(`Error`, `Error temporal`);
