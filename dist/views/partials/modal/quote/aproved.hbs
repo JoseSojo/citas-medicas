@@ -12,8 +12,8 @@
             <div class="modal-body container-fluid">
                 <form action="/doctor/quote/status/{{data.id}}" method="post" class="row">
 
-                    <h3 class="text-center">¿Seguro que desea aprobar la cita?</h3>
-                    <h2 class="text-center text-muted">en tu horario principal</h2>
+                    <h3 class="text-center">¿Seguro que desea aprobar la Cita?</h3>
+                    <h5 class="text-center text-muted">Selecciona la Fecha y Hora correspondiente.</h5>
 
                     <input type="datetime-local" class="form-control my-3" required name="date" />
 
@@ -21,10 +21,10 @@
                     <input type="hidden" value="APROBADO" name="status" />
 
                     <div class="d-flex gap-3 justify-content-end">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-send-fill"></i>
-                            aprobar
+                            Aprobar
                         </button>
                     </div>
                 </form>
