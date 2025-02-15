@@ -35,7 +35,7 @@ class AuthController extends AbstractController_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const instance = new UserModel_1.default();
-                const { exacAddress, birthdate, name, ci, email, lastname, phoneCode, phoneNumber, password } = req.body;
+                const { addressId, exacAddress, birthdate, name, ci, email, lastname, phoneCode, phoneNumber, password } = req.body;
                 const user = req.user;
                 let parentId;
                 const age = (0, util_1.caclAge)(birthdate);
@@ -58,6 +58,9 @@ class AuthController extends AbstractController_1.default {
                     exacAddress,
                     age
                 };
+                if (addressId) {
+                    data = Object.assign(Object.assign({}, data), { addressReference: { connect: { id: addressId } } });
+                }
                 if (parentId) {
                     data = Object.assign(Object.assign({}, data), { parentReference: { connect: { id: parentId } } });
                 }

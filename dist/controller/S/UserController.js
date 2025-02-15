@@ -182,7 +182,6 @@ class UserController extends AbstractController_1.default {
                 rif,
                 egresDate: egresDate
             };
-            console.log();
             if (universityId)
                 data = Object.assign(Object.assign({}, data), { egresUniversityReference: { connect: { id: universityId } } });
             if (!addressId.includes(`opción`)) {

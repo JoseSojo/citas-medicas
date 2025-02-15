@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Helpers = {
     isHistoryDelete(history, options) {
-        console.log(history);
         if (history.description.includes(`liminaci`)) {
             return `
                 <form method="POST" action="/history/restore">

@@ -28,7 +28,6 @@ export default class DoctorQuoteControlelr extends AbstractController {
             const instance = new QuotesSubModel();
             const detail = new QuotesDetailSubModel();
             const { status, date } = req.body;
-            console.log(status, date);
             const user = req.user as any;
             const id = req.params.id;
 

@@ -21,8 +21,6 @@ passport_1.default.use("local.login", new passport_local_1.Strategy({
     passwordField: "password"
 }, (email, password, done) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield User.findUser({ filter: { email } });
-    console.log(email, password);
-    console.log(user);
     if (user) {
         const dbPassword = user.password;
         const match = yield User.ComparePassword({ password, dbPassword: dbPassword });

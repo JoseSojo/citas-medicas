@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { OnDoctor, OnSession } from "../../../middlewares/auth";
+import { OnAdmin, OnDoctor, OnSession } from "../../../middlewares/auth";
 import AbstractController from "../../AbstractController";
 import NotificationModel from "../../../model/user/notification/NotificationModel";
 import UserModel from "../../../model/user/UserModel";
 import SpecialitySubModel from "../../../model/config/SpecialityModel";
 import QuotesSubModel from "../../../model/quotes/QuotesModel";
-import { Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 export default class PatientQuoteController extends AbstractController {
 
@@ -132,6 +132,7 @@ export default class PatientQuoteController extends AbstractController {
         const skip = req.query.skip ? Number(req.query.skip) : 0;
 
         const filter: Prisma.QuotesWhereInput[] = [];
+        filter.push({ isDelete:false })
         if(user.role != `ADMIN`)filter.push({ OR:[{ patientId:user.id },{ doctorId:user.id }]});
 
         if(status) {
@@ -211,6 +212,10 @@ export default class PatientQuoteController extends AbstractController {
         const dataReturn = {
             notifications: await noti.GetNowNotification({ id:user.id }),
             data: await instance.findQuotes({ filter:{ AND:[{id},{isDelete:false}] } }),
+            delete: {
+                name: `Elimianr Cita`,
+                url: `/quote/${id}/delete`
+            }
         }
 
         return res.render(`s/quote/unique.hbs`, dataReturn);
@@ -243,6 +248,26 @@ export default class PatientQuoteController extends AbstractController {
         }     
     }
 
+    public async DeleteLogic(req: Request, res: Response) {
+        try {
+            const {id} = req.params;
+            const user = req.user as any;
+            const instance = new QuotesSubModel();
+
+            const prisma = new PrismaClient();
+
+            await prisma.quotes.update({ where:{id}, data:{isDelete:true} });
+
+            await instance.CreateHistory({ des:`Eliminación de cita por administrador ${user.name} ${user.lastname}`, name:`QUOTE`,userId:user.id,id},);
+
+            req.flash(`succ`, `Cita eliminada.`);
+            return res.redirect(`/quote`);   
+        } catch (error) {
+            req.flash(`err`, `Error al eliminar`)
+            return res.redirect(`/quote/`);   
+        }  
+    }
+
     public loadRoutes () {
         this.router.get(`/patient/doctor`, OnSession, this.PatientDoctorList);
         this.router.get(`/patient/quote/create`, OnSession, this.RenderCreateQuote);
@@ -250,6 +275,7 @@ export default class PatientQuoteController extends AbstractController {
         this.router.get(`/quote/:id`, OnSession, this.RenderUnique);
 
         this.router.post(`/quote/create`, OnSession, this.CreateLogic);
+        this.router.post(`/quote/:id/delete`, OnSession, OnAdmin, this.DeleteLogic);
 
 
         return this.router;

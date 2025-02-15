@@ -104,7 +104,6 @@ class UserModel extends AbstractModel_1.default {
     // findMany one register
     findManyUser(_a) {
         return __awaiter(this, arguments, void 0, function* ({ filter, skip, take }) {
-            console.log(true, filter);
             const prisma = new client_1.PrismaClient();
             return prisma.user.findMany({
                 where: Object.assign(Object.assign({}, filter), { isDelete: false }),

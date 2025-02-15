@@ -1,6 +1,6 @@
-import { NextFunction } from "express";
+import { NextFunction, Request } from "express";
 
-export const OnSession = function(req: any, res: any, next: NextFunction) {
+export const OnSession = function (req: any, res: any, next: NextFunction) {
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -9,7 +9,7 @@ export const OnSession = function(req: any, res: any, next: NextFunction) {
     }
 };
 
-export const OffSession = function(req: any, res: any, next: NextFunction) {
+export const OffSession = function (req: any, res: any, next: NextFunction) {
     if (!req.isAuthenticated()) {
         next();
     } else {
@@ -18,7 +18,7 @@ export const OffSession = function(req: any, res: any, next: NextFunction) {
     }
 };
 
-export const OnDoctor = function(req: any, res: any, next: NextFunction) {
+export const OnDoctor = function (req: any, res: any, next: NextFunction) {
     if (req.user.role === `DOCTOR`) {
         next();
     } else {
@@ -27,8 +27,10 @@ export const OnDoctor = function(req: any, res: any, next: NextFunction) {
     }
 }
 
-export const OnAdmin = function(req: any, res: any, next: NextFunction) {
+export const OnAdmin = function (req: any, res: any, next: NextFunction) {
     if (req.user.role === `ADMIN`) {
+        console.log(`# # # # # # # # #`, req.url);
+        console.log(`# # # # # # # # #`, req.user.role);
         next();
     } else {
         req.flash("err", "No eres un doctor.");
@@ -36,7 +38,7 @@ export const OnAdmin = function(req: any, res: any, next: NextFunction) {
     }
 }
 
-export const OnAdminORDoctor = function(req: any, res: any, next: NextFunction) {
+export const OnAdminORDoctor = function (req: any, res: any, next: NextFunction) {
     if (req.user.role === `ADMIN` || req.user.role === `DOCTOR`) {
         next();
     } else {

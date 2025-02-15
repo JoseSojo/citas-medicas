@@ -25,13 +25,10 @@ class SpecialityFixtures extends AbstractFixture_1.default {
             const instance = new UserModel_1.default();
             const address = new AddressSubModel_1.default();
             const speciality = new SpecialityModel_1.default();
-            console.log(`CREANDO ESPECIALIDADES....`);
             const names = [`Cardiología`, `Neumología`, `Gastroenterología`, `Oftalmología`, `Otorrinolaringología`, `Urología`, `Ortodoncia`, `Psiquiatría`, `Psicología`, `Endocrinología`, `Reumatología`, `Nefrología`, `Pediatria`, `Geriatría`, `Dermatología`, `Anestesiología`, `Radiología`, `Patología`, `Inmunología`, `Oncología`];
             names.forEach((item) => __awaiter(this, void 0, void 0, function* () {
                 yield speciality.createSpeciality({ data: { name: item, description: `Descripción ${item}` } });
-                console.log(`${item} creado`);
             }));
-            console.log(`ESPECIALIDADES CREADOS....`);
         });
     }
 }

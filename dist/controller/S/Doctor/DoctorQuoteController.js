@@ -37,7 +37,6 @@ class DoctorQuoteControlelr extends AbstractController_1.default {
                 const instance = new QuotesModel_1.default();
                 const detail = new QuotesDetailModel_1.default();
                 const { status, date } = req.body;
-                console.log(status, date);
                 const user = req.user;
                 const id = req.params.id;
                 if (status == `FINALIZADO`) {

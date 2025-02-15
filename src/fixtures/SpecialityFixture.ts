@@ -14,16 +14,11 @@ export default class SpecialityFixtures extends AbstractFixture {
         const address = new AdressSubModel();
         const speciality = new SpecialitySubModel();
 
-        console.log(`CREANDO ESPECIALIDADES....`);
-
         const names = [`Cardiología`,`Neumología`,`Gastroenterología`,`Oftalmología`,`Otorrinolaringología`,`Urología`,`Ortodoncia`,`Psiquiatría`,`Psicología`,`Endocrinología`,`Reumatología`,`Nefrología`,`Pediatria`,`Geriatría`,`Dermatología`,`Anestesiología`,`Radiología`,`Patología`,`Inmunología`, `Oncología`]
 
         names.forEach(async (item) => {
             await speciality.createSpeciality({ data:{ name:item,description:`Descripción ${item}` } });
-            console.log(`${item} creado`);
         })
-
-        console.log(`ESPECIALIDADES CREADOS....`);
     }
 
 }

@@ -26,7 +26,6 @@ class ApiGraphicController extends AbstractController_1.default {
             const userModel = new UserModel_1.default();
             const { type, userId, role } = req.query;
             const service = new GraphicService_1.default();
-            console.log(req.query);
             if (userId && role) {
                 const userFound = yield userModel.findUser({ filter: { id: userId } });
                 if (role === "DOCTOR") {
@@ -68,7 +67,6 @@ class ApiGraphicController extends AbstractController_1.default {
                 return res.status(200).json({ label, data });
             }
             else if (type === "spaceCiteQuoteMonth") {
-                console.log(req.query);
                 const { month, year } = req.query;
                 const { label, data } = yield service.MonthGraphicQuote({ month, id: userId });
                 return res.status(200).json({ label, data });

@@ -29,13 +29,11 @@ class UniversityFixtures extends AbstractFixture_1.default {
             if (!resultAddress)
                 return;
             const current = [`Universidad Central de Venezuela`, `Universidad de los Andes`, `Universidad Simón Bolívar`, `Universidad de Carabobo`, `Universidad del Zulia`, `Universidad Católica Andrés Bello`, `Universidad Metropolitana`, `Universidad Monteávila`];
-            console.log(`CREANDO UNIVERSIDADES....`);
             const currentUser = yield instance.findUser({ filter: { role: `ADMIN` } });
             if (!currentUser)
-                return console.log(`no hay usuarios`);
+                return;
             for (let i = 0; i < current.length; i++) {
                 const address = resultAddress[this.SelectMinMax({ min: 0, max: resultAddress.length - 1 })];
-                console.log(`Universidad => ${current[i]} ubicada en => ${address.description} (${address.id})`);
                 university.createUniversity({ data: {
                         name: current[i],
                         createReference: { connect: { id: currentUser.id } },
@@ -46,7 +44,6 @@ class UniversityFixtures extends AbstractFixture_1.default {
                         }
                     } });
             }
-            console.log(`UNIVERSIDADES CREADOS....`);
         });
     }
 }
