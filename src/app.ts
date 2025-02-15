@@ -72,7 +72,7 @@ class App extends Kernel {
         app.set("view engine", "hbs");
 
         // Settings
-        // app.use(morgan("dev"));
+        app.use(morgan("dev"));
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
         app.use(methodOverride("_method"));

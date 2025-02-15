@@ -97,6 +97,7 @@ class UserModel extends AbstractModel {
 
     // findMany one register
     public async findManyUser({filter,skip,take}: {filter:Prisma.UserWhereInput,skip:number,take:number}) {
+        console.log(true, filter);
         const prisma = new PrismaClient();
         return prisma.user.findMany({
             where: {

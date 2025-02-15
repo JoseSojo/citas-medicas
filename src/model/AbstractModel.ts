@@ -28,6 +28,8 @@ class AbstractModel extends Kernel {
         const prisma = this.prisma;
         const month = this.getMonth();
 
+        console.log(`Estadistica en: ${month}`, objectName, objectId);
+
         const staticticsMonthPromise = prisma.staticticsMonth.findFirst({
             where: {
                 AND: [
@@ -129,9 +131,12 @@ class AbstractModel extends Kernel {
     } 
 
     public async create({objectId, objectName,type, prisma}: {type:`MONTH` | `YEAR`,objectName:string, objectId:string, prisma:PrismaClient}) {
+        console.log(134,objectId, objectName,type);
         if(type === "MONTH") {
             const monthNumber = this.getMonth();
             const month: MONTH_STRUCT = this.getMonths(monthNumber-1) as MONTH_STRUCT;
+
+            console.log(`MONTH`, month);
 
             const day = this.getDay();
             return await prisma.staticticsMonth.create({
@@ -215,6 +220,7 @@ class AbstractModel extends Kernel {
 
     public getMonth() {
         const date = new Date();
+        console.log(date, date.getMonth(), date.getMonth()+1)
         return date.getMonth()+1;
     }
 
@@ -239,6 +245,7 @@ class AbstractModel extends Kernel {
 
     // findMany one register
     public async findManyUserHistory({filter,skip,take}: {filter:Prisma.HistoryWhereInput,skip:number,take:number}) {
+        console.log(true, filter);
         const prisma = new PrismaClient();
         return prisma.history.findMany({
             where: {
@@ -254,6 +261,7 @@ class AbstractModel extends Kernel {
     }
 
     public async findManyCount({filter}: {filter:Prisma.HistoryWhereInput}) {
+        console.log(true, filter);
         const prisma = new PrismaClient();
         return prisma.history.count({
             where: {

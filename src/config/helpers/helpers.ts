@@ -3,6 +3,7 @@ import { STATUS } from "../../types/app";
 
 const Helpers = {
     isHistoryDelete(history:History, options: any) {
+        console.log(history);
         if(history.description.includes(`liminaci`)) {
             return `
                 <form method="POST" action="/history/restore">

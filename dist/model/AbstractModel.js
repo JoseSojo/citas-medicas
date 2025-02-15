@@ -39,6 +39,7 @@ class AbstractModel extends Kernel_1.default {
         return __awaiter(this, arguments, void 0, function* ({ objectId, objectName }) {
             const prisma = this.prisma;
             const month = this.getMonth();
+            console.log(`Estadistica en: ${month}`, objectName, objectId);
             const staticticsMonthPromise = prisma.staticticsMonth.findFirst({
                 where: {
                     AND: [
@@ -139,9 +140,11 @@ class AbstractModel extends Kernel_1.default {
     }
     create(_a) {
         return __awaiter(this, arguments, void 0, function* ({ objectId, objectName, type, prisma }) {
+            console.log(134, objectId, objectName, type);
             if (type === "MONTH") {
                 const monthNumber = this.getMonth();
                 const month = this.getMonths(monthNumber - 1);
+                console.log(`MONTH`, month);
                 const day = this.getDay();
                 return yield prisma.staticticsMonth.create({
                     data: {
@@ -216,6 +219,7 @@ class AbstractModel extends Kernel_1.default {
     }
     getMonth() {
         const date = new Date();
+        console.log(date, date.getMonth(), date.getMonth() + 1);
         return date.getMonth() + 1;
     }
     getDay() {
@@ -240,6 +244,7 @@ class AbstractModel extends Kernel_1.default {
     // findMany one register
     findManyUserHistory(_a) {
         return __awaiter(this, arguments, void 0, function* ({ filter, skip, take }) {
+            console.log(true, filter);
             const prisma = new client_1.PrismaClient();
             return prisma.history.findMany({
                 where: Object.assign({}, filter),
@@ -254,6 +259,7 @@ class AbstractModel extends Kernel_1.default {
     }
     findManyCount(_a) {
         return __awaiter(this, arguments, void 0, function* ({ filter }) {
+            console.log(true, filter);
             const prisma = new client_1.PrismaClient();
             return prisma.history.count({
                 where: Object.assign({}, filter)

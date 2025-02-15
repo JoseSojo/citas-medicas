@@ -56,6 +56,7 @@ class PublicController extends AbstractController_1.default {
             const address = req.query.addressId ? req.query.addressId : null;
             const param = req.query.param ? req.query.param : null;
             const schedule = req.query.schedule ? req.query.schedule : null;
+            console.log(speciality);
             if (req.query.specialityId)
                 filter.push({ speciality: { some: { id: req.query.specialityId } } });
             const skip = req.query.skip ? req.query.skip : 0;
@@ -146,17 +147,7 @@ class PublicController extends AbstractController_1.default {
     }
     RenderRegister(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const addressModel = new AddressSubModel_1.default();
-            const list = yield addressModel.findManyAdress({ skip: 0, take: 10000, filter: {
-                    AND: [
-                        {}
-                    ]
-                } });
-            const newList = list.map((item) => ({
-                id: item.id,
-                name: `${item.description}  ${item.parentReference ? `- ${item.parentReference.description} ${item.parentReference.parentReference ? `- ${item.parentReference.parentReference.description}` : ``}` : ``}`
-            }));
-            return res.render(`p/register.hbs`, { list: newList });
+            return res.render(`p/register.hbs`);
         });
     }
     loadRoutes() {

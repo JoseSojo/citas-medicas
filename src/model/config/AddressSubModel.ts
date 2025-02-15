@@ -35,12 +35,7 @@ export default class AdressSubModel extends AbstractModel {
         return prisma.address.findMany({ 
             where:filter,
             include: {
-                _count: true,
-                parentReference: {
-                    include: {
-                        parentReference: true
-                    }
-                }
+                _count: true
             },
             orderBy: { createAt:"asc" },
             skip,

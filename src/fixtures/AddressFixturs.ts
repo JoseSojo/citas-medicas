@@ -14,6 +14,8 @@ export default class AddressFixtures extends AbstractFixture {
         const resultAddress = [];
         const addressCurrent = this.Address();
 
+        console.log(`CREANDO DIRECCIONES....`);
+
         const parent = await address.createAdress({ data:{
             description: `Guárico`,
         } });
@@ -22,6 +24,8 @@ export default class AddressFixtures extends AbstractFixture {
             const result = await address.createAdress({ data:{description:addressCurrent[i], parentReference:{connect:{id:parent.id}}} });
             resultAddress.push(result);
         }
+
+        console.log(`DIRECCIONES CREADOS....`);
     }
 
 }

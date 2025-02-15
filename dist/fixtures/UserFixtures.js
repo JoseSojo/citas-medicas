@@ -42,6 +42,7 @@ class UserFixtures extends AbstractFixture_1.default {
             for (let i = 0; i < 10; i++) {
                 const name = names[this.SelectMinMax({ min: 0, max: names.length - 1 })];
                 const lastname = lastnames[this.SelectMinMax({ min: 0, max: lastnames.length - 1 })];
+                console.log(`PACIENTE`, i, name, lastname);
                 yield instance.createUser({
                     data: {
                         name: name,
@@ -62,6 +63,7 @@ class UserFixtures extends AbstractFixture_1.default {
                 const name = names[this.SelectMinMax({ min: 0, max: names.length - 1 })];
                 const lastname = lastnames[this.SelectMinMax({ min: 0, max: lastnames.length - 1 })];
                 const esp = specialitys[this.SelectMinMax({ min: 0, max: names.length - 1 })];
+                console.log(`DOCTOR`, i, name, lastname);
                 yield instance.createUser({
                     data: {
                         name: name,
@@ -93,6 +95,7 @@ class UserFixtures extends AbstractFixture_1.default {
             for (let i = 0; i < 2; i++) {
                 const name = names[this.SelectMinMax({ min: 0, max: names.length - 1 })];
                 const lastname = lastnames[this.SelectMinMax({ min: 0, max: lastnames.length - 1 })];
+                console.log(`ADMIN`, i, name, lastname);
                 yield instance.createUser({
                     data: {
                         name: name,
@@ -109,6 +112,7 @@ class UserFixtures extends AbstractFixture_1.default {
                     }
                 });
             }
+            console.log(`USUARIOS CREADOS....`);
         });
     }
 }

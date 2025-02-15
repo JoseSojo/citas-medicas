@@ -18,7 +18,6 @@ const NotificationModel_1 = __importDefault(require("../../../model/user/notific
 const UserModel_1 = __importDefault(require("../../../model/user/UserModel"));
 const SpecialityModel_1 = __importDefault(require("../../../model/config/SpecialityModel"));
 const QuotesModel_1 = __importDefault(require("../../../model/quotes/QuotesModel"));
-const client_1 = require("@prisma/client");
 class PatientQuoteController extends AbstractController_1.default {
     constructor() {
         super();
@@ -126,7 +125,6 @@ class PatientQuoteController extends AbstractController_1.default {
             const take = req.query.take ? Number(req.query.take) : 10;
             const skip = req.query.skip ? Number(req.query.skip) : 0;
             const filter = [];
-            filter.push({ isDelete: false });
             if (user.role != `ADMIN`)
                 filter.push({ OR: [{ patientId: user.id }, { doctorId: user.id }] });
             if (status) {
@@ -195,10 +193,6 @@ class PatientQuoteController extends AbstractController_1.default {
             const dataReturn = {
                 notifications: yield noti.GetNowNotification({ id: user.id }),
                 data: yield instance.findQuotes({ filter: { AND: [{ id }, { isDelete: false }] } }),
-                delete: {
-                    name: `Elimianr Cita`,
-                    url: `/quote/${id}/delete`
-                }
             };
             return res.render(`s/quote/unique.hbs`, dataReturn);
         });
@@ -229,31 +223,12 @@ class PatientQuoteController extends AbstractController_1.default {
             }
         });
     }
-    DeleteLogic(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { id } = req.params;
-                const user = req.user;
-                const instance = new QuotesModel_1.default();
-                const prisma = new client_1.PrismaClient();
-                yield prisma.quotes.update({ where: { id }, data: { isDelete: true } });
-                yield instance.CreateHistory({ des: `Eliminación de cita por administrador ${user.name} ${user.lastname}`, name: `QUOTE`, userId: user.id, id });
-                req.flash(`succ`, `Cita eliminada.`);
-                return res.redirect(`/quote`);
-            }
-            catch (error) {
-                req.flash(`err`, `Error al eliminar`);
-                return res.redirect(`/quote/`);
-            }
-        });
-    }
     loadRoutes() {
         this.router.get(`/patient/doctor`, auth_1.OnSession, this.PatientDoctorList);
         this.router.get(`/patient/quote/create`, auth_1.OnSession, this.RenderCreateQuote);
         this.router.get(`/quote`, auth_1.OnSession, this.RenderListQuote);
         this.router.get(`/quote/:id`, auth_1.OnSession, this.RenderUnique);
         this.router.post(`/quote/create`, auth_1.OnSession, this.CreateLogic);
-        this.router.post(`/quote/:id/delete`, auth_1.OnSession, auth_1.OnAdmin, this.DeleteLogic);
         return this.router;
     }
 }

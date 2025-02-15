@@ -13,11 +13,16 @@ export default class SocialMediaFixtures extends AbstractFixture {
         const social = new SocialMediaModel();
         const resultAddress = [];
         const currentSocial = this.nativeMediaSocial();
+        console.log(`CREANDO MEDIOS SOCIALES....`);
 
         for (let i = 0; i < currentSocial.length; i++) {
+            console.log(currentSocial[i].name, currentSocial[i].linkSource);
             const result = await social.createSocialMedia({ data:{name:currentSocial[i].name,icoUrl:currentSocial[i].linkSource} });
             resultAddress.push(result);
         }
+
+
+        console.log(`MEDIOS SOCIALES CREADOS....`);
     }
 
 }

@@ -33,8 +33,6 @@ const OnDoctor = function (req, res, next) {
 exports.OnDoctor = OnDoctor;
 const OnAdmin = function (req, res, next) {
     if (req.user.role === `ADMIN`) {
-        console.log(`# # # # # # # # #`, req.url);
-        console.log(`# # # # # # # # #`, req.user.role);
         next();
     }
     else {

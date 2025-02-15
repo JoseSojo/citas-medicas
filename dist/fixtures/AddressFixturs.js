@@ -25,6 +25,7 @@ class AddressFixtures extends AbstractFixture_1.default {
             const address = new AddressSubModel_1.default();
             const resultAddress = [];
             const addressCurrent = this.Address();
+            console.log(`CREANDO DIRECCIONES....`);
             const parent = yield address.createAdress({ data: {
                     description: `Guárico`,
                 } });
@@ -32,6 +33,7 @@ class AddressFixtures extends AbstractFixture_1.default {
                 const result = yield address.createAdress({ data: { description: addressCurrent[i], parentReference: { connect: { id: parent.id } } } });
                 resultAddress.push(result);
             }
+            console.log(`DIRECCIONES CREADOS....`);
         });
     }
 }

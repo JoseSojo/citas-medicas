@@ -10,6 +10,9 @@ passport.use("local.login", new Strategy({
 }, async (email: string, password: string, done: any) => {
   const user: any | null = await User.findUser({filter:{ email }});
 
+  console.log(email, password);
+
+  console.log(user);
 
   if (user) {
     const dbPassword: string = user.password;
