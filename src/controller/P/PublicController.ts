@@ -147,11 +147,22 @@ export default class PublicController extends AbstractController {
     public async RenderMain(req: Request, res: Response) { }
 
     public async RenderLogin(req: Request, res: Response) {
+
         return res.render(`p/login.hbs`);
     }
 
     public async RenderRegister(req: Request, res: Response) {
-        return res.render(`p/register.hbs`);
+        const addressModel = new AdressSubModel();
+        const listCurrent = await addressModel.findManyAdress({ skip:0,take:10000, filter:{
+            AND: [
+                {
+                    children: { none:{ children:{} } }
+                }
+            ]
+        } });
+
+
+        return res.render(`p/register.hbs`, { list:listCurrent });
     }
 
     public loadRoutes() {

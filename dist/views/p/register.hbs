@@ -66,7 +66,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-6">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-control" name="addressId">
+                                                    <option value="">seleccionar</option>
+                                                    {{#each list}}
+                                                        <option value="{{this.id}}">{{this.parentReference.parentReference.description}} - {{this.parentReference.description}} - {{this.description}}</option>
+                                                    {{/each}}
+                                                </select>
+                                                <label for="inputEmail">Dirección</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
                                             <div class="form-floating mb-3">
                                                 <textarea class="form-control" name="exacAddress"></textarea>
                                                 <label for="inputEmail">Dirección exacta</label>

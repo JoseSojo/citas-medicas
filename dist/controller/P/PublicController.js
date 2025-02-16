@@ -147,7 +147,15 @@ class PublicController extends AbstractController_1.default {
     }
     RenderRegister(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            return res.render(`p/register.hbs`);
+            const addressModel = new AddressSubModel_1.default();
+            const listCurrent = yield addressModel.findManyAdress({ skip: 0, take: 10000, filter: {
+                    AND: [
+                        {
+                            children: { none: { children: {} } }
+                        }
+                    ]
+                } });
+            return res.render(`p/register.hbs`, { list: listCurrent });
         });
     }
     loadRoutes() {

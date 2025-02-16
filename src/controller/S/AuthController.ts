@@ -27,7 +27,7 @@ export default class AuthController extends AbstractController {
         try {
             const instance = new UserModel();
 
-            const { exacAddress,birthdate,name,ci,email,lastname,phoneCode,phoneNumber,password } = req.body as { password:string,exacAddress:string,birthdate:string,name:string,ci:string,email:string,lastname:string,phoneCode:string,phoneNumber:string};
+            const { addressId,exacAddress,birthdate,name,ci,email,lastname,phoneCode,phoneNumber,password } = req.body as { addressId:string,password:string,exacAddress:string,birthdate:string,name:string,ci:string,email:string,lastname:string,phoneCode:string,phoneNumber:string};
             const user = req.user as any;
             let parentId;
             const age = caclAge(birthdate);
@@ -51,6 +51,13 @@ export default class AuthController extends AbstractController {
                 birthdate: birthdate,
                 exacAddress,
                 age
+            }
+
+            if (addressId) {
+                data = {
+                    ...data,
+                    addressReference: { connect:{id:addressId} }
+                }
             }
 
             if (parentId) {
