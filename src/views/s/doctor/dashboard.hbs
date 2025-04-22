@@ -1,0 +1,111 @@
+<div class="row">
+
+    {{#each cards}}
+        {{#cardDashboard this}}
+            {{this}}
+        {{/cardDashboard}}
+    {{/each}}
+
+    <div class="col-12 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <li style="list-style: none;">
+                    <button class="btn btn-primary d-flex gap-2" data-toggle="modal" data-target="#modalNotificationAdmin">
+                        Notificar a Administradores
+                        <i class="bi bi-bell-fill"></i>
+                    </button>
+                </li>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" id="userId" value="{{user.id}}" />
+<input type="hidden" id="role" value="{{user.role}}" />
+
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card shadow border-left-info h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <a href="/quote" class="text-xs font-weight-bold text-primary text-uppercase">Citas</a>
+                        
+                        <div class="mt-3"></div>
+
+                        {{#each itemQoute}}
+                            {{#itemQuoteStatus this}}
+                                {{this}}
+                            {{/itemQuoteStatus}}
+                        {{/each}}
+
+                        {{!-- <a href="" class="mb-0 d-flex justify-content-between align-items-center btn btn-light font-weight-bold text-gray-800">
+                            <span>PROCESO</span>
+                            <span>6</span>
+                        </a> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow border-left-info h-100 py-2">
+            <div class="card-body">
+                <div class="card-title">Gráfico de Citas</div>
+                <div class="chart-pie pt-4">
+                    <canvas id="spaceCiteQuoteStatus"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow border-left-info py-2">
+            <div class="card-header">
+                <select name="" class="form-control" id="monthSelect">
+                    <option>selecciona una opción</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4">
+                    <canvas id="spaceCiteQuoteMonth"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card shadow border-left-info py-2">
+            <div class="card-header">
+                <select name="" class="form-control" id="yearSelect">
+                    <option>selecciona una opción</option>
+                    {{#each year}}
+                        <option value="{{this.year}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4">
+                    <canvas id="spaceCiteQuoteYear"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

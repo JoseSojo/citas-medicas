@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-body py-0 pt-2 d-flex justify-content-between">
+        <h3>{{data.description}}</h3>
+        <ul class="d-flex gap-4">
+            <li style="list-style: none;">
+                <a href="/schedule" class="btn btn-primary">
+                    Lista
+                    <i class="bi bi-card-list"></i>
+                </a>
+            </li>
+            <li style="list-style: none;">
+                <button class="btn btn-danger d-flex gap-2" data-toggle="modal" data-target="#deleteObject">
+                    Eliminar
+                    <i class="bi bi-trash-fill pt-1"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="card mby-3">
+    <div class="card-body container">
+        <h3>{{data.name}} {{data.lastname}}</h3>
+        <ul>
+            <li><b>{{data.description}}</b></li>
+            <li>Propietario: <a href="/user/{{data.user.id}}"><b>{{data.user.name}} {{data.user.lastname}}</b></a></li>
+            <li>Citas: <b>{{data._count.quotes}}</b></li>
+        </ul>
+    
+        <table class="table table-sm table-bordered table-striped">
+            <tr>
+                <td>Día</td>
+                <td>Inicio</td>
+                <td>Fin</td>
+            </tr>
+            {{#each data.detail}}
+                <tr>
+                    <td>{{this.day}}</td>
+                    <td>{{this.time_start}}</td>
+                    <td>{{this.time_end}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>

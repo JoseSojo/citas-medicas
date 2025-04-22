@@ -1,0 +1,33 @@
+
+<div class="modal modal fade" id="modalQuoteAgend" tabindex="-1" aria-labelledby="modalQuoteAgendLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalQuoteAgendLabel">Crear Notificación</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                 
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="/quote/create" method="POST" class="row">
+
+                    <input type="hidden" value="{{doctor.id}}" name="doctorId" />
+
+                    <div class="form-floating col-12 mb-3">
+                        <input class="form-control" name="message" id="inputName" type="text" />
+                        <label for="inputName">Mensaje</label>
+                    </div>
+
+                    <div class="d-flex gap-3 justify-content-end">
+                         
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i>
+                            Crear
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

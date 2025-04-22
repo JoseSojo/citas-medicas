@@ -1,0 +1,56 @@
+
+<div class="modal fade" id="modalCreateSchedule" tabindex="-1" aria-labelledby="modalCreateScheduleLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalCreateScheduleLabel">Crear Horario</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                 
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="/doctor/schedule/create" method="POST" class="row">
+
+                    <input type="hidden" name="role" value="DOCTOR" />
+
+                    <div class="form-floating col-12 mb-3">
+                        <input class="form-control" name="description" id="inputName" type="text" />
+                        <label for="inputName">Descripción</label>
+                    </div>
+
+
+                    <h5>Asignar días</h5>                    
+                    {{#if days}}
+                    <table class="table table-sm table-bordered">
+                        {{#each days}}
+                            <tr class="">
+                                <td class="">
+                                    <input type="text" class="form-control " name="day_name" value="{{this}}" disabled />
+                                    <input type="hidden" name="day_name" value="{{this}}" />
+                                </td>
+                                <td class="">
+                                    <input type="time" class="form-control col" name="time_start" />
+                                </td>
+                                <td  class="">
+                                    <input type="time" class="form-control col" name="time_end" />
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                    {{else}}
+                    <p class="form-control">No hay días</p>
+                    {{/if}}
+
+                    <div class="d-flex gap-3 justify-content-end">
+                         
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i>
+                            Crear
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

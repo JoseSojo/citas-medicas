@@ -1,0 +1,115 @@
+
+<div class="modal fade" id="modalAccessUser" tabindex="-1" aria-labelledby="modalAccessUser" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalAccessUser">Actualizar Usuario</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                 
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="/user/{{user.id}}/update" method="POST" class="row">
+
+                    <div class="form-floating col-12 col-lg-6 mb-3">
+                        <input class="form-control" name="email" id="inputEmail" type="email" value="{{user.email}}" placeholder="name@example.com" />
+                        <label for="inputEmail">Correo Electrónico</label>
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-3 row gap-0">
+                        <div class="form-floating col-3">
+                            <select class="form-control mx-0" name="phoneCode" id="phoneCode">
+                                <option selected>{{user.phoneCode}}</option>
+                                <option>0412</option>
+                                <option>0414</option>
+                                <option>0416</option>
+                                <option>0424</option>
+                                <option>0426</option>
+                            </select>
+                            <label for="phoneCode">Código</label>
+                        </div>
+                        <div class="form-floating col-9">
+                            <input class="form-control mx-0" name="phoneNumber" id="phoneNumber" value="{{user.phoneNumber}}" type="number" placeholder="">
+                            <label for="phoneNumber">Código</label>
+                        </div>
+                    </div>  
+
+                    {{#isValid user.role "PACIENTE"}}
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="name" id="inputName" value="{{user.name}}" type="text" placeholder="name@example.com" />
+                            <label for="inputName">Nombre</label>
+                        </div>
+
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="lastname" id="inputLastname" value="{{user.lastname}}" type="text" placeholder="name@example.com" />
+                            <label for="inputLastname">Apellido</label>
+                        </div>
+
+                    
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="ci" id="inputCi" type="text" value="{{user.ci}}" placeholder="name@example.com" />
+                            <label for="inputCi">Cédula</label>
+                        </div>
+                    {{/isValid}}
+
+                    {{#isValid user.role "ADMIN"}}
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="name" id="inputName" value="{{user.name}}" type="text" placeholder="name@example.com" />
+                            <label for="inputName">Nombre</label>
+                        </div>
+
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="lastname" id="inputLastname" value="{{user.lastname}}" type="text" placeholder="name@example.com" />
+                            <label for="inputLastname">Apellido</label>
+                        </div>
+
+                    
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" name="ci" id="inputCi" type="text" value="{{user.ci}}" placeholder="name@example.com" />
+                            <label for="inputCi">Cédula</label>
+                        </div>
+                    {{/isValid}}
+
+                    {{#isValid user.role "DOCTOR"}}
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" disabled name="name" id="inputName" value="{{user.name}}" type="text" placeholder="name@example.com" />
+                            <label for="inputName">Nombre</label>
+                        </div>
+
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" disabled name="lastname" id="inputLastname" value="{{user.lastname}}" type="text" placeholder="name@example.com" />
+                            <label for="inputLastname">Apellido</label>
+                        </div>
+
+                    
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" disabled name="ci" id="inputCi" type="text" value="{{user.ci}}" placeholder="name@example.com" />
+                            <label for="inputCi">Cédula</label>
+                        </div>
+                    {{/isValid}}
+
+                    {{#isValid user.role "DOCTOR"}}
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" disabled name="cmeg_n" id="cmeg_n" type="text" value="{{user.cmeg_n}}" placeholder="name@example.com" />
+                            <label for="cmeg_n">Número de inscripción</label>
+                        </div>
+
+                        <div class="form-floating col-12 col-lg-6 mb-3">
+                            <input class="form-control" disabled name="matricula" id="matricula" type="text" value="{{user.matricula}}" placeholder="name@example.com" />
+                            <label for="matricula">Matrícula</label>
+                        </div>
+                    {{/isValid}}
+
+                    <div class="d-flex gap-3 justify-content-end">
+                         
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i>
+                            Actualizar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

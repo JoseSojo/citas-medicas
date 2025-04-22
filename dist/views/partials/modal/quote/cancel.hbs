@@ -1,0 +1,30 @@
+
+<div class="modal fade" id="modalCancelarQuote" tabindex="-1" aria-labelledby="modalCancelarQuoteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalCancelarQuoteLabel">Aprobar cita</h1>
+                 
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form action="/doctor/quote/status/{{data.id}}" method="post" class="row">
+
+                    <h3 class="text-center">¿Seguro que desea cancelar la cita?</h3>
+
+                    <input type="hidden" value="CANCELADO" name="status" />
+
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i>
+                            SI
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
